@@ -12,7 +12,7 @@ window.STUDENTS = [
     birthday: "01.09",
     quote: "test text"
   },
-  { photo: "assets/album/1.jpg",  lastName: "Андрієнко", firstName: "Крістіна",   birthday: "02.01", quote: "test text" },
+{ photo: "assets/album/1.jpg",  lastName: "Андрієнко", firstName: "Крістіна",   birthday: "02.01", quote: "test text" },
 { photo: "assets/album/2.jpg",  lastName: "Бондар",    firstName: "Єва",        birthday: "03.01", quote: "test text" },
 { photo: "assets/album/3.jpg",  lastName: "Вязмін",    firstName: "Артем",      birthday: "04.01", quote: "test text" },
 { photo: "assets/album/4.jpg",  lastName: "Гавриленко",firstName: "Софія",      birthday: "05.01", quote: "test text" },
