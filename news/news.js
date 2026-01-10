@@ -1,3 +1,5 @@
+let ALL_POSTS = [];
+
 async function loadNews() {
   const res = await fetch("./news.txt?ts=" + Date.now());
   const text = await res.text();
@@ -19,6 +21,7 @@ function parseNews(text) {
 
     const title = getField("Заголовок") || "Без назви";
     const date = getField("Дата") || "";
+
     const photosRaw = getField("Фото") || "";
     const photos = photosRaw
       ? photosRaw.split(",").map(s => s.trim()).filter(Boolean)
@@ -26,9 +29,7 @@ function parseNews(text) {
 
     let body = "";
     const idx = block.toLowerCase().indexOf("текст:");
-    if (idx !== -1) {
-      body = block.slice(idx + "текст:".length).trim();
-    }
+    if (idx !== -1) body = block.slice(idx + "текст:".length).trim();
 
     return { title, date, photos, body };
   });
@@ -44,10 +45,49 @@ function esc(s){
     .replaceAll(">","&gt;");
 }
 
-function renderNews(posts) {
+function normalize(s){
+  return (s || "").toLowerCase().trim();
+}
+
+function applyFilters(){
+  const qEl = document.getElementById("q");
+  const fromEl = document.getElementById("dateFrom");
+  const toEl = document.getElementById("dateTo");
+
+  const q = normalize(qEl?.value);
+  const dFrom = (fromEl?.value || "");
+  const dTo = (toEl?.value || "");
+
+  const filtered = ALL_POSTS.filter(p => {
+    const pDate = p.date || "";
+
+    if (dFrom && (!pDate || pDate < dFrom)) return false;
+    if (dTo && (!pDate || pDate > dTo)) return false;
+
+    if (q){
+      const hay = normalize((p.title || "") + " " + (p.body || ""));
+      if (!hay.includes(q)) return false;
+    }
+
+    return true;
+  });
+
+  renderNews(filtered, ALL_POSTS.length);
+}
+
+function renderCount(shown, total){
+  const box = document.getElementById("countBox");
+  if (!box) return;
+  box.textContent = `Показано ${shown} із ${total}`;
+}
+
+function renderNews(posts, totalAll) {
   const list = document.getElementById("newsList");
   const empty = document.getElementById("emptyState");
+  if (!list || !empty) return;
+
   list.innerHTML = "";
+  renderCount(posts.length, totalAll);
 
   if (!posts.length) {
     empty.style.display = "block";
@@ -78,18 +118,50 @@ function renderNews(posts) {
       ${photosHtml}
       <p>${esc(p.body).replaceAll("\n","<br>")}</p>
     `;
+
     list.appendChild(el);
   }
 }
 
+function wireUI(){
+  const q = document.getElementById("q");
+  const dateFrom = document.getElementById("dateFrom");
+  const dateTo = document.getElementById("dateTo");
+  const clearBtn = document.getElementById("clearBtn");
+
+  let t = null;
+  const schedule = () => {
+    if (t) clearTimeout(t);
+    t = setTimeout(applyFilters, 120);
+  };
+
+  q?.addEventListener("input", schedule);
+  dateFrom?.addEventListener("change", applyFilters);
+  dateTo?.addEventListener("change", applyFilters);
+
+  clearBtn?.addEventListener("click", () => {
+    if (q) q.value = "";
+    if (dateFrom) dateFrom.value = "";
+    if (dateTo) dateTo.value = "";
+    applyFilters();
+  });
+}
+
 (async () => {
   try {
-    const posts = await loadNews();
-    renderNews(posts);
+    ALL_POSTS = await loadNews();
+    wireUI();
+    applyFilters();
   } catch (e) {
     console.error(e);
     const empty = document.getElementById("emptyState");
-    empty.style.display = "block";
-    empty.innerText = "Не вдалося завантажити новини. Перевір, чи існує файл news/news.txt";
+    const list = document.getElementById("newsList");
+    const box = document.getElementById("countBox");
+    if (box) box.textContent = "Показано 0 із 0";
+    if (list) list.innerHTML = "";
+    if (empty) {
+      empty.style.display = "block";
+      empty.textContent = "Не вдалося завантажити новини. Перевір, чи існує файл news/news.txt";
+    }
   }
 })();
