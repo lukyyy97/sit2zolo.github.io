@@ -151,6 +151,7 @@
     .btn:hover{ transform: translateY(-1px); }
 
     section{ padding: 26px 0; }
+
     .grid{
       display:grid;
       grid-template-columns: repeat(3,1fr);
@@ -181,6 +182,150 @@
       line-height:1.6;
     }
 
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      margin: 6px 0 12px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.76);
+    }
+    .section-head .muted{
+      margin:0;
+      font-size: 12.5px;
+      color: rgba(255,255,255,.55);
+    }
+
+    .news-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    .news-card{
+      padding: 16px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 18px 55px rgba(0,0,0,.25);
+      transition: transform .18s ease, border-color .2s ease, background .2s ease;
+      overflow:hidden;
+      position:relative;
+      min-height: 170px;
+      cursor:pointer;
+    }
+    .news-card:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.045);
+      border-color: rgba(255,255,255,.18);
+    }
+    .news-card.wide{
+      grid-column: 1 / -1;
+      min-height: 190px;
+    }
+    .news-meta{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-bottom: 10px;
+      color: rgba(255,255,255,.62);
+      font-size: 12px;
+    }
+    .pill{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .news-title{
+      margin:0 0 10px;
+      font-size: 16px;
+      color: rgba(255,255,255,.92);
+      line-height:1.25;
+    }
+    .news-text{
+      margin:0;
+      font-size: 13px;
+      color: rgba(255,255,255,.68);
+      line-height:1.6;
+    }
+    .news-photos{
+      display:flex;
+      gap:10px;
+      overflow:hidden;
+      margin: 10px 0 0;
+    }
+    .news-ph{
+      flex:0 0 auto;
+      width: 160px;
+      height: 105px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      overflow:hidden;
+    }
+    .news-ph img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .news-empty{
+      padding: 18px;
+      border-radius: var(--radius2);
+      border: 1px dashed rgba(255,255,255,.18);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.65);
+    }
+
+    .cta-strip{
+      margin-top: 14px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(56,189,248,.22);
+      background: linear-gradient(90deg, rgba(56,189,248,.18), rgba(168,85,247,.16));
+      box-shadow: 0 18px 55px rgba(56,189,248,.10);
+      padding: 18px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      transition: transform .18s ease, border-color .2s ease;
+    }
+    .cta-strip:hover{
+      transform: translateY(-1px);
+      border-color: rgba(56,189,248,.35);
+    }
+    .cta-strip .left{
+      display:flex;
+      flex-direction:column;
+      gap: 4px;
+    }
+    .cta-strip .big{
+      font-size: 14px;
+      color: rgba(255,255,255,.92);
+      font-weight: 700;
+      letter-spacing:.01em;
+    }
+    .cta-strip .small{
+      font-size: 12.5px;
+      color: rgba(255,255,255,.70);
+    }
+    .cta-strip .arrow{
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.88);
+      white-space:nowrap;
+    }
+
     footer{
       margin-top: 30px;
       padding: 22px 0 34px;
@@ -191,10 +336,14 @@
 
     @media (max-width:900px){
       .grid{ grid-template-columns:1fr; }
+      .news-grid{ grid-template-columns: 1fr; }
+      .news-card.wide{ grid-column:auto; }
+      .news-photos{ overflow:auto; }
     }
   </style>
 </head>
 <body>
+
   <div class="topbar">
     <div class="wrap topbar-inner">
       <div class="brand">
@@ -216,7 +365,7 @@
   <header class="wrap">
     <div class="hero">
       <h2>Сайт класу 8-Б</h2>
-      <p>Офіційний сайт нашого класу. Тут — інформація про нас, наші події, новини та спогади.</p>
+      <p>Офіційний сайт нашого класу. Тут — інформація про нас, події, новини та життя 8-Б.</p>
 
       <div class="actions">
         <a class="btn primary" href="./news/index.html">Перейти до новин</a>
@@ -229,23 +378,138 @@
     <section>
       <div class="grid">
         <div class="card">
-          <h3>Про клас</h3>
+          <h3>Хто ми</h3>
           <p>test text test text test text test text.</p>
         </div>
         <div class="card">
-          <h3>Події</h3>
-          <p>Усі події та оголошення публікуються у розділі новин.</p>
+          <h3>Що ми</h3>
+          <p>test text test text test text test text.</p>
         </div>
         <div class="card">
-          <h3>Галерея</h3>
-          <p>Фотографії з життя класу та наших заходів.</p>
+          <h3>Наш вайб</h3>
+          <p>test text test text test text test text.</p>
         </div>
       </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Останні новини</h2>
+        <p class="muted">Автоматично з news/news.txt</p>
+      </div>
+
+      <div id="newsWrap">
+        <div class="news-empty">Поки що новин немає. Додай пости у <strong>news/news.txt</strong>.</div>
+      </div>
+
+      <a class="cta-strip" href="./news/index.html">
+        <div class="left">
+          <div class="big">Перейти до сторінки новин</div>
+          <div class="small">Дивитися всі події та оголошення 8-Б</div>
+        </div>
+        <div class="arrow">Відкрити →</div>
+      </a>
     </section>
 
     <footer>
       СШІТ №2 · м. Золотоноша · 8-Б · Автор сайту: <strong>lukyyy</strong>
     </footer>
   </main>
+
+  <script>
+    const NEWS_URL = "./news/news.txt";
+
+    function esc(s){
+      return (s || "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;");
+    }
+
+    function parseNews(text) {
+      const blocks = text.split("\n---\n").map(b => b.trim()).filter(Boolean);
+
+      const posts = blocks.map(block => {
+        const getField = (name) => {
+          const re = new RegExp(`^${name}:\\s*(.*)$`, "mi");
+          const m = block.match(re);
+          return m ? m[1].trim() : "";
+        };
+
+        const title = getField("Заголовок") || "Без назви";
+        const date = getField("Дата") || "";
+        const photosRaw = getField("Фото") || "";
+        const photos = photosRaw ? photosRaw.split(",").map(s => s.trim()).filter(Boolean) : [];
+
+        let body = "";
+        const idx = block.toLowerCase().indexOf("текст:");
+        if (idx !== -1) body = block.slice(idx + "текст:".length).trim();
+
+        return { title, date, photos, body };
+      });
+
+      posts.sort((a,b) => (b.date || "").localeCompare(a.date || ""));
+      return posts;
+    }
+
+    function snippet(text, maxLen){
+      const t = (text || "").replace(/\s+/g, " ").trim();
+      if (t.length <= maxLen) return t;
+      return t.slice(0, maxLen).trim() + "…";
+    }
+
+    function renderLatest(posts){
+      const wrap = document.getElementById("newsWrap");
+      if (!posts.length) return;
+
+      const latest = posts.slice(0, 3);
+      const grid = document.createElement("div");
+      grid.className = "news-grid";
+
+      latest.forEach((p, i) => {
+        const card = document.createElement("div");
+        card.className = "news-card" + (i === 2 ? " wide" : "");
+        card.onclick = () => location.href = "./news/index.html";
+
+        const photos = p.photos.slice(0, i === 2 ? 3 : 2);
+        const photosHtml = photos.length ? `
+          <div class="news-photos">
+            ${photos.map(src => `
+              <div class="news-ph">
+                <img src="${esc("./" + src)}" alt="${esc(p.title)}">
+              </div>
+            `).join("")}
+          </div>
+        ` : "";
+
+        card.innerHTML = `
+          <div class="news-meta">
+            <span class="pill">Новина</span>
+            ${p.date ? `<span class="pill">${esc(p.date)}</span>` : ""}
+          </div>
+          <h3 class="news-title">${esc(p.title)}</h3>
+          <p class="news-text">${esc(snippet(p.body, i === 2 ? 190 : 120))}</p>
+          ${photosHtml}
+        `;
+
+        grid.appendChild(card);
+      });
+
+      wrap.innerHTML = "";
+      wrap.appendChild(grid);
+    }
+
+    (async () => {
+      try{
+        const res = await fetch(NEWS_URL + "?ts=" + Date.now());
+        const text = await res.text();
+        const posts = parseNews(text);
+        renderLatest(posts);
+      }catch(e){
+        console.error(e);
+      }
+    })();
+  </script>
+
 </body>
 </html>
