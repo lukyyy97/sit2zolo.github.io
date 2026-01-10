@@ -16,16 +16,9 @@ function render(list){
     const card = document.createElement("article");
     card.className = "card" + (isLeader ? " leader" : "");
 
-    const crown = isLeader
-      ? `<div class="crown" title="${esc(p.role || "Класний керівник")}"><span>👑</span></div>`
-      : "";
-
-    const rolePill = isLeader && p.role
-      ? `<span class="pill">${esc(p.role)}</span>`
-      : "";
-
     card.innerHTML = `
-      ${crown}
+      ${isLeader ? `<div class="shine" aria-hidden="true"></div>` : ""}
+
       <div class="frame">
         <div class="photo-wrap">
           <div class="photo">
@@ -36,7 +29,7 @@ function render(list){
         <div class="body">
           <h3 class="name">${esc(p.lastName)} ${esc(p.firstName)}</h3>
           <div class="meta">
-            ${rolePill}
+            ${isLeader && p.role ? `<span class="pill">${esc(p.role)}</span>` : ""}
             ${p.birthday ? `<span class="pill">🎂 ${esc(p.birthday)}</span>` : ""}
           </div>
           <p class="quote">“${esc(p.quote || "test text")}”</p>
