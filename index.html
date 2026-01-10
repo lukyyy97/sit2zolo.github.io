@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Енергія минулого і майбутнього — 8-Б (СШІТ №2, Золотоноша)</title>
+  <style>
+    :root{
+      --bg:#070A12;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.09);
+      --text:rgba(255,255,255,.88);
+      --muted:rgba(255,255,255,.62);
+      --line:rgba(255,255,255,.12);
+      --glow: rgba(139, 92, 246, .35);
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(56,189,248,.18), transparent 55%),
+                  radial-gradient(900px 550px at 80% 20%, rgba(168,85,247,.18), transparent 55%),
+                  radial-gradient(1100px 700px at 50% 90%, rgba(34,197,94,.10), transparent 55%),
+                  linear-gradient(180deg, #050713 0%, #070A12 35%, #050713 100%);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding: 0 18px; }
+
+    /* Top bar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(7,10,18,.80), rgba(7,10,18,.45));
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width: 260px;
+    }
+    .logo{
+      width:40px; height:40px; border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(56,189,248,.9), rgba(168,85,247,.65) 45%, rgba(34,197,94,.35) 75%, rgba(255,255,255,.08) 100%);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 18px 45px rgba(168,85,247,.18);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo::after{
+      content:"";
+      position:absolute; inset:-60%;
+      background: conic-gradient(from 200deg, transparent 0 35%, rgba(255,255,255,.16) 45%, transparent 60% 100%);
+      animation: spin 7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .brand h1{
+      margin:0;
+      font-size: 13px;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.70);
+    }
+    .brand .title{
+      margin:0;
+      font-size: 14px;
+      color: rgba(255,255,255,.90);
+      letter-spacing:.02em;
+    }
+
+    .nav{
+      display:flex; gap: 8px; flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .nav a{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+    }
+    .nav a:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.18);
+    }
+
+    /* Hero */
+    .hero{
+      padding: 44px 0 20px;
+      position:relative;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      align-items:stretch;
+    }
+    .card{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(600px 200px at 20% 20%, rgba(56,189,248,.16), transparent 60%),
+                  radial-gradient(600px 220px at 90% 10%, rgba(168,85,247,.16), transparent 60%);
+      pointer-events:none;
+    }
+
+    .hero-main{
+      padding: 22px 22px 18px;
+      min-height: 320px;
+    }
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.76);
+      font-size: 12px;
+      letter-spacing:.06em;
+      text-transform: uppercase;
+      position:relative;
+      z-index:1;
+    }
+    .dot{
+      width:9px; height:9px; border-radius:99px;
+      background: rgba(34,197,94,.9);
+      box-shadow: 0 0 18px rgba(34,197,94,.65);
+    }
+
+    .hero h2{
+      margin: 14px 0 10px;
+      font-size: clamp(22px, 3.2vw, 40px);
+      line-height:1.1;
+      letter-spacing: -0.02em;
+      position:relative;
+      z-index:1;
+    }
+    .hero p{
+      margin:0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.6;
+      position:relative;
+      z-index:1;
+      max-width: 62ch;
+    }
+    .btnrow{ display:flex; flex-wrap:wrap; gap:10px; position:relative; z-index:1; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 11px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.86);
+      font-size: 13px;
+      cursor:pointer;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+      gap:10px;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.22); }
+    .btn.primary{
+      border-color: rgba(56,189,248,.35);
+      background: linear-gradient(90deg, rgba(56,189,248,.18), rgba(168,85,247,.16));
+      box-shadow: 0 18px 55px rgba(56,189,248,.10);
+    }
+    .btn svg{ width:16px; height:16px; opacity:.9; }
+
+    /* Hero side */
+    .hero-side{
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      min-height: 320px;
+    }
+
+    .mini{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      padding: 14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .mini h3{
+      margin:0 0 6px;
+      font-size: 13px;
+      letter-spacing:.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.72);
+    }
+    .mini p{
+      margin:0;
+      font-size: 13px;
+      color: rgba(255,255,255,.65);
+      line-height:1.5;
+    }
+
+    /* Timeline / Animation */
+    section{ padding: 18px 0; }
+    .section-title{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+      margin: 12px 0 12px;
+    }
+    .section-title h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.02em;
+    }
+    .section-title p{
+      margin:0;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .timeline{
+      padding: 18px;
+    }
+    .timeline-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+      align-items:stretch;
+    }
+
+    .stage{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius2);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .stage-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 14px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .stage-head .label{
+      display:flex; align-items:center; gap:10px;
+      color: rgba(255,255,255,.82);
+      font-size: 13px;
+    }
+    .pill{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.72);
+    }
+    .canvas-wrap{
+      position:relative;
+      height: 260px;
+      padding: 12px;
+    }
+    canvas{
+      width:100%;
+      height:100%;
+      border-radius: 16px;
+      background: radial-gradient(900px 320px at 20% 10%, rgba(56,189,248,.10), transparent 60%),
+                  radial-gradient(650px 300px at 80% 30%, rgba(168,85,247,.12), transparent 60%),
+                  rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.10);
+      display:block;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      padding: 0 14px 14px;
+    }
+    .range{
+      flex:1;
+      min-width: 220px;
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      color: rgba(255,255,255,.70);
+      font-size: 12px;
+    }
+    input[type="range"]{
+      width:100%;
+      accent-color: #7dd3fc;
+    }
+
+    .info{
+      padding: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--radius2);
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .info .big{
+      font-size: 15px;
+      color: rgba(255,255,255,.84);
+      line-height:1.5;
+    }
+    .kv{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    .kv .item{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: 14px;
+      padding: 10px;
+    }
+    .kv .k{
+      font-size: 11px;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.62);
+      margin-bottom: 6px;
+    }
+    .kv .v{
+      font-size: 13px;
+      color: rgba(255,255,255,.84);
+    }
+
+    /* Cards row */
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .box{
+      padding: 16px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      min-height: 150px;
+      position:relative;
+      overflow:hidden;
+    }
+    .box h3{
+      margin:0 0 8px;
+      font-size: 13px;
+      letter-spacing:.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.72);
+    }
+    .box p{
+      margin:0;
+      color: rgba(255,255,255,.65);
+      font-size: 13px;
+      line-height:1.6;
+    }
+    .box::after{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(600px 220px at 90% 10%, rgba(34,197,94,.12), transparent 60%);
+      pointer-events:none;
+      opacity:.8;
+    }
+
+    /* Footer */
+    footer{
+      padding: 22px 0 34px;
+      color: rgba(255,255,255,.60);
+      font-size: 12.5px;
+    }
+    .foot{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+      border-top:1px solid rgba(255,255,255,.10);
+      padding-top: 14px;
+    }
+    .muted{ color: rgba(255,255,255,.60); }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .hero-grid, .timeline-grid{ grid-template-columns: 1fr; }
+      .brand{ min-width: unset; }
+      .grid3{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>СШІТ №2 · м. Золотоноша</h1>
+          <div class="title">Проєкт 8-Б: «Енергія минулого і майбутнього»</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Навігація">
+        <a href="#about">Про тему</a>
+        <a href="#timeline">Еволюція енергії</a>
+        <a href="#iv">IV група</a>
+        <a href="#materials">Матеріали</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="card hero-main">
+          <div class="kicker"><span class="dot"></span> навчальний проєкт · 8-Б клас</div>
+          <h2>Енергія: від парової машини до сонячних панелей</h2>
+          <p>
+            test text test text test text test text test text test text test text.
+            test text test text test text test text.
+          </p>
+
+          <div class="btnrow">
+            <a class="btn primary" href="#timeline">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 5v14m0 0l6-6m-6 6l-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Перейти до анімації
+            </a>
+            <a class="btn" href="#iv">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Роль IV групи
+            </a>
+          </div>
+        </div>
+
+        <aside class="card hero-side">
+          <div class="mini">
+            <h3>Мета</h3>
+            <p>test text test text test text test text test text.</p>
+          </div>
+          <div class="mini">
+            <h3>Освітні галузі</h3>
+            <p>Фізика · Математика · Історія · Інформатика · Англійська мова</p>
+          </div>
+          <div class="mini">
+            <h3>Учасники</h3>
+            <p>Учні 8-Б класу · СШІТ №2 · м. Золотоноша</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="about">
+      <div class="section-title">
+        <h2>Про тему</h2>
+        <p>test text · test text · test text</p>
+      </div>
+      <div class="grid3">
+        <div class="box">
+          <h3>Минуле</h3>
+          <p>test text test text test text test text test text test text.</p>
+        </div>
+        <div class="box">
+          <h3>Сьогодення</h3>
+          <p>test text test text test text test text test text test text.</p>
+        </div>
+        <div class="box">
+          <h3>Майбутнє</h3>
+          <p>test text test text test text test text test text test text.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="section-title">
+        <h2>Анімація: енергетична еволюція</h2>
+        <p>Рухай повзунок — дивись зміну епох</p>
+      </div>
+
+      <div class="card timeline">
+        <div class="timeline-grid">
+          <div class="stage">
+            <div class="stage-head">
+              <div class="label">Візуальна шкала епох</div>
+              <div class="pill" id="epochPill">Епоха: …</div>
+            </div>
+
+            <div class="canvas-wrap">
+              <canvas id="energyCanvas" width="900" height="420"></canvas>
+            </div>
+
+            <div class="controls">
+              <div class="range">
+                <div><span class="muted">Крок еволюції:</span> <span id="stepValue">0</span>/100</div>
+                <input id="stepRange" type="range" min="0" max="100" value="18" />
+              </div>
+              <button class="btn" id="playBtn" type="button">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M8 5v14l11-7L8 5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+                Відтворити
+              </button>
+              <button class="btn" id="resetBtn" type="button">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 4v6h6M20 20v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M20 10a8 8 0 0 0-14.9-3M4 14a8 8 0 0 0 14.9 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Скинути
+              </button>
+            </div>
+          </div>
+
+          <div class="info">
+            <div class="big" id="epochText">
+              test text test text test text test text test text test text.
+            </div>
+
+            <div class="kv">
+              <div class="item">
+                <div class="k">Технології</div>
+                <div class="v" id="kvTech">test text</div>
+              </div>
+              <div class="item">
+                <div class="k">Джерела енергії</div>
+                <div class="v" id="kvSource">test text</div>
+              </div>
+              <div class="item">
+                <div class="k">У фокусі</div>
+                <div class="v" id="kvFocus">test text</div>
+              </div>
+              <div class="item">
+                <div class="k">Примітка</div>
+                <div class="v" id="kvNote">test text</div>
+              </div>
+            </div>
+
+            <div class="mini" style="margin-top:2px;">
+              <h3>Порада для презентації</h3>
+              <p>test text test text test text test text.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="iv">
+      <div class="section-title">
+        <h2>IV група — інформатики</h2>
+        <p>Презентація · анімація · Excel</p>
+      </div>
+
+      <div class="grid3">
+        <div class="box">
+          <h3>Презентація</h3>
+          <p>test text test text test text test text test text.</p>
+        </div>
+        <div class="box">
+          <h3>Анімація</h3>
+          <p>test text test text test text test text test text.</p>
+        </div>
+        <div class="box">
+          <h3>Таблиці Excel</h3>
+          <p>test text test text test text test text test text.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="materials">
+      <div class="section-title">
+        <h2>Матеріали та файли</h2>
+        <p>Заглушки під кнопки / вбудування</p>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <div class="grid3">
+          <div class="box">
+            <h3>Слайди</h3>
+            <p>test text test text test text.</p>
+            <div style="margin-top:12px;">
+              <button class="btn" type="button" onclick="fakeAction('Слайди')">Відкрити (demo)</button>
+            </div>
+          </div>
+          <div class="box">
+            <h3>Excel</h3>
+            <p>test text test text test text.</p>
+            <div style="margin-top:12px;">
+              <button class="btn" type="button" onclick="fakeAction('Excel')">Переглянути (demo)</button>
+            </div>
+          </div>
+          <div class="box">
+            <h3>Короткий опис</h3>
+            <p>test text test text test text test text.</p>
+            <div style="margin-top:12px;">
+              <button class="btn" type="button" onclick="fakeAction('Опис')">Читати (demo)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="foot">
+        <div>
+          <div><strong>СШІТ №2 · м. Золотоноша · 8-Б</strong></div>
+          <div class="muted">Тема: «Енергія минулого і майбутнього: від парової машини до сонячних панелей»</div>
+        </div>
+        <div class="muted">
+          Автор сайту: <strong>lukyyy</strong> · test text
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // ======= Data model for epochs =======
+    const epochs = [
+      {
+        name: "Рання механіка",
+        range: [0, 20],
+        text: "test text test text test text test text test text.",
+        tech: "test text",
+        source: "test text",
+        focus: "test text",
+        note: "test text"
+      },
+      {
+        name: "Парові машини",
+        range: [21, 40],
+        text: "test text test text test text test text test text.",
+        tech: "test text",
+        source: "test text",
+        focus: "test text",
+        note: "test text"
+      },
+      {
+        name: "Електрифікація",
+        range: [41, 65],
+        text: "test text test text test text test text test text.",
+        tech: "test text",
+        source: "test text",
+        focus: "test text",
+        note: "test text"
+      },
+      {
+        name: "Сучасні енергосистеми",
+        range: [66, 85],
+        text: "test text test text test text test text test text.",
+        tech: "test text",
+        source: "test text",
+        focus: "test text",
+        note: "test text"
+      },
+      {
+        name: "Відновлювана енергія",
+        range: [86, 100],
+        text: "test text test text test text test text test text.",
+        tech: "test text",
+        source: "test text",
+        focus: "test text",
+        note: "test text"
+      },
+    ];
+
+    const el = (id) => document.getElementById(id);
+
+    const canvas = el("energyCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const stepRange = el("stepRange");
+    const stepValue = el("stepValue");
+    const epochPill = el("epochPill");
+
+    const epochText = el("epochText");
+    const kvTech = el("kvTech");
+    const kvSource = el("kvSource");
+    const kvFocus = el("kvFocus");
+    const kvNote = el("kvNote");
+
+    const playBtn = el("playBtn");
+    const resetBtn = el("resetBtn");
+
+    // Handle HiDPI crisp canvas
+    function resizeCanvasToDisplaySize() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+      const needW = Math.floor(rect.width * dpr);
+      const needH = Math.floor(rect.height * dpr);
+      if (canvas.width !== needW || canvas.height !== needH) {
+        canvas.width = needW;
+        canvas.height = needH;
+      }
+      ctx.setTransform(1,0,0,1,0,0);
+      ctx.scale(dpr, dpr);
+    }
+
+    function getEpochByStep(step) {
+      return epochs.find(e => step >= e.range[0] && step <= e.range[1]) || epochs[0];
+    }
+
+    // ======= Drawing =======
+    function clear() {
+      const r = canvas.getBoundingClientRect();
+      ctx.clearRect(0,0,r.width,r.height);
+    }
+
+    function roundedRect(x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x+r, y);
+      ctx.arcTo(x+w, y, x+w, y+h, r);
+      ctx.arcTo(x+w, y+h, x, y+h, r);
+      ctx.arcTo(x, y+h, x, y, r);
+      ctx.arcTo(x, y, x+w, y, r);
+      ctx.closePath();
+    }
+
+    function draw(step) {
+      resizeCanvasToDisplaySize();
+
+      const rect = canvas.getBoundingClientRect();
+      const W = rect.width;
+      const H = rect.height;
+
+      clear();
+
+      // Subtle grid
+      ctx.globalAlpha = 0.25;
+      ctx.strokeStyle = "rgba(255,255,255,0.10)";
+      ctx.lineWidth = 1;
+      const gap = 26;
+      for (let x = 12; x < W; x += gap) {
+        ctx.beginPath();
+        ctx.moveTo(x, 12);
+        ctx.lineTo(x, H-12);
+        ctx.stroke();
+      }
+      for (let y = 12; y < H; y += gap) {
+        ctx.beginPath();
+        ctx.moveTo(12, y);
+        ctx.lineTo(W-12, y);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+
+      // Main "energy" path
+      const t = step / 100; // 0..1
+      const left = 18, right = W - 18, top = 24, bottom = H - 24;
+
+      // Baseline panel
+      ctx.fillStyle = "rgba(255,255,255,0.04)";
+      roundedRect(left, top, right-left, bottom-top, 16);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,0.12)";
+      ctx.stroke();
+
+      // Curve points (simple function + waves)
+      const points = [];
+      const n = 90;
+      for (let i = 0; i <= n; i++) {
+        const p = i / n;
+        // a "progressive" curve: starts lower, rises with time, plus subtle waves
+        const base = (1 - Math.pow(1 - p, 2.0)) * 0.62 + 0.12;
+        const wave = Math.sin(p * 10) * 0.03 + Math.sin(p * 3.7) * 0.015;
+        const yNorm = 1 - Math.min(0.92, Math.max(0.12, base + wave));
+        const x = left + (right - left) * p;
+        const y = top + (bottom - top) * yNorm;
+        points.push({x, y, p});
+      }
+
+      // Determine visible part based on t
+      const visible = points.filter(pt => pt.p <= t);
+
+      // Glow stroke
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = "rgba(168,85,247,0.18)";
+      ctx.beginPath();
+      visible.forEach((pt, idx) => idx ? ctx.lineTo(pt.x, pt.y) : ctx.moveTo(pt.x, pt.y));
+      ctx.stroke();
+
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = "rgba(125,211,252,0.85)";
+      ctx.beginPath();
+      visible.forEach((pt, idx) => idx ? ctx.lineTo(pt.x, pt.y) : ctx.moveTo(pt.x, pt.y));
+      ctx.stroke();
+
+      // Current marker
+      const cur = visible[visible.length - 1] || points[0];
+      ctx.fillStyle = "rgba(34,197,94,0.90)";
+      ctx.shadowColor = "rgba(34,197,94,0.45)";
+      ctx.shadowBlur = 18;
+      ctx.beginPath();
+      ctx.arc(cur.x, cur.y, 6.5, 0, Math.PI*2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Epoch bands at bottom
+      const bandY = bottom - 44;
+      const bandH = 28;
+      const bandX = left + 14;
+      const bandW = (right - left) - 28;
+
+      // Draw 5 segments
+      const seg = bandW / epochs.length;
+      epochs.forEach((e, idx) => {
+        const x = bandX + idx * seg;
+        ctx.fillStyle = "rgba(255,255,255,0.05)";
+        roundedRect(x, bandY, seg-8, bandH, 12);
+        ctx.fill();
+        ctx.strokeStyle = "rgba(255,255,255,0.10)";
+        ctx.stroke();
+      });
+
+      // Highlight active epoch
+      const ep = getEpochByStep(step);
+      const epIndex = epochs.indexOf(ep);
+      const hx = bandX + epIndex * seg;
+      ctx.fillStyle = "rgba(56,189,248,0.15)";
+      roundedRect(hx, bandY, seg-8, bandH, 12);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(56,189,248,0.25)";
+      ctx.stroke();
+
+      // Step "progress bar" subtle
+      ctx.fillStyle = "rgba(255,255,255,0.08)";
+      roundedRect(left + 14, top + 14, (right-left) - 28, 10, 999);
+      ctx.fill();
+      ctx.fillStyle = "rgba(125,211,252,0.55)";
+      roundedRect(left + 14, top + 14, ((right-left) - 28) * t, 10, 999);
+      ctx.fill();
+    }
+
+    // ======= UI update =======
+    function update(step){
+      stepValue.textContent = String(step);
+      const ep = getEpochByStep(step);
+      epochPill.textContent = "Епоха: " + ep.name;
+
+      epochText.textContent = ep.text;
+      kvTech.textContent = ep.tech;
+      kvSource.textContent = ep.source;
+      kvFocus.textContent = ep.focus;
+      kvNote.textContent = ep.note;
+
+      draw(step);
+    }
+
+    // ======= Playback =======
+    let playing = false;
+    let raf = null;
+
+    function play(){
+      if (playing) return;
+      playing = true;
+      playBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6h4v12H6zM14 6h4v12h-4z" stroke="currentColor" stroke-width="2" />
+        </svg>
+        Пауза
+      `;
+      const tick = () => {
+        const v = Number(stepRange.value);
+        const next = Math.min(100, v + 1);
+        stepRange.value = String(next);
+        update(next);
+        if (next >= 100){
+          pause();
+          return;
+        }
+        raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    }
+
+    function pause(){
+      playing = false;
+      if (raf) cancelAnimationFrame(raf);
+      raf = null;
+      playBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M8 5v14l11-7L8 5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        Відтворити
+      `;
+    }
+
+    // ======= Events =======
+    stepRange.addEventListener("input", (e) => update(Number(e.target.value)));
+    playBtn.addEventListener("click", () => playing ? pause() : play());
+    resetBtn.addEventListener("click", () => { pause(); stepRange.value = "18"; update(18); });
+
+    window.addEventListener("resize", () => update(Number(stepRange.value)));
+
+    // Demo actions
+    window.fakeAction = (what) => {
+      alert(what + ": test text (демо кнопка)");
+    };
+
+    // Init
+    update(Number(stepRange.value));
+  </script>
+</body>
+</html>
