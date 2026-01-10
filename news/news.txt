@@ -35,7 +35,7 @@
 
 Заголовок: Осіння фотосессія
 Дата: 2025-10-08
-Фото: assets/fotos1.jpg, assets/fotos2.jpg, assets/fotos3.jpg, assets/fotos4.jpg
+Фото: assets/fotos1.jpg, assets/fotos2.jpg, assets/fotos3.jpg, assets/fotos4.jpg, assets/fotos5.jpg, assets/fotos6.jpg, assets/fotos7.jpg, assets/fotos8.jpg,
 Текст:
 Осіння фотосессія в меморіальному парку
 ---
