@@ -36,11 +36,13 @@
       --glass-bg2: rgba(255,255,255,.020);
       --glass-border: rgba(255,255,255,.16);
 
-      --goldA: rgba(255, 214, 102, .70);
-      --goldB: rgba(255, 170, 80, .55);
-      --goldC: rgba(255, 245, 190, .40);
-      --goldLine: rgba(255, 214, 102, .34);
-      --goldGlow: rgba(255, 190, 90, .22);
+      --goldA: rgba(255, 214, 102, .95);
+      --goldB: rgba(255, 165, 72, .70);
+      --goldC: rgba(255, 245, 195, .55);
+      --goldLine: rgba(255, 214, 102, .44);
+      --goldGlow1: rgba(255, 190, 90, .36);
+      --goldGlow2: rgba(255, 230, 160, .20);
+      --goldGlow3: rgba(255, 140, 70, .22);
     }
 
     html[data-theme="light"]{
@@ -71,11 +73,13 @@
       --glass-bg2: rgba(255,255,255,.52);
       --glass-border: rgba(10,12,18,.12);
 
-      --goldA: rgba(255, 196, 78, .70);
-      --goldB: rgba(255, 160, 70, .55);
-      --goldC: rgba(255, 225, 160, .42);
-      --goldLine: rgba(255, 180, 70, .28);
-      --goldGlow: rgba(255, 170, 70, .18);
+      --goldA: rgba(255, 196, 78, .92);
+      --goldB: rgba(255, 150, 70, .62);
+      --goldC: rgba(255, 225, 160, .52);
+      --goldLine: rgba(255, 180, 70, .34);
+      --goldGlow1: rgba(255, 170, 70, .24);
+      --goldGlow2: rgba(255, 210, 140, .18);
+      --goldGlow3: rgba(255, 135, 70, .16);
     }
 
     *{ box-sizing:border-box; }
@@ -102,7 +106,6 @@
     html[data-theme="light"] .topbar{
       background: linear-gradient(180deg, rgba(244,246,251,.86), rgba(244,246,251,.56));
     }
-
     .topbar-inner{
       display:flex; align-items:center; justify-content:space-between;
       padding: 14px 0;
@@ -173,11 +176,7 @@
       border: 1px solid var(--pill-border);
       background: var(--pill-bg);
     }
-    .theme-switch .icon{
-      font-size:13px;
-      opacity:.75;
-      user-select:none;
-    }
+    .theme-switch .icon{ font-size:13px; opacity:.75; user-select:none; }
     .switch{ position:relative; display:inline-block; width:42px; height:22px; }
     .switch input{ opacity:0; width:0; height:0; }
     .slider{
@@ -323,15 +322,8 @@
       transform: scale(1.02);
     }
 
-    .body{
-      padding: 12px 14px 16px;
-    }
-    .name{
-      margin:0 0 8px;
-      font-size: 15px;
-      color: var(--text);
-      line-height:1.2;
-    }
+    .body{ padding: 12px 14px 16px; }
+    .name{ margin:0 0 8px; font-size: 15px; color: var(--text); line-height:1.2; }
     .meta{
       display:flex;
       gap:8px;
@@ -354,15 +346,15 @@
     }
     html[data-theme="light"] .quote{ color: rgba(10,12,18,.64); }
 
-    /* GOLD TEACHER CARD (no crown) */
+    /* SUPER GOLD TEACHER CARD */
     .leader{
-      border-color: rgba(255,214,102,.28);
+      border-color: rgba(255,214,102,.40);
       box-shadow:
-        0 22px 70px rgba(255,190,90,.10),
-        0 18px 55px rgba(0,0,0,.20),
+        0 28px 95px rgba(255,190,90,.20),
+        0 18px 55px rgba(0,0,0,.22),
         inset 0 1px 0 rgba(255,255,255,.16);
+      transform: translateY(-1px);
     }
-
     .leader::before{
       content:"";
       position:absolute;
@@ -370,65 +362,79 @@
       border-radius: var(--radius2);
       padding: 1px;
       background: linear-gradient(120deg, var(--goldA), var(--goldB), var(--goldC));
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       pointer-events:none;
     }
 
-    /* constant soft glow */
-    .leader::after{
-      content:"";
+    .leader .frame{
+      border-color: rgba(255,214,102,.30);
+      background: rgba(255,214,102,.05);
+    }
+    .leader .photo-wrap{
+      border-color: rgba(255,214,102,.34);
+      background: rgba(255,214,102,.04);
+    }
+
+    /* constant glow layer (stronger) */
+    .leader .glow{
       position:absolute;
-      inset:-40%;
+      inset:-45%;
       background:
-        radial-gradient(500px 260px at 20% 15%, var(--goldGlow), transparent 55%),
-        radial-gradient(520px 300px at 85% 30%, rgba(255,245,190,.14), transparent 60%),
-        radial-gradient(700px 380px at 50% 90%, rgba(255,170,80,.10), transparent 60%);
-      filter: blur(6px);
+        radial-gradient(560px 300px at 18% 18%, var(--goldGlow1), transparent 55%),
+        radial-gradient(640px 360px at 85% 32%, var(--goldGlow2), transparent 62%),
+        radial-gradient(780px 420px at 50% 95%, var(--goldGlow3), transparent 62%);
+      filter: blur(10px);
       opacity: .95;
       pointer-events:none;
-      animation: glowPulse 4.6s ease-in-out infinite;
+      animation: glowPulse 3.8s ease-in-out infinite;
     }
-
     @keyframes glowPulse{
-      0%,100%{ opacity:.82; transform: translateY(0) scale(1); }
-      50%{ opacity:1; transform: translateY(-2px) scale(1.01); }
+      0%,100%{ opacity:.80; transform: translateY(0) scale(1); }
+      50%{ opacity:1; transform: translateY(-3px) scale(1.02); }
     }
 
-    /* hover "shine sweep" */
+    /* shine sweep (stronger) */
     .leader .shine{
       position:absolute;
-      inset:-40%;
-      background: conic-gradient(from 220deg, transparent 0 40%, rgba(255,255,255,.18) 48%, transparent 58% 100%);
-      transform: rotate(0deg);
-      opacity: .35;
+      inset:-50%;
+      background: conic-gradient(from 230deg, transparent 0 38%, rgba(255,255,255,.24) 46%, transparent 56% 100%);
+      opacity: .50;
       pointer-events:none;
-      animation: slowSpin 10s linear infinite;
+      animation: slowSpin 8.5s linear infinite;
+      filter: blur(0.2px);
     }
-    @keyframes slowSpin{
-      to{ transform: rotate(360deg); }
+    @keyframes slowSpin{ to{ transform: rotate(360deg); } }
+
+    /* subtle sparkles */
+    .leader .sparkles{
+      position:absolute;
+      inset:-20%;
+      background:
+        radial-gradient(2px 2px at 18% 35%, rgba(255,255,255,.22), transparent 60%),
+        radial-gradient(2px 2px at 62% 22%, rgba(255,255,255,.18), transparent 60%),
+        radial-gradient(2px 2px at 78% 58%, rgba(255,255,255,.16), transparent 60%),
+        radial-gradient(2px 2px at 35% 72%, rgba(255,255,255,.14), transparent 60%),
+        radial-gradient(2px 2px at 88% 80%, rgba(255,255,255,.14), transparent 60%);
+      opacity:.55;
+      pointer-events:none;
+      animation: sparkleMove 6.2s ease-in-out infinite;
+    }
+    @keyframes sparkleMove{
+      0%,100%{ transform: translateY(0); opacity:.45; }
+      50%{ transform: translateY(-4px); opacity:.70; }
     }
 
     .leader:hover{
-      transform: translateY(-3px);
+      transform: translateY(-4px);
+      border-color: rgba(255,214,102,.55);
       box-shadow:
-        0 26px 90px rgba(255,190,90,.14),
-        0 18px 55px rgba(0,0,0,.22),
+        0 34px 120px rgba(255,190,90,.26),
+        0 18px 55px rgba(0,0,0,.24),
         inset 0 1px 0 rgba(255,255,255,.18);
-      border-color: rgba(255,214,102,.40);
     }
-
-    .leader .frame{
-      border-color: rgba(255,214,102,.24);
-      background: rgba(255,214,102,.04);
-    }
-    .leader .photo-wrap{
-      border-color: rgba(255,214,102,.28);
-      background: rgba(255,214,102,.035);
-    }
+    .leader:hover .shine{ opacity:.70; }
 
     footer{
       padding: 22px 0 34px;
@@ -484,7 +490,7 @@
   <header class="wrap">
     <div class="hero">
       <h2>Учні 8-Б</h2>
-      <p>Картки учнів: фото, ПІБ, день народження (без року) та цитата. Перша картка — класний керівник із золотим сяйвом.</p>
+      <p>2018–2030</p>
     </div>
   </header>
 
