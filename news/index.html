@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,9 +7,14 @@
 
   <style>
     :root{
+      --bg1:#050713;
+      --bg2:#070A12;
+      --bg3:#050713;
+
       --text:rgba(255,255,255,.88);
       --muted:rgba(255,255,255,.62);
       --line:rgba(255,255,255,.12);
+
       --shadow: 0 18px 55px rgba(0,0,0,.45);
       --radius2: 26px;
       --max: 1120px;
@@ -17,6 +22,46 @@
       --c1: rgba(56,189,248,.22);
       --c2: rgba(168,85,247,.22);
       --c3: rgba(34,197,94,.14);
+
+      --pill-bg: rgba(255,255,255,.03);
+      --pill-border: rgba(255,255,255,.10);
+
+      --card-bg: rgba(255,255,255,.03);
+      --card-bg-hover: rgba(255,255,255,.045);
+
+      --hero-bg1: rgba(255,255,255,.07);
+      --hero-bg2: rgba(255,255,255,.03);
+
+      --btn-bg: rgba(255,255,255,.04);
+      --btn-border: rgba(255,255,255,.14);
+    }
+
+    html[data-theme="light"]{
+      --bg1:#f4f6fb;
+      --bg2:#eef1f7;
+      --bg3:#f8f9fd;
+
+      --text:rgba(10,12,18,.90);
+      --muted:rgba(10,12,18,.62);
+      --line:rgba(10,12,18,.14);
+
+      --shadow: 0 18px 55px rgba(10,12,18,.12);
+
+      --c1: rgba(56,189,248,.16);
+      --c2: rgba(168,85,247,.14);
+      --c3: rgba(34,197,94,.12);
+
+      --pill-bg: rgba(10,12,18,.04);
+      --pill-border: rgba(10,12,18,.12);
+
+      --card-bg: rgba(255,255,255,.72);
+      --card-bg-hover: rgba(255,255,255,.88);
+
+      --hero-bg1: rgba(255,255,255,.80);
+      --hero-bg2: rgba(255,255,255,.62);
+
+      --btn-bg: rgba(10,12,18,.05);
+      --btn-border: rgba(10,12,18,.14);
     }
 
     *{ box-sizing:border-box; }
@@ -27,11 +72,10 @@
         radial-gradient(1200px 650px at 20% 10%, var(--c1), transparent 55%),
         radial-gradient(900px 600px at 80% 18%, var(--c2), transparent 55%),
         radial-gradient(1050px 700px at 50% 95%, var(--c3), transparent 55%),
-        linear-gradient(180deg, #050713 0%, #070A12 40%, #050713 100%);
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 40%, var(--bg3) 100%);
       color:var(--text);
       overflow-x:hidden;
     }
-
     a{ color:inherit; text-decoration:none; }
     .wrap{ max-width:var(--max); margin:0 auto; padding: 0 18px; }
 
@@ -41,6 +85,10 @@
       background: linear-gradient(180deg, rgba(7,10,18,.82), rgba(7,10,18,.44));
       border-bottom:1px solid var(--line);
     }
+    html[data-theme="light"] .topbar{
+      background: linear-gradient(180deg, rgba(244,246,251,.86), rgba(244,246,251,.56));
+    }
+
     .topbar-inner{
       display:flex; align-items:center; justify-content:space-between;
       padding: 14px 0;
@@ -54,7 +102,8 @@
       position:relative; overflow:hidden;
     }
     .logo::after{
-      content:""; position:absolute; inset:-60%;
+      content:"";
+      position:absolute; inset:-60%;
       background: conic-gradient(from 200deg, transparent 0 35%, rgba(255,255,255,.16) 45%, transparent 60% 100%);
       animation: spin 7s linear infinite;
     }
@@ -67,30 +116,99 @@
       text-transform: uppercase;
       color: rgba(255,255,255,.70);
     }
+    html[data-theme="light"] .brand h1{ color: rgba(10,12,18,.70); }
+
     .brand .title{
       margin:0;
       font-size: 14px;
       color: rgba(255,255,255,.90);
       letter-spacing:.02em;
     }
+    html[data-theme="light"] .brand .title{ color: rgba(10,12,18,.90); }
 
     .nav{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
     .nav a{
       padding: 10px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
       color: rgba(255,255,255,.78);
       font-size: 13px;
       transition: transform .15s ease, background .2s ease, border-color .2s ease;
       user-select:none;
     }
-    .nav a:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
+    html[data-theme="light"] .nav a{ color: rgba(10,12,18,.78); }
+    .nav a:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.18);
+    }
+    html[data-theme="light"] .nav a:hover{
+      background: rgba(10,12,18,.06);
+      border-color: rgba(10,12,18,.18);
+    }
+
+    .theme-switch{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-left:6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
+    }
+    .theme-switch .icon{
+      font-size:13px;
+      opacity:.75;
+      user-select:none;
+    }
+    .switch{
+      position:relative;
+      display:inline-block;
+      width:42px;
+      height:22px;
+    }
+    .switch input{
+      opacity:0;
+      width:0;
+      height:0;
+    }
+    .slider{
+      position:absolute;
+      cursor:pointer;
+      inset:0;
+      background: rgba(255,255,255,.15);
+      border-radius:999px;
+      transition:.25s;
+      border:1px solid rgba(255,255,255,.25);
+    }
+    html[data-theme="light"] .slider{
+      background: rgba(10,12,18,.10);
+      border:1px solid rgba(10,12,18,.20);
+    }
+    .slider::before{
+      content:"";
+      position:absolute;
+      height:16px;
+      width:16px;
+      left:3px;
+      top:2px;
+      background: rgba(255,255,255,.92);
+      border-radius:50%;
+      transition:.25s;
+    }
+    html[data-theme="light"] .slider::before{
+      background: rgba(10,12,18,.82);
+    }
+    input:checked + .slider::before{
+      transform: translateX(20px);
+    }
 
     header{ padding: 38px 0 12px; }
     .hero{
       border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      background: linear-gradient(180deg, var(--hero-bg1), var(--hero-bg2));
       border-radius: var(--radius2);
       box-shadow: var(--shadow);
       padding: 22px;
@@ -133,35 +251,37 @@
     .post{
       padding: 16px;
       border-radius: var(--radius2);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      box-shadow: 0 18px 55px rgba(0,0,0,.25);
+      border: 1px solid var(--line);
+      background: var(--card-bg);
+      box-shadow: 0 18px 55px rgba(0,0,0,.18);
       transition: transform .18s ease, border-color .2s ease, background .2s ease;
       overflow:hidden;
     }
+    html[data-theme="light"] .post{
+      box-shadow: 0 18px 55px rgba(10,12,18,.08);
+    }
     .post:hover{
       transform: translateY(-2px);
-      background: rgba(255,255,255,.045);
+      background: var(--card-bg-hover);
       border-color: rgba(255,255,255,.18);
+    }
+    html[data-theme="light"] .post:hover{
+      border-color: rgba(10,12,18,.18);
     }
 
     .meta{
       display:flex; gap:8px; flex-wrap:wrap; align-items:center;
-      color: rgba(255,255,255,.62);
       font-size: 12px;
       margin-bottom: 8px;
+      color: rgba(255,255,255,.62);
     }
-    .tag{
+    html[data-theme="light"] .meta{ color: rgba(10,12,18,.60); }
+
+    .tag, .date{
       padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-    }
-    .date{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.02);
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
     }
 
     .post h3{
@@ -169,6 +289,7 @@
       font-size: 16px;
       color: rgba(255,255,255,.90);
     }
+    html[data-theme="light"] .post h3{ color: rgba(10,12,18,.92); }
 
     .post p{
       margin:0;
@@ -176,6 +297,7 @@
       font-size: 13px;
       line-height:1.6;
     }
+    html[data-theme="light"] .post p{ color: rgba(10,12,18,.64); }
 
     .photos{
       display:flex;
@@ -190,9 +312,11 @@
       height: 120px;
       border-radius: 16px;
       overflow:hidden;
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid var(--line);
       background: rgba(255,255,255,.02);
     }
+    html[data-theme="light"] .ph{ background: rgba(10,12,18,.03); }
+
     .ph img{
       width:100%;
       height:100%;
@@ -205,17 +329,22 @@
       padding: 18px;
       border-radius: var(--radius2);
       border: 1px dashed rgba(255,255,255,.18);
-      background: rgba(255,255,255,.03);
+      background: var(--card-bg);
       color: rgba(255,255,255,.65);
+    }
+    html[data-theme="light"] #emptyState{
+      border: 1px dashed rgba(10,12,18,.18);
+      color: rgba(10,12,18,.64);
     }
 
     footer{
       padding: 22px 0 34px;
       color: rgba(255,255,255,.60);
       font-size: 12.5px;
-      border-top: 1px solid rgba(255,255,255,.10);
+      border-top: 1px solid var(--line);
       margin-top: 24px;
     }
+    html[data-theme="light"] footer{ color: rgba(10,12,18,.60); }
 
     @media (max-width: 920px){
       .news-grid{ grid-template-columns: 1fr; }
@@ -235,8 +364,17 @@
 
       <nav class="nav">
         <a href="../index.html">← На головну</a>
-        <a href="../index.html#gallery">Галерея</a>
         <a href="https://www.tiktok.com/@school_boy_and.girl" target="_blank" rel="noreferrer">TikTok</a>
+        <a href="http://zolsit2.ck.ua/" target="_blank" rel="noreferrer">Сайт школи</a>
+
+        <div class="theme-switch" title="Змінити тему">
+          <span class="icon">🌙</span>
+          <label class="switch">
+            <input type="checkbox" id="themeToggle" />
+            <span class="slider"></span>
+          </label>
+          <span class="icon">☀️</span>
+        </div>
       </nav>
     </div>
   </div>
@@ -258,6 +396,26 @@
       СШІТ №2 · м. Золотоноша · 8-Б · Автор сайту: <strong>lukyyy</strong>
     </footer>
   </main>
+
+  <script>
+    const root = document.documentElement;
+    const toggle = document.getElementById("themeToggle");
+
+    function applyTheme(theme){
+      root.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      if (toggle) toggle.checked = (theme === "light");
+    }
+
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    applyTheme(savedTheme);
+
+    if (toggle){
+      toggle.addEventListener("change", () => {
+        applyTheme(toggle.checked ? "light" : "dark");
+      });
+    }
+  </script>
 
   <script src="./news.js"></script>
 </body>
