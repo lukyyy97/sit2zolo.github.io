@@ -226,7 +226,7 @@
       line-height:1.6;
     }
 
-    /* ========= CSGO-Style Gallery ========= */
+    /* ========= Infinite Gallery ========= */
     .case{
       padding: 18px;
     }
@@ -250,14 +250,12 @@
       position:relative;
     }
 
-    /* Viewport */
     .viewport{
       position:relative;
       height: 220px;
       overflow:hidden;
     }
 
-    /* Track that moves */
     .track{
       position:absolute;
       inset:0;
@@ -291,9 +289,10 @@
     .tile::after{
       content:"";
       position:absolute; inset:0;
-      background: radial-gradient(220px 160px at 20% 20%, rgba(56,189,248,.18), transparent 55%),
-                  radial-gradient(220px 160px at 80% 20%, rgba(168,85,247,.18), transparent 55%),
-                  linear-gradient(180deg, transparent 55%, rgba(0,0,0,.25));
+      background:
+        radial-gradient(220px 160px at 20% 20%, rgba(56,189,248,.16), transparent 55%),
+        radial-gradient(220px 160px at 80% 20%, rgba(168,85,247,.16), transparent 55%),
+        linear-gradient(180deg, transparent 55%, rgba(0,0,0,.25));
       pointer-events:none;
       opacity:.95;
     }
@@ -311,68 +310,6 @@
       overflow:hidden;
       text-overflow:ellipsis;
     }
-
-    /* “Center line” like case opening */
-    .center-line{
-      position:absolute;
-      top:0; bottom:0;
-      left:50%;
-      width:2px;
-      transform: translateX(-50%);
-      background: rgba(34,197,94,.55);
-      box-shadow: 0 0 22px rgba(34,197,94,.35);
-      opacity:.8;
-      pointer-events:none;
-    }
-    .center-glow{
-      position:absolute;
-      left:50%;
-      top:0;
-      width: 220px;
-      height: 220px;
-      transform: translateX(-50%);
-      background: radial-gradient(circle, rgba(34,197,94,.20), transparent 65%);
-      pointer-events:none;
-      opacity:.7;
-    }
-
-    .case-controls{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      padding: 12px 0 0;
-      align-items:center;
-      justify-content:space-between;
-    }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding: 11px 14px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.86);
-      font-size: 13px;
-      cursor:pointer;
-      transition: transform .15s ease, background .2s ease, border-color .2s ease;
-      user-select:none;
-      gap:10px;
-    }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.22); }
-    .btn.primary{
-      border-color: rgba(56,189,248,.35);
-      background: linear-gradient(90deg, rgba(56,189,248,.18), rgba(168,85,247,.16));
-      box-shadow: 0 18px 55px rgba(56,189,248,.10);
-    }
-    .btn svg{ width:16px; height:16px; opacity:.95; }
-
-    .speed{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      color: rgba(255,255,255,.70);
-      font-size: 12.5px;
-    }
-    input[type="range"]{ accent-color: #7dd3fc; }
 
     footer{
       padding: 22px 0 34px;
@@ -412,8 +349,7 @@
         <a href="#life">Життя класу</a>
         <a href="#gallery">Галерея</a>
 
-        <!-- TikTok badge (замінити посилання на своє) -->
-        <a class="tiktok" href="https://www.tiktok.com/@YOUR_TIKTOK" target="_blank" rel="noreferrer">
+        <a class="tiktok" href="https://www.tiktok.com/@school_boy_and.girl" target="_blank" rel="noreferrer">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M14 3v10.2a4.2 4.2 0 1 1-4.2-4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             <path d="M14 6c1.2 2.4 3.2 3.9 6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -477,49 +413,23 @@
       </div>
     </section>
 
-    <!-- ========= CSGO-Style Gallery (scroll only) ========= -->
     <section id="gallery">
       <div class="section-title">
         <h2>Галерея 8-Б</h2>
-        <p>повільна прокрутка як у кейсах CS:GO (без “випадання”)</p>
+        <p>test text · test text · test text</p>
       </div>
 
       <div class="card case">
         <div class="case-top">
           <div>
             <div style="color: rgba(255,255,255,.86); font-size: 14px;">Стрічка фото</div>
-            <div class="hint">Натисни “Старт” — і фото почнуть плавно їхати.</div>
+            <div class="hint">test text test text test text</div>
           </div>
         </div>
 
         <div class="case-window">
           <div class="viewport" id="viewport">
-            <div class="center-glow"></div>
-            <div class="center-line"></div>
             <div class="track" id="track"></div>
-          </div>
-        </div>
-
-        <div class="case-controls">
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="btn primary" id="startBtn" type="button">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-              Старт
-            </button>
-            <button class="btn" id="stopBtn" type="button">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M6 6h4v12H6zM14 6h4v12h-4z" stroke="currentColor" stroke-width="2"/></svg>
-              Стоп
-            </button>
-            <button class="btn" id="resetBtn" type="button">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M4 4v6h6M20 20v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 10a8 8 0 0 0-14.9-3M4 14a8 8 0 0 0 14.9 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              Скинути
-            </button>
-          </div>
-
-          <div class="speed">
-            <span class="muted">Швидкість:</span>
-            <input id="speedRange" type="range" min="4" max="45" value="14">
-            <span id="speedVal">14</span>
           </div>
         </div>
       </div>
@@ -537,9 +447,7 @@
   </main>
 
   <script>
-    // ====== НАЛАШТУВАННЯ ФОТО ======
-    // 1) Закидай фото в репозиторій в папку: assets/
-    // 2) Тут міняй src на свої файли: "./assets/1.jpg"
+    // ====== ФОТО: закидай у репозиторій в папку assets/ ======
     const galleryItems = [
       { title: "test text", src: "./assets/1.jpg" },
       { title: "test text", src: "./assets/2.jpg" },
@@ -550,12 +458,10 @@
     ];
 
     const track = document.getElementById("track");
-    const viewport = document.getElementById("viewport");
 
-    // Duplicate list to create endless feel
     function buildTrack() {
       track.innerHTML = "";
-      const doubled = [...galleryItems, ...galleryItems, ...galleryItems]; // more length
+      const doubled = [...galleryItems, ...galleryItems, ...galleryItems, ...galleryItems]; // довше
       doubled.forEach(item => {
         const tile = document.createElement("div");
         tile.className = "tile";
@@ -569,32 +475,23 @@
 
     buildTrack();
 
-    // ====== Smooth scrolling animation ======
-    let running = false;
+    // ====== AUTO SCROLL (speed = 30) ======
     let offset = 0;
-    let speed = 14; // px/sec base
+    let speed = 30; // як ти просив
     let last = null;
-    let raf = null;
+    let loopW = 1;
 
     function getLoopWidth() {
-      // width of 1 "galleryItems" block in pixels:
-      // We created 3 blocks; loop by 1 block.
       const tiles = track.querySelectorAll(".tile");
       if (!tiles.length) return 1;
-
-      // approximate: sum first N tiles widths + gaps
-      // We'll compute with DOM: distance between start of tile0 and tileN
       const n = galleryItems.length;
-      const first = tiles[0].getBoundingClientRect();
-      const nth = tiles[n].getBoundingClientRect();
-      // this is not perfect due to gaps, so we'll fallback if needed
-      const approx = Math.abs(nth.left - first.left);
-      return approx > 50 ? approx : (n * 192);
+      const a = tiles[0].getBoundingClientRect();
+      const b = tiles[n].getBoundingClientRect();
+      const w = Math.abs(b.left - a.left);
+      return w > 50 ? w : (n * 192);
     }
 
-    let loopW = 1;
     function recalcLoop() {
-      // Wait a frame so images render sizes
       requestAnimationFrame(() => {
         loopW = getLoopWidth();
       });
@@ -603,57 +500,17 @@
     recalcLoop();
 
     function tick(ts){
-      if (!running) return;
       if (last === null) last = ts;
       const dt = (ts - last) / 1000;
       last = ts;
 
-      // move left
       offset += speed * dt;
-
-      // loop
       if (offset > loopW) offset -= loopW;
 
-      track.style.transform = `translate3d(${-offset}px, 0, 0)`;
-      raf = requestAnimationFrame(tick);
+      track.style.transform = `translate3d(${-offset}px,0,0)`;
+      requestAnimationFrame(tick);
     }
-
-    // Controls
-    const startBtn = document.getElementById("startBtn");
-    const stopBtn = document.getElementById("stopBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const speedRange = document.getElementById("speedRange");
-    const speedVal = document.getElementById("speedVal");
-
-    function start(){
-      if (running) return;
-      running = true;
-      last = null;
-      raf = requestAnimationFrame(tick);
-    }
-    function stop(){
-      running = false;
-      if (raf) cancelAnimationFrame(raf);
-      raf = null;
-      last = null;
-    }
-    function reset(){
-      stop();
-      offset = 0;
-      track.style.transform = `translate3d(0,0,0)`;
-    }
-
-    startBtn.addEventListener("click", start);
-    stopBtn.addEventListener("click", stop);
-    resetBtn.addEventListener("click", reset);
-
-    speedRange.addEventListener("input", (e)=>{
-      speed = Number(e.target.value);
-      speedVal.textContent = String(speed);
-    });
-
-    // init speed UI
-    speedVal.textContent = String(speed);
+    requestAnimationFrame(tick);
   </script>
 </body>
 </html>
