@@ -17,7 +17,7 @@ function render(list){
     card.className = "card" + (isLeader ? " leader" : "");
 
     card.innerHTML = `
-      ${isLeader ? `<div class="shine" aria-hidden="true"></div>` : ""}
+      ${isLeader ? `<div class="glow" aria-hidden="true"></div><div class="shine" aria-hidden="true"></div><div class="sparkles" aria-hidden="true"></div>` : ""}
 
       <div class="frame">
         <div class="photo-wrap">
