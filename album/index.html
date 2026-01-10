@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Альбом 8-Б — СШІТ №2</title>
+
+  <style>
+    :root{
+      --bg1:#050713;
+      --bg2:#070A12;
+      --bg3:#050713;
+
+      --text:rgba(255,255,255,.88);
+      --muted:rgba(255,255,255,.62);
+      --line:rgba(255,255,255,.12);
+
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --radius2: 26px;
+      --max: 1120px;
+
+      --c1: rgba(56,189,248,.22);
+      --c2: rgba(168,85,247,.22);
+      --c3: rgba(34,197,94,.14);
+
+      --pill-bg: rgba(255,255,255,.03);
+      --pill-border: rgba(255,255,255,.10);
+
+      --card-bg: rgba(255,255,255,.03);
+      --card-bg-hover: rgba(255,255,255,.045);
+
+      --hero-bg1: rgba(255,255,255,.07);
+      --hero-bg2: rgba(255,255,255,.03);
+
+      --btn-bg: rgba(255,255,255,.04);
+      --btn-border: rgba(255,255,255,.14);
+
+      --gold1: rgba(255, 214, 102, .55);
+      --gold2: rgba(255, 180, 90, .42);
+      --gold3: rgba(255, 244, 182, .30);
+    }
+
+    html[data-theme="light"]{
+      --bg1:#f4f6fb;
+      --bg2:#eef1f7;
+      --bg3:#f8f9fd;
+
+      --text:rgba(10,12,18,.90);
+      --muted:rgba(10,12,18,.62);
+      --line:rgba(10,12,18,.14);
+
+      --shadow: 0 18px 55px rgba(10,12,18,.12);
+
+      --c1: rgba(56,189,248,.16);
+      --c2: rgba(168,85,247,.14);
+      --c3: rgba(34,197,94,.12);
+
+      --pill-bg: rgba(10,12,18,.04);
+      --pill-border: rgba(10,12,18,.12);
+
+      --card-bg: rgba(255,255,255,.72);
+      --card-bg-hover: rgba(255,255,255,.88);
+
+      --hero-bg1: rgba(255,255,255,.80);
+      --hero-bg2: rgba(255,255,255,.62);
+
+      --btn-bg: rgba(10,12,18,.05);
+      --btn-border: rgba(10,12,18,.14);
+
+      --gold1: rgba(255, 196, 78, .55);
+      --gold2: rgba(255, 166, 66, .42);
+      --gold3: rgba(255, 224, 150, .30);
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:
+        radial-gradient(1200px 650px at 20% 10%, var(--c1), transparent 55%),
+        radial-gradient(900px 600px at 80% 18%, var(--c2), transparent 55%),
+        radial-gradient(1050px 700px at 50% 95%, var(--c3), transparent 55%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 40%, var(--bg3) 100%);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding: 0 18px; }
+
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(7,10,18,.82), rgba(7,10,18,.44));
+      border-bottom:1px solid var(--line);
+    }
+    html[data-theme="light"] .topbar{
+      background: linear-gradient(180deg, rgba(244,246,251,.86), rgba(244,246,251,.56));
+    }
+
+    .topbar-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 14px;
+    }
+
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .logo{
+      width:40px; height:40px; border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(56,189,248,.9), rgba(168,85,247,.65) 45%, rgba(34,197,94,.35) 75%, rgba(255,255,255,.08) 100%);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 18px 45px rgba(168,85,247,.18);
+      position:relative; overflow:hidden;
+    }
+    .logo::after{
+      content:"";
+      position:absolute; inset:-60%;
+      background: conic-gradient(from 200deg, transparent 0 35%, rgba(255,255,255,.16) 45%, transparent 60% 100%);
+      animation: spin 7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .brand h1{
+      margin:0;
+      font-size: 13px;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.70);
+    }
+    html[data-theme="light"] .brand h1{ color: rgba(10,12,18,.70); }
+
+    .brand .title{
+      margin:0;
+      font-size: 14px;
+      color: rgba(255,255,255,.90);
+      letter-spacing:.02em;
+    }
+    html[data-theme="light"] .brand .title{ color: rgba(10,12,18,.90); }
+
+    .nav{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    .nav a{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+    }
+    html[data-theme="light"] .nav a{ color: rgba(10,12,18,.78); }
+    .nav a:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.18);
+    }
+    html[data-theme="light"] .nav a:hover{
+      background: rgba(10,12,18,.06);
+      border-color: rgba(10,12,18,.18);
+    }
+
+    .theme-switch{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-left:6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
+    }
+    .theme-switch .icon{
+      font-size:13px;
+      opacity:.75;
+      user-select:none;
+    }
+    .switch{
+      position:relative;
+      display:inline-block;
+      width:42px;
+      height:22px;
+    }
+    .switch input{
+      opacity:0;
+      width:0;
+      height:0;
+    }
+    .slider{
+      position:absolute;
+      cursor:pointer;
+      inset:0;
+      background: rgba(255,255,255,.15);
+      border-radius:999px;
+      transition:.25s;
+      border:1px solid rgba(255,255,255,.25);
+    }
+    html[data-theme="light"] .slider{
+      background: rgba(10,12,18,.10);
+      border:1px solid rgba(10,12,18,.20);
+    }
+    .slider::before{
+      content:"";
+      position:absolute;
+      height:16px;
+      width:16px;
+      left:3px;
+      top:2px;
+      background: rgba(255,255,255,.92);
+      border-radius:50%;
+      transition:.25s;
+    }
+    html[data-theme="light"] .slider::before{
+      background: rgba(10,12,18,.82);
+    }
+    input:checked + .slider::before{
+      transform: translateX(20px);
+    }
+
+    header{ padding: 38px 0 12px; }
+    .hero{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, var(--hero-bg1), var(--hero-bg2));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(600px 220px at 20% 20%, rgba(56,189,248,.14), transparent 60%),
+        radial-gradient(600px 240px at 90% 10%, rgba(168,85,247,.14), transparent 60%);
+      pointer-events:none;
+    }
+    .hero h2{
+      margin: 0 0 8px;
+      font-size: clamp(22px, 3vw, 36px);
+      line-height:1.12;
+      letter-spacing: -0.02em;
+      position:relative;
+      z-index:1;
+    }
+    .hero p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.65;
+      max-width: 80ch;
+      position:relative;
+      z-index:1;
+    }
+
+    .toolbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top: 14px;
+    }
+    .search{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--btn-border);
+      background: var(--btn-bg);
+      min-width: min(520px, 100%);
+      flex: 1 1 320px;
+    }
+    .search .icon{ opacity:.7; user-select:none; }
+    .search input{
+      width:100%;
+      border:none;
+      outline:none;
+      background: transparent;
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search input::placeholder{ color: rgba(255,255,255,.45); }
+    html[data-theme="light"] .search input::placeholder{ color: rgba(10,12,18,.42); }
+
+    .hint{
+      font-size: 12.5px;
+      color: var(--muted);
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
+      user-select:none;
+      white-space:nowrap;
+    }
+
+    main{ padding: 18px 0 34px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .card{
+      border-radius: var(--radius2);
+      border: 1px solid var(--line);
+      background: var(--card-bg);
+      box-shadow: 0 18px 55px rgba(0,0,0,.18);
+      overflow:hidden;
+      transition: transform .18s ease, border-color .2s ease, background .2s ease;
+      position:relative;
+    }
+    html[data-theme="light"] .card{
+      box-shadow: 0 18px 55px rgba(10,12,18,.08);
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      background: var(--card-bg-hover);
+      border-color: rgba(255,255,255,.18);
+    }
+    html[data-theme="light"] .card:hover{
+      border-color: rgba(10,12,18,.18);
+    }
+
+    .photo{
+      height: 220px;
+      background: rgba(255,255,255,.02);
+      border-bottom: 1px solid var(--line);
+      position:relative;
+      overflow:hidden;
+    }
+    html[data-theme="light"] .photo{ background: rgba(10,12,18,.03); }
+
+    .photo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform: scale(1.02);
+    }
+
+    .body{
+      padding: 14px 14px 16px;
+    }
+    .name{
+      margin:0 0 8px;
+      font-size: 15px;
+      color: var(--text);
+      line-height:1.2;
+    }
+    .meta{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .pill{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
+    }
+    .quote{
+      margin:0;
+      color: rgba(255,255,255,.68);
+      font-size: 13px;
+      line-height:1.55;
+    }
+    html[data-theme="light"] .quote{ color: rgba(10,12,18,.64); }
+
+    .leader{
+      border: 1px solid transparent;
+    }
+    .leader::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius: var(--radius2);
+      padding: 1px;
+      background: linear-gradient(120deg, var(--gold1), var(--gold2), var(--gold3));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events:none;
+    }
+    .leader .crown{
+      position:absolute;
+      top: -10px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,214,102,.35), rgba(255,180,90,.22));
+      border: 1px solid rgba(255,214,102,.30);
+      box-shadow: 0 18px 55px rgba(255,190,90,.14);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:3;
+      transform: rotate(8deg);
+    }
+    .leader .crown span{
+      font-size: 18px;
+      user-select:none;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,.25));
+    }
+
+    .empty{
+      display:none;
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: var(--radius2);
+      border: 1px dashed rgba(255,255,255,.18);
+      background: var(--card-bg);
+      color: var(--muted);
+    }
+    html[data-theme="light"] .empty{ border: 1px dashed rgba(10,12,18,.18); }
+
+    footer{
+      padding: 22px 0 34px;
+      color: var(--muted);
+      font-size: 12.5px;
+      border-top: 1px solid var(--line);
+      margin-top: 24px;
+    }
+
+    @media (max-width: 1100px){
+      .grid{ grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 840px){
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+      .photo{ height: 210px; }
+    }
+    @media (max-width: 520px){
+      .grid{ grid-template-columns: 1fr; }
+      .photo{ height: 240px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>8-Б · СШІТ №2</h1>
+          <div class="title">Випускний альбом</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="../index.html">← На головну</a>
+        <a href="../news/index.html">Новини</a>
+        <a href="https://www.tiktok.com/@school_boy_and.girl" target="_blank" rel="noreferrer">TikTok</a>
+        <a href="http://zolsit2.ck.ua/" target="_blank" rel="noreferrer">Сайт школи</a>
+
+        <div class="theme-switch" title="Змінити тему">
+          <span class="icon">🌙</span>
+          <label class="switch">
+            <input type="checkbox" id="themeToggle" />
+            <span class="slider"></span>
+          </label>
+          <span class="icon">☀️</span>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <header class="wrap">
+    <div class="hero">
+      <h2>Альбом 8-Б</h2>
+      <p>Кожен учень має свою картку: фото, ПІБ, день народження (без року) та цитата. Перша картка — класний керівник із золотим акцентом.</p>
+
+      <div class="toolbar">
+        <div class="search">
+          <span class="icon">🔎</span>
+          <input id="searchInput" type="text" placeholder="Пошук по імені або прізвищу..." />
+        </div>
+        <div class="hint" id="countBox">Карток: 0</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="empty" id="emptyState">Нічого не знайдено за вашим запитом.</div>
+    <div class="grid" id="grid"></div>
+
+    <footer>
+      СШІТ №2 · м. Золотоноша · 8-Б · Автор сайту: <strong>lukyyy</strong>
+    </footer>
+  </main>
+
+  <script>
+    const root = document.documentElement;
+    const toggle = document.getElementById("themeToggle");
+
+    function applyTheme(theme){
+      root.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      if (toggle) toggle.checked = (theme === "light");
+    }
+
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    applyTheme(savedTheme);
+
+    if (toggle){
+      toggle.addEventListener("change", () => {
+        applyTheme(toggle.checked ? "light" : "dark");
+      });
+    }
+  </script>
+
+  <script src="./students.js"></script>
+  <script src="./album.js"></script>
+</body>
+</html>
