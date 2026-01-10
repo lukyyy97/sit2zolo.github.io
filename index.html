@@ -7,14 +7,10 @@
 
   <style>
     :root{
-      --bg:#070A12;
-      --panel:rgba(255,255,255,.06);
-      --panel2:rgba(255,255,255,.09);
       --text:rgba(255,255,255,.88);
       --muted:rgba(255,255,255,.62);
       --line:rgba(255,255,255,.12);
       --shadow: 0 18px 55px rgba(0,0,0,.45);
-      --radius: 18px;
       --radius2: 26px;
       --max: 1120px;
 
@@ -24,7 +20,6 @@
     }
 
     *{ box-sizing:border-box; }
-    html,body{ height:100%; }
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
@@ -36,10 +31,10 @@
       color:var(--text);
       overflow-x:hidden;
     }
+
     a{ color:inherit; text-decoration:none; }
     .wrap{ max-width:var(--max); margin:0 auto; padding: 0 18px; }
 
-    /* Topbar */
     .topbar{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(12px);
@@ -51,15 +46,12 @@
       padding: 14px 0;
       gap: 14px;
     }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-    }
+    .brand{ display:flex; align-items:center; gap:12px; }
     .logo{
       width:40px; height:40px; border-radius:12px;
       background: radial-gradient(circle at 30% 30%, rgba(56,189,248,.9), rgba(168,85,247,.65) 45%, rgba(34,197,94,.35) 75%, rgba(255,255,255,.08) 100%);
       box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 18px 45px rgba(168,85,247,.18);
-      position:relative;
-      overflow:hidden;
+      position:relative; overflow:hidden;
     }
     .logo::after{
       content:"";
@@ -83,11 +75,7 @@
       letter-spacing:.02em;
     }
 
-    .nav{
-      display:flex; gap: 8px; flex-wrap:wrap;
-      justify-content:flex-end;
-      align-items:center;
-    }
+    .nav{ display:flex; gap:8px; flex-wrap:wrap; }
     .nav a{
       padding: 10px 12px;
       border-radius: 999px;
@@ -95,37 +83,25 @@
       background: rgba(255,255,255,.03);
       color: rgba(255,255,255,.78);
       font-size: 13px;
-      transition: transform .15s ease, background .2s ease, border-color .2s ease;
-      user-select:none;
+      transition: .2s;
     }
     .nav a:hover{
-      transform: translateY(-1px);
       background: rgba(255,255,255,.06);
       border-color: rgba(255,255,255,.18);
+      transform: translateY(-1px);
     }
 
-    /* TikTok badge */
-    .tiktok{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(56,189,248,.26);
-      background: linear-gradient(90deg, rgba(56,189,248,.16), rgba(168,85,247,.12));
-      box-shadow: 0 18px 55px rgba(56,189,248,.08);
-    }
-    .tiktok svg{ width:16px; height:16px; opacity:.95; }
-    .tiktok span{ font-size:13px; color: rgba(255,255,255,.86); }
-
-    /* Cards / sections */
-    .card{
+    header{ padding: 44px 0 18px; }
+    .hero{
       border:1px solid var(--line);
       background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
       border-radius: var(--radius2);
       box-shadow: var(--shadow);
+      padding: 28px;
       position:relative;
       overflow:hidden;
     }
-    .card::before{
+    .hero::before{
       content:"";
       position:absolute; inset:-1px;
       background:
@@ -133,35 +109,10 @@
         radial-gradient(600px 240px at 90% 10%, rgba(168,85,247,.14), transparent 60%);
       pointer-events:none;
     }
-
-    .hero{ padding: 44px 0 16px; }
-    .hero-main{ padding: 24px; }
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.76);
-      font-size: 12px;
-      letter-spacing:.06em;
-      text-transform: uppercase;
-    }
-    .dot{
-      width:9px; height:9px; border-radius:99px;
-      background: rgba(34,197,94,.9);
-      box-shadow: 0 0 18px rgba(34,197,94,.65);
-      animation: pulse 1.8s ease-in-out infinite;
-    }
-    @keyframes pulse{
-      0%,100%{ transform: scale(1); opacity:1; }
-      50%{ transform: scale(1.25); opacity:.75; }
-    }
     .hero h2{
-      margin: 14px 0 10px;
-      font-size: clamp(24px, 3.2vw, 42px);
-      line-height:1.08;
-      letter-spacing: -0.02em;
+      margin:0 0 10px;
+      font-size: clamp(26px, 3.4vw, 44px);
+      line-height:1.1;
       position:relative;
       z-index:1;
     }
@@ -170,347 +121,131 @@
       color: var(--muted);
       font-size: 14px;
       line-height:1.65;
-      max-width: 70ch;
+      max-width: 75ch;
+      position:relative;
+      z-index:1;
     }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      margin-top: 18px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:1;
+    }
+    .btn{
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      font-size: 14px;
+      color: rgba(255,255,255,.9);
+      transition:.2s;
+    }
+    .btn.primary{
+      border-color: rgba(56,189,248,.35);
+      background: linear-gradient(90deg, rgba(56,189,248,.20), rgba(168,85,247,.18));
+      box-shadow: 0 18px 55px rgba(56,189,248,.10);
+    }
+    .btn:hover{ transform: translateY(-1px); }
 
     section{ padding: 26px 0; }
-    .section-title{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 12px;
-      margin: 10px 0 12px;
-    }
-    .section-title h2{
-      margin:0;
-      font-size: 18px;
-      letter-spacing:.02em;
-    }
-    .section-title p{
-      margin:0;
-      color: var(--muted);
-      font-size: 12.5px;
-    }
-
-    .grid3{
+    .grid{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(3,1fr);
+      gap:14px;
     }
-    .box{
+    .card{
       padding: 16px;
       border-radius: var(--radius2);
-      border:1px solid rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
-      min-height: 150px;
-      position:relative;
-      overflow:hidden;
-      transition: transform .18s ease, border-color .2s ease, background .2s ease;
+      transition:.2s;
     }
-    .box:hover{
-      transform: translateY(-2px);
+    .card:hover{
       background: rgba(255,255,255,.045);
-      border-color: rgba(255,255,255,.18);
+      transform: translateY(-2px);
     }
-    .box h3{
+    .card h3{
       margin:0 0 8px;
-      font-size: 13px;
+      font-size: 14px;
       letter-spacing:.06em;
       text-transform: uppercase;
       color: rgba(255,255,255,.72);
     }
-    .box p{
+    .card p{
       margin:0;
-      color: rgba(255,255,255,.65);
       font-size: 13px;
+      color: rgba(255,255,255,.65);
       line-height:1.6;
     }
 
-    /* ========= Infinite Gallery ========= */
-    .case{
-      padding: 18px;
-    }
-    .case-top{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom: 10px;
-    }
-    .case-top .hint{
-      color: var(--muted);
-      font-size: 12.5px;
-    }
-
-    .case-window{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: var(--radius2);
-      overflow:hidden;
-      position:relative;
-    }
-
-    .viewport{
-      position:relative;
-      height: 220px;
-      overflow:hidden;
-    }
-
-    .track{
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      padding: 0 16px;
-      will-change: transform;
-      transform: translate3d(0,0,0);
-    }
-
-    .tile{
-      flex:0 0 auto;
-      width: 180px;
-      height: 180px;
-      border-radius: 18px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      box-shadow: 0 18px 55px rgba(0,0,0,.30);
-      position:relative;
-    }
-    .tile img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      transform: scale(1.03);
-      filter: saturate(1.08) contrast(1.05);
-    }
-    .tile::after{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(220px 160px at 20% 20%, rgba(56,189,248,.16), transparent 55%),
-        radial-gradient(220px 160px at 80% 20%, rgba(168,85,247,.16), transparent 55%),
-        linear-gradient(180deg, transparent 55%, rgba(0,0,0,.25));
-      pointer-events:none;
-      opacity:.95;
-    }
-    .tile .cap{
-      position:absolute;
-      left:10px; right:10px; bottom:10px;
-      padding:8px 10px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(7,10,18,.55);
-      backdrop-filter: blur(10px);
-      color: rgba(255,255,255,.78);
-      font-size: 13px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
     footer{
+      margin-top: 30px;
       padding: 22px 0 34px;
+      border-top: 1px solid rgba(255,255,255,.10);
       color: rgba(255,255,255,.60);
       font-size: 12.5px;
     }
-    .foot{
-      display:flex;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap:wrap;
-      border-top:1px solid rgba(255,255,255,.10);
-      padding-top: 14px;
-    }
 
-    @media (max-width: 920px){
-      .grid3{ grid-template-columns: 1fr; }
-      .tile{ width: 155px; height: 155px; }
-      .viewport{ height: 200px; }
+    @media (max-width:900px){
+      .grid{ grid-template-columns:1fr; }
     }
   </style>
 </head>
-
 <body>
   <div class="topbar">
     <div class="wrap topbar-inner">
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
+        <div class="logo"></div>
         <div>
           <h1>8-Б · СШІТ №2</h1>
-          <div class="title">м. Золотоноша — наш класний сайт</div>
+          <div class="title">Класний сайт</div>
         </div>
       </div>
 
       <nav class="nav">
-        <a href="#about">Про нас</a>
-        <a href="#life">Життя класу</a>
-        <a href="#gallery">Галерея</a>
-
-        <a class="tiktok" href="https://www.tiktok.com/@school_boy_and.girl" target="_blank" rel="noreferrer">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M14 3v10.2a4.2 4.2 0 1 1-4.2-4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M14 6c1.2 2.4 3.2 3.9 6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <span>TikTok класу</span>
-        </a>
+        <a href="./index.html">Головна</a>
+        <a href="./news/index.html">Новини</a>
+        <a href="https://www.tiktok.com/@school_boy_and.girl" target="_blank" rel="noreferrer">TikTok</a>
       </nav>
     </div>
   </div>
 
-  <header class="hero">
-    <div class="wrap">
-      <div class="card hero-main">
-        <div class="kicker"><span class="dot"></span> 8-Б · наш простір</div>
-        <h2>Сайт класу 8-Б — СШІТ №2 (Золотоноша)</h2>
-        <p>test text test text test text test text test text test text test text.</p>
+  <header class="wrap">
+    <div class="hero">
+      <h2>Сайт класу 8-Б</h2>
+      <p>Офіційний сайт нашого класу. Тут — інформація про нас, наші події, новини та спогади.</p>
+
+      <div class="actions">
+        <a class="btn primary" href="./news/index.html">Перейти до новин</a>
+        <a class="btn" href="https://www.tiktok.com/@school_boy_and.girl" target="_blank" rel="noreferrer">Наш TikTok</a>
       </div>
     </div>
   </header>
 
   <main class="wrap">
-    <section id="about">
-      <div class="section-title">
-        <h2>Про нас</h2>
-        <p>коротко і по суті</p>
-      </div>
-      <div class="grid3">
-        <div class="box">
-          <h3>Хто ми</h3>
-          <p>test text test text test text test text test text.</p>
+    <section>
+      <div class="grid">
+        <div class="card">
+          <h3>Про клас</h3>
+          <p>test text test text test text test text.</p>
         </div>
-        <div class="box">
-          <h3>Чим живемо</h3>
-          <p>test text test text test text test text test text.</p>
-        </div>
-        <div class="box">
-          <h3>Наш вайб</h3>
-          <p>test text test text test text test text test text.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="life">
-      <div class="section-title">
-        <h2>Життя класу</h2>
-        <p>події · спогади · приколи</p>
-      </div>
-      <div class="grid3">
-        <div class="box">
+        <div class="card">
           <h3>Події</h3>
-          <p>test text test text test text test text test text.</p>
+          <p>Усі події та оголошення публікуються у розділі новин.</p>
         </div>
-        <div class="box">
-          <h3>Поїздки</h3>
-          <p>test text test text test text test text test text.</p>
-        </div>
-        <div class="box">
-          <h3>Традиції</h3>
-          <p>test text test text test text test text test text.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="gallery">
-      <div class="section-title">
-        <h2>Галерея 8-Б</h2>
-        <p>test text · test text · test text</p>
-      </div>
-
-      <div class="card case">
-        <div class="case-top">
-          <div>
-            <div style="color: rgba(255,255,255,.86); font-size: 14px;">Стрічка фото</div>
-            <div class="hint">test text test text test text</div>
-          </div>
-        </div>
-
-        <div class="case-window">
-          <div class="viewport" id="viewport">
-            <div class="track" id="track"></div>
-          </div>
+        <div class="card">
+          <h3>Галерея</h3>
+          <p>Фотографії з життя класу та наших заходів.</p>
         </div>
       </div>
     </section>
 
     <footer>
-      <div class="foot">
-        <div>
-          <div><strong>СШІТ №2 · м. Золотоноша · 8-Б</strong></div>
-          <div class="muted">test text test text test text</div>
-        </div>
-        <div class="muted">Автор сайту: <strong>lukyyy</strong> · test text</div>
-      </div>
+      СШІТ №2 · м. Золотоноша · 8-Б · Автор сайту: <strong>lukyyy</strong>
     </footer>
   </main>
-
-  <script>
-    // ====== ФОТО: закидай у репозиторій в папку assets/ ======
-    const galleryItems = [
-      { title: "test text", src: "./assets/1.jpg" },
-      { title: "test text", src: "./assets/2.jpg" },
-      { title: "test text", src: "./assets/3.jpg" },
-      { title: "test text", src: "./assets/4.jpg" },
-      { title: "test text", src: "./assets/5.jpg" },
-      { title: "test text", src: "./assets/6.jpg" },
-    ];
-
-    const track = document.getElementById("track");
-
-    function buildTrack() {
-      track.innerHTML = "";
-      const doubled = [...galleryItems, ...galleryItems, ...galleryItems, ...galleryItems]; // довше
-      doubled.forEach(item => {
-        const tile = document.createElement("div");
-        tile.className = "tile";
-        tile.innerHTML = `
-          <img src="${item.src}" alt="${item.title}">
-          <div class="cap">${item.title}</div>
-        `;
-        track.appendChild(tile);
-      });
-    }
-
-    buildTrack();
-
-    // ====== AUTO SCROLL (speed = 30) ======
-    let offset = 0;
-    let speed = 30; // як ти просив
-    let last = null;
-    let loopW = 1;
-
-    function getLoopWidth() {
-      const tiles = track.querySelectorAll(".tile");
-      if (!tiles.length) return 1;
-      const n = galleryItems.length;
-      const a = tiles[0].getBoundingClientRect();
-      const b = tiles[n].getBoundingClientRect();
-      const w = Math.abs(b.left - a.left);
-      return w > 50 ? w : (n * 192);
-    }
-
-    function recalcLoop() {
-      requestAnimationFrame(() => {
-        loopW = getLoopWidth();
-      });
-    }
-    window.addEventListener("resize", recalcLoop);
-    recalcLoop();
-
-    function tick(ts){
-      if (last === null) last = ts;
-      const dt = (ts - last) / 1000;
-      last = ts;
-
-      offset += speed * dt;
-      if (offset > loopW) offset -= loopW;
-
-      track.style.transform = `translate3d(${-offset}px,0,0)`;
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  </script>
 </body>
 </html>
