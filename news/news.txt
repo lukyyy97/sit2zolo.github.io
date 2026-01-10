@@ -1,1 +1,15 @@
+Заголовок: Перша новина 8-Б
+Дата: 2026-01-10
+Фото: assets/1.jpg
+Текст:
+test text test text test text
+test text test text
+---
 
+Заголовок: Друга новина
+Дата: 2026-01-07
+Фото: assets/2.jpg, assets/3.jpg
+Текст:
+test text test text test text
+test text
+---
