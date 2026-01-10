@@ -24,7 +24,6 @@ function parseNews(text) {
       ? photosRaw.split(",").map(s => s.trim()).filter(Boolean)
       : [];
 
-    // текст після "Текст:"
     let body = "";
     const idx = block.toLowerCase().indexOf("текст:");
     if (idx !== -1) {
@@ -34,7 +33,6 @@ function parseNews(text) {
     return { title, date, photos, body };
   });
 
-  // сортування: нові зверху (якщо дата у форматі YYYY-MM-DD)
   posts.sort((a,b) => (b.date || "").localeCompare(a.date || ""));
   return posts;
 }
@@ -90,8 +88,8 @@ function renderNews(posts) {
     renderNews(posts);
   } catch (e) {
     console.error(e);
-    document.getElementById("emptyState").style.display = "block";
-    document.getElementById("emptyState").innerText =
-      "Не вдалося завантажити новини. Перевір, чи існує файл news/news.txt";
+    const empty = document.getElementById("emptyState");
+    empty.style.display = "block";
+    empty.innerText = "Не вдалося завантажити новини. Перевір, чи існує файл news/news.txt";
   }
 })();
