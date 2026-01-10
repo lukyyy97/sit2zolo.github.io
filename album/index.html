@@ -36,9 +36,11 @@
       --glass-bg2: rgba(255,255,255,.020);
       --glass-border: rgba(255,255,255,.16);
 
-      --gold1: rgba(255, 214, 102, .62);
-      --gold2: rgba(255, 180, 90, .44);
-      --gold3: rgba(255, 244, 182, .30);
+      --goldA: rgba(255, 214, 102, .70);
+      --goldB: rgba(255, 170, 80, .55);
+      --goldC: rgba(255, 245, 190, .40);
+      --goldLine: rgba(255, 214, 102, .34);
+      --goldGlow: rgba(255, 190, 90, .22);
     }
 
     html[data-theme="light"]{
@@ -69,9 +71,11 @@
       --glass-bg2: rgba(255,255,255,.52);
       --glass-border: rgba(10,12,18,.12);
 
-      --gold1: rgba(255, 196, 78, .60);
-      --gold2: rgba(255, 166, 66, .42);
-      --gold3: rgba(255, 224, 150, .28);
+      --goldA: rgba(255, 196, 78, .70);
+      --goldB: rgba(255, 160, 70, .55);
+      --goldC: rgba(255, 225, 160, .42);
+      --goldLine: rgba(255, 180, 70, .28);
+      --goldGlow: rgba(255, 170, 70, .18);
     }
 
     *{ box-sizing:border-box; }
@@ -243,7 +247,6 @@
       gap: 14px;
     }
 
-    /* LIQUID GLASS CARD */
     .card{
       border-radius: var(--radius2);
       position:relative;
@@ -256,7 +259,7 @@
       box-shadow:
         0 18px 55px rgba(0,0,0,.22),
         inset 0 1px 0 rgba(255,255,255,.14);
-      transition: transform .18s ease, border-color .2s ease;
+      transition: transform .18s ease, border-color .2s ease, box-shadow .2s ease;
     }
     html[data-theme="light"] .card{
       box-shadow:
@@ -271,7 +274,6 @@
       border-color: rgba(10,12,18,.18);
     }
 
-    /* "liquid" highlight */
     .card::after{
       content:"";
       position:absolute;
@@ -282,7 +284,6 @@
       pointer-events:none;
     }
 
-    /* Outer frame: double-border illusion */
     .frame{
       margin: 12px;
       border-radius: calc(var(--radius2) - 8px);
@@ -296,7 +297,6 @@
       background: rgba(255,255,255,.40);
     }
 
-    /* Inner photo frame (second border) */
     .photo-wrap{
       margin: 12px;
       border-radius: 20px;
@@ -313,10 +313,8 @@
     .photo{
       height: 220px;
       background: rgba(255,255,255,.02);
-      position:relative;
       overflow:hidden;
     }
-
     .photo img{
       width:100%;
       height:100%;
@@ -356,14 +354,22 @@
     }
     html[data-theme="light"] .quote{ color: rgba(10,12,18,.64); }
 
-    /* Leader gold border + crown */
+    /* GOLD TEACHER CARD (no crown) */
+    .leader{
+      border-color: rgba(255,214,102,.28);
+      box-shadow:
+        0 22px 70px rgba(255,190,90,.10),
+        0 18px 55px rgba(0,0,0,.20),
+        inset 0 1px 0 rgba(255,255,255,.16);
+    }
+
     .leader::before{
       content:"";
       position:absolute;
       inset:-1px;
       border-radius: var(--radius2);
       padding: 1px;
-      background: linear-gradient(120deg, var(--gold1), var(--gold2), var(--gold3));
+      background: linear-gradient(120deg, var(--goldA), var(--goldB), var(--goldC));
       -webkit-mask:
         linear-gradient(#000 0 0) content-box,
         linear-gradient(#000 0 0);
@@ -372,37 +378,56 @@
       pointer-events:none;
     }
 
-    .leader .crown{
+    /* constant soft glow */
+    .leader::after{
+      content:"";
       position:absolute;
-      top: -12px;
-      right: 16px;
-      width: 40px;
-      height: 40px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(255,214,102,.30), rgba(255,180,90,.18));
-      border: 1px solid rgba(255,214,102,.26);
-      box-shadow: 0 18px 55px rgba(255,190,90,.14);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:3;
-      transform: rotate(10deg);
-      backdrop-filter: blur(10px) saturate(160%);
-      -webkit-backdrop-filter: blur(10px) saturate(160%);
+      inset:-40%;
+      background:
+        radial-gradient(500px 260px at 20% 15%, var(--goldGlow), transparent 55%),
+        radial-gradient(520px 300px at 85% 30%, rgba(255,245,190,.14), transparent 60%),
+        radial-gradient(700px 380px at 50% 90%, rgba(255,170,80,.10), transparent 60%);
+      filter: blur(6px);
+      opacity: .95;
+      pointer-events:none;
+      animation: glowPulse 4.6s ease-in-out infinite;
     }
-    .leader .crown span{
-      font-size: 20px;
-      user-select:none;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
+
+    @keyframes glowPulse{
+      0%,100%{ opacity:.82; transform: translateY(0) scale(1); }
+      50%{ opacity:1; transform: translateY(-2px) scale(1.01); }
+    }
+
+    /* hover "shine sweep" */
+    .leader .shine{
+      position:absolute;
+      inset:-40%;
+      background: conic-gradient(from 220deg, transparent 0 40%, rgba(255,255,255,.18) 48%, transparent 58% 100%);
+      transform: rotate(0deg);
+      opacity: .35;
+      pointer-events:none;
+      animation: slowSpin 10s linear infinite;
+    }
+    @keyframes slowSpin{
+      to{ transform: rotate(360deg); }
+    }
+
+    .leader:hover{
+      transform: translateY(-3px);
+      box-shadow:
+        0 26px 90px rgba(255,190,90,.14),
+        0 18px 55px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.18);
+      border-color: rgba(255,214,102,.40);
     }
 
     .leader .frame{
-      border-color: rgba(255,214,102,.22);
+      border-color: rgba(255,214,102,.24);
       background: rgba(255,214,102,.04);
     }
     .leader .photo-wrap{
-      border-color: rgba(255,214,102,.24);
-      background: rgba(255,214,102,.04);
+      border-color: rgba(255,214,102,.28);
+      background: rgba(255,214,102,.035);
     }
 
     footer{
@@ -459,7 +484,7 @@
   <header class="wrap">
     <div class="hero">
       <h2>Учні 8-Б</h2>
-      <p>Картки учнів: фото, ПІБ, день народження (без року) та цитата. Перша картка — класний керівник із золотим акцентом.</p>
+      <p>Картки учнів: фото, ПІБ, день народження (без року) та цитата. Перша картка — класний керівник із золотим сяйвом.</p>
     </div>
   </header>
 
