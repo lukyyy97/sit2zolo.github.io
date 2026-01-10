@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Альбом 8-Б — СШІТ №2</title>
+  <title>Учні 8-Б — СШІТ №2</title>
 
   <style>
     :root{
@@ -26,17 +26,18 @@
       --pill-bg: rgba(255,255,255,.03);
       --pill-border: rgba(255,255,255,.10);
 
-      --card-bg: rgba(255,255,255,.03);
-      --card-bg-hover: rgba(255,255,255,.045);
-
       --hero-bg1: rgba(255,255,255,.07);
       --hero-bg2: rgba(255,255,255,.03);
 
       --btn-bg: rgba(255,255,255,.04);
       --btn-border: rgba(255,255,255,.14);
 
-      --gold1: rgba(255, 214, 102, .55);
-      --gold2: rgba(255, 180, 90, .42);
+      --glass-bg: rgba(255,255,255,.045);
+      --glass-bg2: rgba(255,255,255,.020);
+      --glass-border: rgba(255,255,255,.16);
+
+      --gold1: rgba(255, 214, 102, .62);
+      --gold2: rgba(255, 180, 90, .44);
       --gold3: rgba(255, 244, 182, .30);
     }
 
@@ -58,18 +59,19 @@
       --pill-bg: rgba(10,12,18,.04);
       --pill-border: rgba(10,12,18,.12);
 
-      --card-bg: rgba(255,255,255,.72);
-      --card-bg-hover: rgba(255,255,255,.88);
-
       --hero-bg1: rgba(255,255,255,.80);
       --hero-bg2: rgba(255,255,255,.62);
 
       --btn-bg: rgba(10,12,18,.05);
       --btn-border: rgba(10,12,18,.14);
 
-      --gold1: rgba(255, 196, 78, .55);
+      --glass-bg: rgba(255,255,255,.78);
+      --glass-bg2: rgba(255,255,255,.52);
+      --glass-border: rgba(10,12,18,.12);
+
+      --gold1: rgba(255, 196, 78, .60);
       --gold2: rgba(255, 166, 66, .42);
-      --gold3: rgba(255, 224, 150, .30);
+      --gold3: rgba(255, 224, 150, .28);
     }
 
     *{ box-sizing:border-box; }
@@ -172,21 +174,10 @@
       opacity:.75;
       user-select:none;
     }
-    .switch{
-      position:relative;
-      display:inline-block;
-      width:42px;
-      height:22px;
-    }
-    .switch input{
-      opacity:0;
-      width:0;
-      height:0;
-    }
+    .switch{ position:relative; display:inline-block; width:42px; height:22px; }
+    .switch input{ opacity:0; width:0; height:0; }
     .slider{
-      position:absolute;
-      cursor:pointer;
-      inset:0;
+      position:absolute; cursor:pointer; inset:0;
       background: rgba(255,255,255,.15);
       border-radius:999px;
       transition:.25s;
@@ -199,20 +190,14 @@
     .slider::before{
       content:"";
       position:absolute;
-      height:16px;
-      width:16px;
-      left:3px;
-      top:2px;
+      height:16px; width:16px;
+      left:3px; top:2px;
       background: rgba(255,255,255,.92);
       border-radius:50%;
       transition:.25s;
     }
-    html[data-theme="light"] .slider::before{
-      background: rgba(10,12,18,.82);
-    }
-    input:checked + .slider::before{
-      transform: translateX(20px);
-    }
+    html[data-theme="light"] .slider::before{ background: rgba(10,12,18,.82); }
+    input:checked + .slider::before{ transform: translateX(20px); }
 
     header{ padding: 38px 0 12px; }
     .hero{
@@ -245,51 +230,9 @@
       color: var(--muted);
       font-size: 14px;
       line-height:1.65;
-      max-width: 80ch;
+      max-width: 82ch;
       position:relative;
       z-index:1;
-    }
-
-    .toolbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top: 14px;
-    }
-    .search{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--btn-border);
-      background: var(--btn-bg);
-      min-width: min(520px, 100%);
-      flex: 1 1 320px;
-    }
-    .search .icon{ opacity:.7; user-select:none; }
-    .search input{
-      width:100%;
-      border:none;
-      outline:none;
-      background: transparent;
-      color: var(--text);
-      font-size: 13px;
-    }
-    .search input::placeholder{ color: rgba(255,255,255,.45); }
-    html[data-theme="light"] .search input::placeholder{ color: rgba(10,12,18,.42); }
-
-    .hint{
-      font-size: 12.5px;
-      color: var(--muted);
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--pill-border);
-      background: var(--pill-bg);
-      user-select:none;
-      white-space:nowrap;
     }
 
     main{ padding: 18px 0 34px; }
@@ -300,35 +243,79 @@
       gap: 14px;
     }
 
+    /* LIQUID GLASS CARD */
     .card{
       border-radius: var(--radius2);
-      border: 1px solid var(--line);
-      background: var(--card-bg);
-      box-shadow: 0 18px 55px rgba(0,0,0,.18);
-      overflow:hidden;
-      transition: transform .18s ease, border-color .2s ease, background .2s ease;
       position:relative;
+      overflow:hidden;
+
+      background: linear-gradient(180deg, var(--glass-bg), var(--glass-bg2));
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      box-shadow:
+        0 18px 55px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.14);
+      transition: transform .18s ease, border-color .2s ease;
     }
     html[data-theme="light"] .card{
-      box-shadow: 0 18px 55px rgba(10,12,18,.08);
+      box-shadow:
+        0 18px 55px rgba(10,12,18,.10),
+        inset 0 1px 0 rgba(255,255,255,.35);
     }
     .card:hover{
       transform: translateY(-2px);
-      background: var(--card-bg-hover);
-      border-color: rgba(255,255,255,.18);
+      border-color: rgba(255,255,255,.22);
     }
     html[data-theme="light"] .card:hover{
       border-color: rgba(10,12,18,.18);
     }
 
+    /* "liquid" highlight */
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:-40% -30% auto -30%;
+      height: 70%;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.18), transparent 55%);
+      transform: rotate(-8deg);
+      pointer-events:none;
+    }
+
+    /* Outer frame: double-border illusion */
+    .frame{
+      margin: 12px;
+      border-radius: calc(var(--radius2) - 8px);
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.02);
+      overflow:hidden;
+      position:relative;
+    }
+    html[data-theme="light"] .frame{
+      border: 1px solid rgba(10,12,18,.14);
+      background: rgba(255,255,255,.40);
+    }
+
+    /* Inner photo frame (second border) */
+    .photo-wrap{
+      margin: 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.02);
+      overflow:hidden;
+      position:relative;
+    }
+    html[data-theme="light"] .photo-wrap{
+      border: 1px solid rgba(10,12,18,.14);
+      background: rgba(10,12,18,.03);
+    }
+
     .photo{
       height: 220px;
       background: rgba(255,255,255,.02);
-      border-bottom: 1px solid var(--line);
       position:relative;
       overflow:hidden;
     }
-    html[data-theme="light"] .photo{ background: rgba(10,12,18,.03); }
 
     .photo img{
       width:100%;
@@ -339,7 +326,7 @@
     }
 
     .body{
-      padding: 14px 14px 16px;
+      padding: 12px 14px 16px;
     }
     .name{
       margin:0 0 8px;
@@ -369,9 +356,7 @@
     }
     html[data-theme="light"] .quote{ color: rgba(10,12,18,.64); }
 
-    .leader{
-      border: 1px solid transparent;
-    }
+    /* Leader gold border + crown */
     .leader::before{
       content:"";
       position:absolute;
@@ -386,38 +371,39 @@
       mask-composite: exclude;
       pointer-events:none;
     }
+
     .leader .crown{
       position:absolute;
-      top: -10px;
-      right: 14px;
-      width: 36px;
-      height: 36px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(255,214,102,.35), rgba(255,180,90,.22));
-      border: 1px solid rgba(255,214,102,.30);
+      top: -12px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255,214,102,.30), rgba(255,180,90,.18));
+      border: 1px solid rgba(255,214,102,.26);
       box-shadow: 0 18px 55px rgba(255,190,90,.14);
       display:flex;
       align-items:center;
       justify-content:center;
       z-index:3;
-      transform: rotate(8deg);
+      transform: rotate(10deg);
+      backdrop-filter: blur(10px) saturate(160%);
+      -webkit-backdrop-filter: blur(10px) saturate(160%);
     }
     .leader .crown span{
-      font-size: 18px;
+      font-size: 20px;
       user-select:none;
-      filter: drop-shadow(0 8px 16px rgba(0,0,0,.25));
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.25));
     }
 
-    .empty{
-      display:none;
-      margin-top: 14px;
-      padding: 18px;
-      border-radius: var(--radius2);
-      border: 1px dashed rgba(255,255,255,.18);
-      background: var(--card-bg);
-      color: var(--muted);
+    .leader .frame{
+      border-color: rgba(255,214,102,.22);
+      background: rgba(255,214,102,.04);
     }
-    html[data-theme="light"] .empty{ border: 1px dashed rgba(10,12,18,.18); }
+    .leader .photo-wrap{
+      border-color: rgba(255,214,102,.24);
+      background: rgba(255,214,102,.04);
+    }
 
     footer{
       padding: 22px 0 34px;
@@ -448,7 +434,7 @@
         <div class="logo" aria-hidden="true"></div>
         <div>
           <h1>8-Б · СШІТ №2</h1>
-          <div class="title">Випускний альбом</div>
+          <div class="title">Учні</div>
         </div>
       </div>
 
@@ -472,21 +458,12 @@
 
   <header class="wrap">
     <div class="hero">
-      <h2>Альбом 8-Б</h2>
-      <p>Кожен учень має свою картку: фото, ПІБ, день народження (без року) та цитата. Перша картка — класний керівник із золотим акцентом.</p>
-
-      <div class="toolbar">
-        <div class="search">
-          <span class="icon">🔎</span>
-          <input id="searchInput" type="text" placeholder="Пошук по імені або прізвищу..." />
-        </div>
-        <div class="hint" id="countBox">Карток: 0</div>
-      </div>
+      <h2>Учні 8-Б</h2>
+      <p>Картки учнів: фото, ПІБ, день народження (без року) та цитата. Перша картка — класний керівник із золотим акцентом.</p>
     </div>
   </header>
 
   <main class="wrap">
-    <div class="empty" id="emptyState">Нічого не знайдено за вашим запитом.</div>
     <div class="grid" id="grid"></div>
 
     <footer>
