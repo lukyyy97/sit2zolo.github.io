@@ -1,1 +1,264 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Новини 8-Б — СШІТ №2</title>
 
+  <style>
+    :root{
+      --text:rgba(255,255,255,.88);
+      --muted:rgba(255,255,255,.62);
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --radius2: 26px;
+      --max: 1120px;
+
+      --c1: rgba(56,189,248,.22);
+      --c2: rgba(168,85,247,.22);
+      --c3: rgba(34,197,94,.14);
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:
+        radial-gradient(1200px 650px at 20% 10%, var(--c1), transparent 55%),
+        radial-gradient(900px 600px at 80% 18%, var(--c2), transparent 55%),
+        radial-gradient(1050px 700px at 50% 95%, var(--c3), transparent 55%),
+        linear-gradient(180deg, #050713 0%, #070A12 40%, #050713 100%);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding: 0 18px; }
+
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(7,10,18,.82), rgba(7,10,18,.44));
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 14px;
+    }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .logo{
+      width:40px; height:40px; border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(56,189,248,.9), rgba(168,85,247,.65) 45%, rgba(34,197,94,.35) 75%, rgba(255,255,255,.08) 100%);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 18px 45px rgba(168,85,247,.18);
+      position:relative; overflow:hidden;
+    }
+    .logo::after{
+      content:""; position:absolute; inset:-60%;
+      background: conic-gradient(from 200deg, transparent 0 35%, rgba(255,255,255,.16) 45%, transparent 60% 100%);
+      animation: spin 7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .brand h1{
+      margin:0;
+      font-size: 13px;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.70);
+    }
+    .brand .title{
+      margin:0;
+      font-size: 14px;
+      color: rgba(255,255,255,.90);
+      letter-spacing:.02em;
+    }
+
+    .nav{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    .nav a{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+    }
+    .nav a:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
+
+    header{ padding: 38px 0 12px; }
+    .hero{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(600px 220px at 20% 20%, rgba(56,189,248,.14), transparent 60%),
+        radial-gradient(600px 240px at 90% 10%, rgba(168,85,247,.14), transparent 60%);
+      pointer-events:none;
+    }
+    .hero h2{
+      margin: 0 0 8px;
+      font-size: clamp(22px, 3vw, 36px);
+      line-height:1.12;
+      letter-spacing: -0.02em;
+      position:relative;
+      z-index:1;
+    }
+    .hero p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.65;
+      max-width: 75ch;
+      position:relative;
+      z-index:1;
+    }
+
+    section{ padding: 18px 0 30px; }
+
+    .news-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .post{
+      padding: 16px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 18px 55px rgba(0,0,0,.25);
+      transition: transform .18s ease, border-color .2s ease, background .2s ease;
+      overflow:hidden;
+    }
+    .post:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.045);
+      border-color: rgba(255,255,255,.18);
+    }
+
+    .meta{
+      display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+      color: rgba(255,255,255,.62);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    .tag{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .date{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+    }
+
+    .post h3{
+      margin:0 0 10px;
+      font-size: 16px;
+      color: rgba(255,255,255,.90);
+    }
+
+    .post p{
+      margin:0;
+      color: rgba(255,255,255,.68);
+      font-size: 13px;
+      line-height:1.6;
+    }
+
+    .photos{
+      display:flex;
+      gap:10px;
+      overflow:auto;
+      padding: 4px 0 12px;
+      margin-bottom: 8px;
+    }
+    .ph{
+      flex:0 0 auto;
+      width: 180px;
+      height: 120px;
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+    }
+    .ph img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    #emptyState{
+      display:none;
+      padding: 18px;
+      border-radius: var(--radius2);
+      border: 1px dashed rgba(255,255,255,.18);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.65);
+    }
+
+    footer{
+      padding: 22px 0 34px;
+      color: rgba(255,255,255,.60);
+      font-size: 12.5px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      margin-top: 24px;
+    }
+
+    @media (max-width: 920px){
+      .news-grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>8-Б · СШІТ №2</h1>
+          <div class="title">Новини та події</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="../index.html">← На головну</a>
+        <a href="../index.html#gallery">Галерея</a>
+        <a href="https://www.tiktok.com/@school_boy_and.girl" target="_blank" rel="noreferrer">TikTok</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="wrap">
+    <div class="hero">
+      <h2>Новини 8-Б</h2>
+      <p>Тут публікуються наші події, поїздки, спогади та інші оновлення. Додавай новини у файл <strong>news/news.txt</strong> — і сторінка підхопить їх автоматично.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <div id="emptyState">Поки що новин немає. Додай перший пост у <strong>news/news.txt</strong>.</div>
+      <div class="news-grid" id="newsList"></div>
+    </section>
+
+    <footer>
+      СШІТ №2 · м. Золотоноша · 8-Б · Автор сайту: <strong>lukyyy</strong>
+    </footer>
+  </main>
+
+  <script src="./news.js"></script>
+</body>
+</html>
