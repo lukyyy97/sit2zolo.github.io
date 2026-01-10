@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Енергія минулого і майбутнього — 8-Б</title>
+  <title>8-Б — СШІТ №2 · Золотоноша</title>
 
   <style>
     :root{
@@ -18,9 +18,9 @@
       --radius2: 26px;
       --max: 1120px;
 
-      --c1: rgba(56,189,248,.22);  /* cyan */
-      --c2: rgba(168,85,247,.22);  /* violet */
-      --c3: rgba(34,197,94,.14);   /* green */
+      --c1: rgba(56,189,248,.22);
+      --c2: rgba(168,85,247,.22);
+      --c3: rgba(34,197,94,.14);
     }
 
     *{ box-sizing:border-box; }
@@ -36,28 +36,10 @@
       color:var(--text);
       overflow-x:hidden;
     }
-
-    /* Animated background sheen */
-    .bg-sheen{
-      position:fixed; inset:0; pointer-events:none; z-index:-1;
-      opacity:.55;
-      background:
-        radial-gradient(700px 240px at 20% 20%, rgba(255,255,255,.06), transparent 60%),
-        radial-gradient(800px 320px at 80% 30%, rgba(255,255,255,.05), transparent 60%);
-      filter: blur(0px);
-      animation: floatSheen 10s ease-in-out infinite;
-    }
-    @keyframes floatSheen{
-      0%{ transform: translate3d(0,0,0) scale(1); opacity:.45; }
-      50%{ transform: translate3d(0,-10px,0) scale(1.02); opacity:.62; }
-      100%{ transform: translate3d(0,0,0) scale(1); opacity:.45; }
-    }
-
     a{ color:inherit; text-decoration:none; }
-
     .wrap{ max-width:var(--max); margin:0 auto; padding: 0 18px; }
 
-    /* Sticky topbar */
+    /* Topbar */
     .topbar{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(12px);
@@ -71,7 +53,6 @@
     }
     .brand{
       display:flex; align-items:center; gap:12px;
-      min-width: 260px;
     }
     .logo{
       width:40px; height:40px; border-radius:12px;
@@ -105,6 +86,7 @@
     .nav{
       display:flex; gap: 8px; flex-wrap:wrap;
       justify-content:flex-end;
+      align-items:center;
     }
     .nav a{
       padding: 10px 12px;
@@ -122,7 +104,19 @@
       border-color: rgba(255,255,255,.18);
     }
 
-    /* Cards */
+    /* TikTok badge */
+    .tiktok{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(56,189,248,.26);
+      background: linear-gradient(90deg, rgba(56,189,248,.16), rgba(168,85,247,.12));
+      box-shadow: 0 18px 55px rgba(56,189,248,.08);
+    }
+    .tiktok svg{ width:16px; height:16px; opacity:.95; }
+    .tiktok span{ font-size:13px; color: rgba(255,255,255,.86); }
+
+    /* Cards / sections */
     .card{
       border:1px solid var(--line);
       background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
@@ -140,26 +134,8 @@
       pointer-events:none;
     }
 
-    /* Reveal animation */
-    .reveal{
-      opacity:0;
-      transform: translateY(16px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-    .reveal.in{
-      opacity:1;
-      transform: translateY(0);
-    }
-
-    /* Hero */
     .hero{ padding: 44px 0 16px; }
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.12fr .88fr;
-      gap: 18px;
-      align-items:stretch;
-    }
-    .hero-main{ padding: 22px 22px 18px; min-height: 320px; }
+    .hero-main{ padding: 24px; }
     .kicker{
       display:inline-flex; align-items:center; gap:10px;
       padding: 8px 12px;
@@ -170,8 +146,6 @@
       font-size: 12px;
       letter-spacing:.06em;
       text-transform: uppercase;
-      position:relative;
-      z-index:1;
     }
     .dot{
       width:9px; height:9px; border-radius:99px;
@@ -183,7 +157,6 @@
       0%,100%{ transform: scale(1); opacity:1; }
       50%{ transform: scale(1.25); opacity:.75; }
     }
-
     .hero h2{
       margin: 14px 0 10px;
       font-size: clamp(24px, 3.2vw, 42px);
@@ -193,47 +166,11 @@
       z-index:1;
     }
     .hero p{
-      margin:0 0 16px;
+      margin:0;
       color: var(--muted);
       font-size: 14px;
       line-height:1.65;
-      position:relative;
-      z-index:1;
-      max-width: 66ch;
-    }
-    .hero-side{
-      padding: 18px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-      min-height: 320px;
-    }
-    .mini{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: var(--radius);
-      padding: 14px;
-      position:relative;
-      overflow:hidden;
-      transition: transform .18s ease, border-color .2s ease, background .2s ease;
-    }
-    .mini:hover{
-      transform: translateY(-2px);
-      background: rgba(255,255,255,.045);
-      border-color: rgba(255,255,255,.18);
-    }
-    .mini h3{
-      margin:0 0 6px;
-      font-size: 13px;
-      letter-spacing:.06em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.72);
-    }
-    .mini p{
-      margin:0;
-      font-size: 13px;
-      color: rgba(255,255,255,.65);
-      line-height:1.55;
+      max-width: 70ch;
     }
 
     section{ padding: 26px 0; }
@@ -289,97 +226,123 @@
       line-height:1.6;
     }
 
-    /* Timeline / Animation */
-    .timeline{
+    /* ========= CSGO-Style Gallery ========= */
+    .case{
       padding: 18px;
     }
-    .timeline-grid{
-      display:grid;
-      grid-template-columns: 1.12fr .88fr;
-      gap: 14px;
-      align-items:stretch;
+    .case-top{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 10px;
     }
-    .stage{
+    .case-top .hint{
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .case-window{
       border:1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
       border-radius: var(--radius2);
       overflow:hidden;
       position:relative;
     }
-    .stage-head{
+
+    /* Viewport */
+    .viewport{
+      position:relative;
+      height: 220px;
+      overflow:hidden;
+    }
+
+    /* Track that moves */
+    .track{
+      position:absolute;
+      inset:0;
       display:flex;
       align-items:center;
-      justify-content:space-between;
-      padding: 14px 14px 10px;
-      border-bottom:1px solid rgba(255,255,255,.08);
+      gap: 12px;
+      padding: 0 16px;
+      will-change: transform;
+      transform: translate3d(0,0,0);
     }
-    .stage-head .label{
-      display:flex; align-items:center; gap:10px;
-      color: rgba(255,255,255,.82);
-      font-size: 13px;
-    }
-    .pill{
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
+
+    .tile{
+      flex:0 0 auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 18px;
+      overflow:hidden;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
-      color: rgba(255,255,255,.72);
+      box-shadow: 0 18px 55px rgba(0,0,0,.30);
+      position:relative;
     }
-    .canvas-wrap{ position:relative; height: 260px; padding: 12px; }
-    canvas{
+    .tile img{
       width:100%;
       height:100%;
-      border-radius: 16px;
-      background:
-        radial-gradient(900px 320px at 20% 10%, rgba(56,189,248,.10), transparent 60%),
-        radial-gradient(650px 300px at 80% 30%, rgba(168,85,247,.12), transparent 60%),
-        rgba(255,255,255,.02);
-      border:1px solid rgba(255,255,255,.10);
+      object-fit:cover;
       display:block;
+      transform: scale(1.03);
+      filter: saturate(1.08) contrast(1.05);
     }
-
-    .years{
-      display:grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      padding: 0 14px 14px;
+    .tile::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(220px 160px at 20% 20%, rgba(56,189,248,.18), transparent 55%),
+                  radial-gradient(220px 160px at 80% 20%, rgba(168,85,247,.18), transparent 55%),
+                  linear-gradient(180deg, transparent 55%, rgba(0,0,0,.25));
+      pointer-events:none;
+      opacity:.95;
     }
-    .year-chip{
-      text-align:center;
-      font-size: 12px;
-      padding: 8px 10px;
-      border-radius: 999px;
+    .tile .cap{
+      position:absolute;
+      left:10px; right:10px; bottom:10px;
+      padding:8px 10px;
+      border-radius: 14px;
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: rgba(255,255,255,.65);
-      user-select:none;
-    }
-    .year-chip.active{
-      border-color: rgba(56,189,248,.28);
-      background: rgba(56,189,248,.10);
-      color: rgba(255,255,255,.80);
-      box-shadow: 0 14px 40px rgba(56,189,248,.10);
+      background: rgba(7,10,18,.55);
+      backdrop-filter: blur(10px);
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
-    .controls{
+    /* “Center line” like case opening */
+    .center-line{
+      position:absolute;
+      top:0; bottom:0;
+      left:50%;
+      width:2px;
+      transform: translateX(-50%);
+      background: rgba(34,197,94,.55);
+      box-shadow: 0 0 22px rgba(34,197,94,.35);
+      opacity:.8;
+      pointer-events:none;
+    }
+    .center-glow{
+      position:absolute;
+      left:50%;
+      top:0;
+      width: 220px;
+      height: 220px;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(34,197,94,.20), transparent 65%);
+      pointer-events:none;
+      opacity:.7;
+    }
+
+    .case-controls{
       display:flex;
-      gap:10px;
       flex-wrap:wrap;
-      padding: 0 14px 14px;
-    }
-    .range{
-      flex:1;
-      min-width: 240px;
-      display:flex;
-      flex-direction:column;
-      gap: 6px;
-      color: rgba(255,255,255,.70);
-      font-size: 12px;
-    }
-    input[type="range"]{
-      width:100%;
-      accent-color: #7dd3fc;
+      gap:10px;
+      padding: 12px 0 0;
+      align-items:center;
+      justify-content:space-between;
     }
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
@@ -395,83 +358,22 @@
       gap:10px;
     }
     .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.22); }
-    .btn svg{ width:16px; height:16px; opacity:.9; }
+    .btn.primary{
+      border-color: rgba(56,189,248,.35);
+      background: linear-gradient(90deg, rgba(56,189,248,.18), rgba(168,85,247,.16));
+      box-shadow: 0 18px 55px rgba(56,189,248,.10);
+    }
+    .btn svg{ width:16px; height:16px; opacity:.95; }
 
-    .info{
-      padding: 14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: var(--radius2);
+    .speed{
       display:flex;
-      flex-direction:column;
-      gap: 10px;
-    }
-    .info .big{
-      font-size: 15px;
-      color: rgba(255,255,255,.84);
-      line-height:1.55;
-    }
-    .kv{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
+      align-items:center;
       gap:10px;
+      color: rgba(255,255,255,.70);
+      font-size: 12.5px;
     }
-    .kv .item{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: 14px;
-      padding: 10px;
-    }
-    .kv .k{
-      font-size: 11px;
-      letter-spacing:.08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.62);
-      margin-bottom: 6px;
-    }
-    .kv .v{
-      font-size: 13px;
-      color: rgba(255,255,255,.84);
-    }
+    input[type="range"]{ accent-color: #7dd3fc; }
 
-    /* Gallery placeholders */
-    .gallery{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    .media{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: var(--radius2);
-      overflow:hidden;
-      position:relative;
-      min-height: 220px;
-    }
-    .media .ph{
-      position:absolute; inset:0;
-      background:
-        linear-gradient(110deg, rgba(255,255,255,.05) 0%, rgba(255,255,255,.02) 40%, rgba(255,255,255,.05) 65%);
-      background-size: 200% 100%;
-      animation: shimmer 2.2s ease-in-out infinite;
-    }
-    @keyframes shimmer{
-      0%{ background-position: 0% 0; }
-      50%{ background-position: 100% 0; }
-      100%{ background-position: 0% 0; }
-    }
-    .media .cap{
-      position:absolute; left:14px; right:14px; bottom:14px;
-      padding:10px 12px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(7,10,18,.55);
-      backdrop-filter: blur(10px);
-      color: rgba(255,255,255,.78);
-      font-size: 13px;
-    }
-
-    /* Footer */
     footer{
       padding: 22px 0 34px;
       color: rgba(255,255,255,.60);
@@ -485,248 +387,139 @@
       border-top:1px solid rgba(255,255,255,.10);
       padding-top: 14px;
     }
-    .muted{ color: rgba(255,255,255,.60); }
 
-    /* Responsive */
     @media (max-width: 920px){
-      .hero-grid, .timeline-grid, .gallery{ grid-template-columns: 1fr; }
       .grid3{ grid-template-columns: 1fr; }
-      .brand{ min-width: unset; }
-      .years{ grid-template-columns: 1fr; }
+      .tile{ width: 155px; height: 155px; }
+      .viewport{ height: 200px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="bg-sheen"></div>
-
   <div class="topbar">
     <div class="wrap topbar-inner">
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <h1>СШІТ №2 · м. Золотоноша</h1>
-          <div class="title">Проєкт 8-Б: «Енергія минулого і майбутнього»</div>
+          <h1>8-Б · СШІТ №2</h1>
+          <div class="title">м. Золотоноша — наш класний сайт</div>
         </div>
       </div>
 
-      <nav class="nav" aria-label="Навігація">
-        <a href="#about">Про тему</a>
-        <a href="#timeline">Еволюція</a>
-        <a href="#iv">IV група</a>
-        <a href="#gallery">Медіа</a>
-        <a href="#materials">Матеріали</a>
+      <nav class="nav">
+        <a href="#about">Про нас</a>
+        <a href="#life">Життя класу</a>
+        <a href="#gallery">Галерея</a>
+
+        <!-- TikTok badge (замінити посилання на своє) -->
+        <a class="tiktok" href="https://www.tiktok.com/@YOUR_TIKTOK" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M14 3v10.2a4.2 4.2 0 1 1-4.2-4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M14 6c1.2 2.4 3.2 3.9 6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>TikTok класу</span>
+        </a>
       </nav>
     </div>
   </div>
 
   <header class="hero">
     <div class="wrap">
-      <div class="hero-grid">
-        <div class="card hero-main reveal">
-          <div class="kicker"><span class="dot"></span> навчальний проєкт · 8-Б клас</div>
-          <h2>Енергія: від парової машини до сонячних панелей</h2>
-          <p>
-            test text test text test text test text test text test text test text.
-            test text test text test text test text.
-          </p>
-          <p style="margin-top:10px;">
-            <span class="muted">Учасники:</span> учні 8-Б класу · <span class="muted">Локація:</span> м. Золотоноша
-          </p>
-        </div>
-
-        <aside class="card hero-side reveal">
-          <div class="mini">
-            <h3>Мета</h3>
-            <p>test text test text test text test text test text.</p>
-          </div>
-          <div class="mini">
-            <h3>Формат</h3>
-            <p>Презентація · анімація · робота з таблицями Excel</p>
-          </div>
-          <div class="mini">
-            <h3>Результат</h3>
-            <p>test text test text test text test text test text.</p>
-          </div>
-        </aside>
+      <div class="card hero-main">
+        <div class="kicker"><span class="dot"></span> 8-Б · наш простір</div>
+        <h2>Сайт класу 8-Б — СШІТ №2 (Золотоноша)</h2>
+        <p>test text test text test text test text test text test text test text.</p>
       </div>
     </div>
   </header>
 
   <main class="wrap">
-
-    <section id="about" class="reveal">
+    <section id="about">
       <div class="section-title">
-        <h2>Про тему</h2>
-        <p>test text · test text · test text</p>
+        <h2>Про нас</h2>
+        <p>коротко і по суті</p>
       </div>
       <div class="grid3">
         <div class="box">
-          <h3>Минуле</h3>
-          <p>test text test text test text test text test text test text.</p>
+          <h3>Хто ми</h3>
+          <p>test text test text test text test text test text.</p>
         </div>
         <div class="box">
-          <h3>Сьогодення</h3>
-          <p>test text test text test text test text test text test text.</p>
+          <h3>Чим живемо</h3>
+          <p>test text test text test text test text test text.</p>
         </div>
         <div class="box">
-          <h3>Майбутнє</h3>
-          <p>test text test text test text test text test text test text.</p>
+          <h3>Наш вайб</h3>
+          <p>test text test text test text test text test text.</p>
         </div>
       </div>
     </section>
 
-    <section id="timeline" class="reveal">
+    <section id="life">
       <div class="section-title">
-        <h2>Анімація: енергетична еволюція</h2>
-        <p>Плавна анімація + роки по епохах</p>
+        <h2>Життя класу</h2>
+        <p>події · спогади · приколи</p>
       </div>
-
-      <div class="card timeline">
-        <div class="timeline-grid">
-          <div class="stage">
-            <div class="stage-head">
-              <div class="label">Шкала епох (приблизно)</div>
-              <div class="pill" id="epochPill">Епоха: …</div>
-            </div>
-
-            <div class="canvas-wrap">
-              <canvas id="energyCanvas" width="900" height="420"></canvas>
-            </div>
-
-            <div class="years" id="yearsRow">
-              <div class="year-chip" data-i="0">1700–1850</div>
-              <div class="year-chip" data-i="1">1850–1950</div>
-              <div class="year-chip" data-i="2">1950–2000</div>
-              <div class="year-chip" data-i="3">2000–2020</div>
-              <div class="year-chip" data-i="4">2020–2050</div>
-            </div>
-
-            <div class="controls">
-              <div class="range">
-                <div><span class="muted">Крок еволюції:</span> <span id="stepValue">0</span>/100</div>
-                <input id="stepRange" type="range" min="0" max="100" value="18" />
-              </div>
-
-              <button class="btn" id="playBtn" type="button" title="Запуск/пауза">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M8 5v14l11-7L8 5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                </svg>
-                Відтворити
-              </button>
-
-              <button class="btn" id="resetBtn" type="button" title="Скинути">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 4v6h6M20 20v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M20 10a8 8 0 0 0-14.9-3M4 14a8 8 0 0 0 14.9 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-                Скинути
-              </button>
-            </div>
-          </div>
-
-          <div class="info">
-            <div class="big" id="epochText">
-              test text test text test text test text test text test text.
-            </div>
-
-            <div class="kv">
-              <div class="item">
-                <div class="k">Технології</div>
-                <div class="v" id="kvTech">test text</div>
-              </div>
-              <div class="item">
-                <div class="k">Джерела енергії</div>
-                <div class="v" id="kvSource">test text</div>
-              </div>
-              <div class="item">
-                <div class="k">У фокусі</div>
-                <div class="v" id="kvFocus">test text</div>
-              </div>
-              <div class="item">
-                <div class="k">Примітка</div>
-                <div class="v" id="kvNote">test text</div>
-              </div>
-            </div>
-
-            <div class="mini">
-              <h3>Коротко</h3>
-              <p>test text test text test text test text test text.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="iv" class="reveal">
-      <div class="section-title">
-        <h2>IV група — інформатики</h2>
-        <p>Презентація · анімація · Excel</p>
-      </div>
-
       <div class="grid3">
         <div class="box">
-          <h3>Презентація</h3>
+          <h3>Події</h3>
           <p>test text test text test text test text test text.</p>
         </div>
         <div class="box">
-          <h3>Анімація</h3>
+          <h3>Поїздки</h3>
           <p>test text test text test text test text test text.</p>
         </div>
         <div class="box">
-          <h3>Excel та таблиці</h3>
+          <h3>Традиції</h3>
           <p>test text test text test text test text test text.</p>
         </div>
       </div>
     </section>
 
-    <section id="gallery" class="reveal">
+    <!-- ========= CSGO-Style Gallery (scroll only) ========= -->
+    <section id="gallery">
       <div class="section-title">
-        <h2>Медіа</h2>
-        <p>Тут можна вставити фото/відео (пізніше)</p>
+        <h2>Галерея 8-Б</h2>
+        <p>повільна прокрутка як у кейсах CS:GO (без “випадання”)</p>
       </div>
 
-      <div class="gallery">
-        <div class="media">
-          <div class="ph"></div>
-          <div class="cap">Фото: test text</div>
+      <div class="card case">
+        <div class="case-top">
+          <div>
+            <div style="color: rgba(255,255,255,.86); font-size: 14px;">Стрічка фото</div>
+            <div class="hint">Натисни “Старт” — і фото почнуть плавно їхати.</div>
+          </div>
         </div>
 
-        <div class="media">
-          <div class="ph"></div>
-          <div class="cap">Відео: test text</div>
+        <div class="case-window">
+          <div class="viewport" id="viewport">
+            <div class="center-glow"></div>
+            <div class="center-line"></div>
+            <div class="track" id="track"></div>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <section id="materials" class="reveal">
-      <div class="section-title">
-        <h2>Матеріали та файли</h2>
-        <p>test text · test text · test text</p>
-      </div>
+        <div class="case-controls">
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn primary" id="startBtn" type="button">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+              Старт
+            </button>
+            <button class="btn" id="stopBtn" type="button">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6 6h4v12H6zM14 6h4v12h-4z" stroke="currentColor" stroke-width="2"/></svg>
+              Стоп
+            </button>
+            <button class="btn" id="resetBtn" type="button">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 4v6h6M20 20v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 10a8 8 0 0 0-14.9-3M4 14a8 8 0 0 0 14.9 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Скинути
+            </button>
+          </div>
 
-      <div class="card" style="padding:18px;">
-        <div class="grid3">
-          <div class="box">
-            <h3>Слайди</h3>
-            <p>test text test text test text.</p>
-            <div style="margin-top:12px;">
-              <button class="btn" type="button" onclick="fakeAction('Слайди')">Відкрити (demo)</button>
-            </div>
-          </div>
-          <div class="box">
-            <h3>Excel</h3>
-            <p>test text test text test text.</p>
-            <div style="margin-top:12px;">
-              <button class="btn" type="button" onclick="fakeAction('Excel')">Переглянути (demo)</button>
-            </div>
-          </div>
-          <div class="box">
-            <h3>Опис</h3>
-            <p>test text test text test text test text.</p>
-            <div style="margin-top:12px;">
-              <button class="btn" type="button" onclick="fakeAction('Опис')">Читати (demo)</button>
-            </div>
+          <div class="speed">
+            <span class="muted">Швидкість:</span>
+            <input id="speedRange" type="range" min="4" max="45" value="14">
+            <span id="speedVal">14</span>
           </div>
         </div>
       </div>
@@ -736,280 +529,131 @@
       <div class="foot">
         <div>
           <div><strong>СШІТ №2 · м. Золотоноша · 8-Б</strong></div>
-          <div class="muted">Тема: «Енергія минулого і майбутнього: від парової машини до сонячних панелей»</div>
+          <div class="muted">test text test text test text</div>
         </div>
-        <div class="muted">
-          Автор сайту: <strong>lukyyy</strong> · test text
-        </div>
+        <div class="muted">Автор сайту: <strong>lukyyy</strong> · test text</div>
       </div>
     </footer>
-
   </main>
 
   <script>
-    // ========= Reveal on scroll =========
-    const revealEls = Array.from(document.querySelectorAll(".reveal"));
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }
-      });
-    },{ threshold: 0.12 });
-    revealEls.forEach(el=>io.observe(el));
-
-    // ========= Data for epochs =========
-    const epochs = [
-      { name:"Рання механіка", range:[0,20], years:"1700–1850",
-        text:"test text test text test text test text test text.",
-        tech:"test text", source:"test text", focus:"test text", note:"test text" },
-      { name:"Парові машини", range:[21,40], years:"1850–1950",
-        text:"test text test text test text test text test text.",
-        tech:"test text", source:"test text", focus:"test text", note:"test text" },
-      { name:"Електрифікація", range:[41,65], years:"1950–2000",
-        text:"test text test text test text test text test text.",
-        tech:"test text", source:"test text", focus:"test text", note:"test text" },
-      { name:"Сучасні системи", range:[66,85], years:"2000–2020",
-        text:"test text test text test text test text test text.",
-        tech:"test text", source:"test text", focus:"test text", note:"test text" },
-      { name:"Відновлювана енергія", range:[86,100], years:"2020–2050",
-        text:"test text test text test text test text test text.",
-        tech:"test text", source:"test text", focus:"test text", note:"test text" }
+    // ====== НАЛАШТУВАННЯ ФОТО ======
+    // 1) Закидай фото в репозиторій в папку: assets/
+    // 2) Тут міняй src на свої файли: "./assets/1.jpg"
+    const galleryItems = [
+      { title: "test text", src: "./assets/1.jpg" },
+      { title: "test text", src: "./assets/2.jpg" },
+      { title: "test text", src: "./assets/3.jpg" },
+      { title: "test text", src: "./assets/4.jpg" },
+      { title: "test text", src: "./assets/5.jpg" },
+      { title: "test text", src: "./assets/6.jpg" },
     ];
 
-    const el = (id)=>document.getElementById(id);
+    const track = document.getElementById("track");
+    const viewport = document.getElementById("viewport");
 
-    const canvas = el("energyCanvas");
-    const ctx = canvas.getContext("2d");
-    const stepRange = el("stepRange");
-    const stepValue = el("stepValue");
-    const epochPill = el("epochPill");
-    const epochText = el("epochText");
-    const kvTech = el("kvTech");
-    const kvSource = el("kvSource");
-    const kvFocus = el("kvFocus");
-    const kvNote = el("kvNote");
-    const playBtn = el("playBtn");
-    const resetBtn = el("resetBtn");
-    const yearChips = Array.from(document.querySelectorAll(".year-chip"));
-
-    // HiDPI canvas
-    function resizeCanvas(){
-      const rect = canvas.getBoundingClientRect();
-      const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
-      const w = Math.floor(rect.width * dpr);
-      const h = Math.floor(rect.height * dpr);
-      if(canvas.width !== w || canvas.height !== h){
-        canvas.width = w; canvas.height = h;
-      }
-      ctx.setTransform(1,0,0,1,0,0);
-      ctx.scale(dpr, dpr);
-    }
-
-    function getEpoch(step){
-      return epochs.find(e => step >= e.range[0] && step <= e.range[1]) || epochs[0];
-    }
-
-    function roundedRect(x, y, w, h, r){
-      ctx.beginPath();
-      ctx.moveTo(x+r, y);
-      ctx.arcTo(x+w, y, x+w, y+h, r);
-      ctx.arcTo(x+w, y+h, x, y+h, r);
-      ctx.arcTo(x, y+h, x, y, r);
-      ctx.arcTo(x, y, x+w, y, r);
-      ctx.closePath();
-    }
-
-    // Smooth “draw” effect
-    let animT = Number(stepRange.value)/100; // displayed progress 0..1
-    function draw(targetT){
-      resizeCanvas();
-      const rect = canvas.getBoundingClientRect();
-      const W = rect.width, H = rect.height;
-
-      // background clear
-      ctx.clearRect(0,0,W,H);
-
-      // subtle grid
-      ctx.globalAlpha = 0.22;
-      ctx.strokeStyle = "rgba(255,255,255,0.10)";
-      ctx.lineWidth = 1;
-      const gap = 26;
-      for(let x=12; x<W; x+=gap){ ctx.beginPath(); ctx.moveTo(x,12); ctx.lineTo(x,H-12); ctx.stroke(); }
-      for(let y=12; y<H; y+=gap){ ctx.beginPath(); ctx.moveTo(12,y); ctx.lineTo(W-12,y); ctx.stroke(); }
-      ctx.globalAlpha = 1;
-
-      const left=18, right=W-18, top=24, bottom=H-24;
-
-      // panel
-      ctx.fillStyle = "rgba(255,255,255,0.04)";
-      roundedRect(left, top, right-left, bottom-top, 16);
-      ctx.fill();
-      ctx.strokeStyle = "rgba(255,255,255,0.12)";
-      ctx.stroke();
-
-      // curve points
-      const points=[];
-      const n=95;
-      for(let i=0;i<=n;i++){
-        const p=i/n;
-        const base=(1-Math.pow(1-p,2.0))*0.62+0.12;
-        const wave=Math.sin(p*10)*0.03 + Math.sin(p*3.7)*0.015;
-        const yNorm=1-Math.min(0.92, Math.max(0.12, base+wave));
-        points.push({
-          x:left+(right-left)*p,
-          y:top+(bottom-top)*yNorm,
-          p
-        });
-      }
-
-      const visible = points.filter(pt => pt.p <= animT);
-      const cur = visible[visible.length-1] || points[0];
-
-      // glow stroke
-      ctx.lineCap="round"; ctx.lineJoin="round";
-      ctx.lineWidth=10;
-      ctx.strokeStyle="rgba(168,85,247,0.18)";
-      ctx.beginPath();
-      visible.forEach((pt,idx)=> idx?ctx.lineTo(pt.x,pt.y):ctx.moveTo(pt.x,pt.y));
-      ctx.stroke();
-
-      ctx.lineWidth=4;
-      ctx.strokeStyle="rgba(125,211,252,0.88)";
-      ctx.beginPath();
-      visible.forEach((pt,idx)=> idx?ctx.lineTo(pt.x,pt.y):ctx.moveTo(pt.x,pt.y));
-      ctx.stroke();
-
-      // marker
-      ctx.fillStyle="rgba(34,197,94,0.92)";
-      ctx.shadowColor="rgba(34,197,94,0.45)";
-      ctx.shadowBlur=18;
-      ctx.beginPath();
-      ctx.arc(cur.x,cur.y,6.5,0,Math.PI*2);
-      ctx.fill();
-      ctx.shadowBlur=0;
-
-      // top progress bar
-      ctx.fillStyle="rgba(255,255,255,0.08)";
-      roundedRect(left+14, top+14, (right-left)-28, 10, 999);
-      ctx.fill();
-      ctx.fillStyle="rgba(125,211,252,0.55)";
-      roundedRect(left+14, top+14, ((right-left)-28)*animT, 10, 999);
-      ctx.fill();
-
-      // little “particles”
-      ctx.globalAlpha = 0.55;
-      for(let i=0;i<10;i++){
-        const px = left + (right-left) * ((animT + i*0.07) % 1);
-        const py = top + 40 + Math.sin((animT*6 + i)*1.7) * 20 + i*2;
-        ctx.fillStyle = "rgba(255,255,255,0.10)";
-        ctx.beginPath();
-        ctx.arc(px, py, 1.8, 0, Math.PI*2);
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
-    }
-
-    function setYearActive(epochIndex){
-      yearChips.forEach(ch=>ch.classList.remove("active"));
-      const chip = yearChips.find(x => Number(x.dataset.i) === epochIndex);
-      if(chip) chip.classList.add("active");
-    }
-
-    function updateUI(step){
-      stepValue.textContent = String(step);
-      const ep = getEpoch(step);
-      epochPill.textContent = "Епоха: " + ep.name;
-
-      epochText.textContent = ep.text;
-      kvTech.textContent = ep.tech;
-      kvSource.textContent = ep.source;
-      kvFocus.textContent = ep.focus;
-      kvNote.textContent = ep.note;
-
-      setYearActive(epochs.indexOf(ep));
-    }
-
-    // Smooth animation toward slider
-    let targetT = animT;
-    function tick(){
-      // ease
-      animT += (targetT - animT) * 0.12;
-      draw(targetT);
-      requestAnimationFrame(tick);
-    }
-
-    // Playback
-    let playing = false;
-    let playRAF = null;
-
-    function play(){
-      if(playing) return;
-      playing = true;
-      playBtn.innerHTML = `
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M6 6h4v12H6zM14 6h4v12h-4z" stroke="currentColor" stroke-width="2"/>
-        </svg>
-        Пауза
-      `;
-      const run = ()=>{
-        const v = Number(stepRange.value);
-        const next = Math.min(100, v + 1);
-        stepRange.value = String(next);
-        targetT = next/100;
-        updateUI(next);
-        if(next >= 100){ pause(); return; }
-        playRAF = requestAnimationFrame(run);
-      };
-      playRAF = requestAnimationFrame(run);
-    }
-
-    function pause(){
-      playing = false;
-      if(playRAF) cancelAnimationFrame(playRAF);
-      playRAF = null;
-      playBtn.innerHTML = `
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M8 5v14l11-7L8 5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-        </svg>
-        Відтворити
-      `;
-    }
-
-    // Events
-    stepRange.addEventListener("input",(e)=>{
-      const step = Number(e.target.value);
-      targetT = step/100;
-      updateUI(step);
-    });
-    playBtn.addEventListener("click", ()=> playing ? pause() : play());
-    resetBtn.addEventListener("click", ()=>{
-      pause();
-      stepRange.value = "18";
-      targetT = 0.18;
-      updateUI(18);
-    });
-
-    // Click years => jump
-    yearChips.forEach(ch=>{
-      ch.addEventListener("click", ()=>{
-        const idx = Number(ch.dataset.i);
-        const mid = Math.round((epochs[idx].range[0] + epochs[idx].range[1]) / 2);
-        stepRange.value = String(mid);
-        targetT = mid/100;
-        updateUI(mid);
+    // Duplicate list to create endless feel
+    function buildTrack() {
+      track.innerHTML = "";
+      const doubled = [...galleryItems, ...galleryItems, ...galleryItems]; // more length
+      doubled.forEach(item => {
+        const tile = document.createElement("div");
+        tile.className = "tile";
+        tile.innerHTML = `
+          <img src="${item.src}" alt="${item.title}">
+          <div class="cap">${item.title}</div>
+        `;
+        track.appendChild(tile);
       });
+    }
+
+    buildTrack();
+
+    // ====== Smooth scrolling animation ======
+    let running = false;
+    let offset = 0;
+    let speed = 14; // px/sec base
+    let last = null;
+    let raf = null;
+
+    function getLoopWidth() {
+      // width of 1 "galleryItems" block in pixels:
+      // We created 3 blocks; loop by 1 block.
+      const tiles = track.querySelectorAll(".tile");
+      if (!tiles.length) return 1;
+
+      // approximate: sum first N tiles widths + gaps
+      // We'll compute with DOM: distance between start of tile0 and tileN
+      const n = galleryItems.length;
+      const first = tiles[0].getBoundingClientRect();
+      const nth = tiles[n].getBoundingClientRect();
+      // this is not perfect due to gaps, so we'll fallback if needed
+      const approx = Math.abs(nth.left - first.left);
+      return approx > 50 ? approx : (n * 192);
+    }
+
+    let loopW = 1;
+    function recalcLoop() {
+      // Wait a frame so images render sizes
+      requestAnimationFrame(() => {
+        loopW = getLoopWidth();
+      });
+    }
+    window.addEventListener("resize", recalcLoop);
+    recalcLoop();
+
+    function tick(ts){
+      if (!running) return;
+      if (last === null) last = ts;
+      const dt = (ts - last) / 1000;
+      last = ts;
+
+      // move left
+      offset += speed * dt;
+
+      // loop
+      if (offset > loopW) offset -= loopW;
+
+      track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      raf = requestAnimationFrame(tick);
+    }
+
+    // Controls
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const speedRange = document.getElementById("speedRange");
+    const speedVal = document.getElementById("speedVal");
+
+    function start(){
+      if (running) return;
+      running = true;
+      last = null;
+      raf = requestAnimationFrame(tick);
+    }
+    function stop(){
+      running = false;
+      if (raf) cancelAnimationFrame(raf);
+      raf = null;
+      last = null;
+    }
+    function reset(){
+      stop();
+      offset = 0;
+      track.style.transform = `translate3d(0,0,0)`;
+    }
+
+    startBtn.addEventListener("click", start);
+    stopBtn.addEventListener("click", stop);
+    resetBtn.addEventListener("click", reset);
+
+    speedRange.addEventListener("input", (e)=>{
+      speed = Number(e.target.value);
+      speedVal.textContent = String(speed);
     });
 
-    window.addEventListener("resize", ()=> draw(targetT));
-
-    window.fakeAction = (what)=> alert(what + ": test text (демо)");
-
-    // Init
-    updateUI(Number(stepRange.value));
-    targetT = Number(stepRange.value)/100;
-    tick();
+    // init speed UI
+    speedVal.textContent = String(speed);
   </script>
 </body>
 </html>
