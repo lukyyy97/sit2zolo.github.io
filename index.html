@@ -677,7 +677,15 @@
           <div class="news-photos">
             ${photos.map(src => `
               <div class="news-ph">
-                <img src="${esc("./" + src)}" alt="${esc(p.title)}">
+                <img
+  src="${esc("./" + src)}"
+  alt="${esc(p.title)}"
+  data-title="${esc(p.title)}"
+  data-date="${esc(p.date || "")}"
+  data-desc="${esc(snippet(p.body, 220))}"
+  data-gallery="latest-${esc(p.date || "")}-${esc(p.title)}"
+/>
+
               </div>
             `).join("")}
           </div>
