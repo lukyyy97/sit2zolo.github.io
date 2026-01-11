@@ -25,6 +25,9 @@
     box-shadow: 0 22px 80px rgba(0,0,0,.35);
   }
 
+  .lb-canvas{ z-index:1; }
+  .lb-ui, .lb-nav, .lb-caption{ z-index:5; }
+
   .lb-canvas{
     position:absolute; inset:0;
     display:flex;
@@ -72,6 +75,7 @@
     position:absolute; inset:0;
     display:flex; align-items:center; justify-content:space-between;
     padding: 0 10px;
+    pointer-events:none;
   }
   .lb-arrow{
     width: 44px; height: 44px;
@@ -82,6 +86,7 @@
     color: rgba(255,255,255,.92);
     cursor:pointer;
     transition: transform .15s ease, background .2s ease, border-color .2s ease;
+    pointer-events:auto;
   }
   .lb-arrow:hover{
     transform: translateY(-1px);
@@ -158,7 +163,7 @@
         </div>
       </div>
 
-      <div class="lb-nav" aria-hidden="false">
+      <div class="lb-nav">
         <button class="lb-arrow" type="button" data-act="prev" aria-label="Попереднє">‹</button>
         <button class="lb-arrow" type="button" data-act="next" aria-label="Наступне">›</button>
       </div>
