@@ -39,7 +39,6 @@
       --goldA: rgba(255, 214, 102, .95);
       --goldB: rgba(255, 165, 72, .70);
       --goldC: rgba(255, 245, 195, .55);
-      --goldLine: rgba(255, 214, 102, .44);
       --goldGlow1: rgba(255, 190, 90, .36);
       --goldGlow2: rgba(255, 230, 160, .20);
       --goldGlow3: rgba(255, 140, 70, .22);
@@ -76,7 +75,6 @@
       --goldA: rgba(255, 196, 78, .92);
       --goldB: rgba(255, 150, 70, .62);
       --goldC: rgba(255, 225, 160, .52);
-      --goldLine: rgba(255, 180, 70, .34);
       --goldGlow1: rgba(255, 170, 70, .24);
       --goldGlow2: rgba(255, 210, 140, .18);
       --goldGlow3: rgba(255, 135, 70, .16);
@@ -240,62 +238,136 @@
 
     main{ padding: 18px 0 34px; }
 
+    /* Birthday block - same width/style as hero, smaller height */
+    .bday-wrap{ margin-top: 18px; } /* чуть больше отступ */
     .bday-mini{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.045);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 14px 40px rgba(0,0,0,.18);
-      padding: 12px 14px;
-      margin: 0 0 14px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, var(--hero-bg1), var(--hero-bg2));
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      padding: 16px 18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .bday-mini::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(560px 200px at 20% 25%, rgba(56,189,248,.12), transparent 60%),
+        radial-gradient(520px 200px at 90% 20%, rgba(168,85,247,.12), transparent 60%);
+      pointer-events:none;
     }
 
-    .bday-mini-title{
+    .bday-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      position:relative;
+      z-index:1;
+    }
+    .bday-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .cake{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+      font-size:18px;
+      flex:0 0 auto;
+    }
+    html[data-theme="light"] .cake{
+      border: 1px solid rgba(10,12,18,.12);
+      background: rgba(255,255,255,.60);
+    }
+
+    .bday-title-text{
+      min-width:0;
+    }
+    .bday-title-text .kicker{
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing:.06em;
       color: rgba(255,255,255,.65);
+      margin:0;
+    }
+    html[data-theme="light"] .bday-title-text .kicker{
+      color: rgba(10,12,18,.62);
     }
 
-    .bday-mini-main{
-      margin-top: 6px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
+    .bday-title-text .who{
+      margin: 2px 0 0;
       font-size: 15px;
-      font-weight: 700;
-    }
-
-    .bday-mini-days{
-      font-size: 14px;
-      font-weight: 600;
-      opacity:.9;
+      font-weight: 800;
+      letter-spacing: .01em;
+      color: rgba(255,255,255,.92);
       white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    html[data-theme="light"] .bday-title-text .who{
+      color: rgba(10,12,18,.92);
     }
 
-    .bday-mini-sub{
-      margin-top: 4px;
+    .bday-days{
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
+      font-size: 13px;
+      color: rgba(255,255,255,.82);
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
+    html[data-theme="light"] .bday-days{ color: rgba(10,12,18,.82); }
+
+    .bday-sub{
+      margin-top: 10px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:1;
+      color: rgba(255,255,255,.62);
       font-size: 12.5px;
-      color: rgba(255,255,255,.6);
+    }
+    html[data-theme="light"] .bday-sub{
+      color: rgba(10,12,18,.58);
+    }
+    .bday-sub .pill{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
     }
 
     .bday-mini.bday-today{
       border-color: rgba(34,197,94,.45);
-      background: rgba(34,197,94,.12);
-      box-shadow: 0 16px 45px rgba(34,197,94,.18);
+      box-shadow: 0 22px 70px rgba(34,197,94,.16), var(--shadow);
     }
-
-    .bday-mini.bday-today .bday-mini-title,
-    .bday-mini.bday-today .bday-mini-sub{
-      color: rgba(220,255,235,.85);
+    .bday-mini.bday-today::before{
+      background:
+        radial-gradient(620px 220px at 25% 25%, rgba(34,197,94,.20), transparent 62%),
+        radial-gradient(520px 220px at 90% 30%, rgba(56,189,248,.12), transparent 62%);
+    }
+    .bday-mini.bday-today .bday-days{
+      border-color: rgba(34,197,94,.35);
+      background: rgba(34,197,94,.12);
     }
 
     .grid{
       display:grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 14px;
+      margin-top: 18px;
     }
 
     .card{
@@ -543,16 +615,26 @@
   </header>
 
   <main class="wrap">
-    <section class="wrap">
+    <div class="bday-wrap">
       <div class="bday-mini" id="bdayBox">
-        <div class="bday-mini-title" id="bdayTitle">До дня народження —</div>
-        <div class="bday-mini-main">
-          <span id="bdayName">—</span>
-          <span class="bday-mini-days"><span id="bdayDays">—</span> днів 🎂</span>
+        <div class="bday-top">
+          <div class="bday-title">
+            <div class="cake" aria-hidden="true">🎂</div>
+            <div class="bday-title-text">
+              <p class="kicker" id="bdayTitle">До дня народження</p>
+              <p class="who" id="bdayWho">—</p>
+            </div>
+          </div>
+
+          <div class="bday-days" id="bdayDaysText">— днів</div>
         </div>
-        <div class="bday-mini-sub" id="bdaySub">—</div>
+
+        <div class="bday-sub">
+          <span class="pill" id="bdayDatePill">Дата: —</span>
+          <span class="pill" id="bdayHint">Найближчий день народження 🎉</span>
+        </div>
       </div>
-    </section>
+    </div>
 
     <div class="grid" id="grid"></div>
 
@@ -615,17 +697,24 @@
       const n = sorted[0];
       const box = document.getElementById("bdayBox");
 
-      document.getElementById("bdayName").textContent = (n.s.firstName || n.s.lastName || "—");
-      document.getElementById("bdayDays").textContent = n.left;
-      document.getElementById("bdaySub").textContent =
-        `Дата: ${String(n.dm.d).padStart(2,"0")}.${String(n.dm.m).padStart(2,"0")}`;
+      const who = document.getElementById("bdayWho");
+      const daysText = document.getElementById("bdayDaysText");
+      const datePill = document.getElementById("bdayDatePill");
+      const title = document.getElementById("bdayTitle");
+      const hint = document.getElementById("bdayHint");
+
+      const name = [n.s.firstName, n.s.lastName].filter(Boolean).join(" ").trim() || (n.s.firstName || n.s.lastName || "—");
+      who.textContent = name;
+      daysText.textContent = `${n.left} днів`;
+      datePill.textContent = `Дата: ${String(n.dm.d).padStart(2,"0")}.${String(n.dm.m).padStart(2,"0")}`;
 
       if(n.left === 0){
         box.classList.add("bday-today");
-        document.getElementById("bdayTitle").textContent = "Сьогодні день народження 🎉";
-        document.getElementById("bdaySub").textContent =
-          (n.s.wish && String(n.s.wish).trim()) ? String(n.s.wish).trim() : "Вітаємо! Бажаємо щастя, здоров’я та здійснення мрій 💚";
-        document.getElementById("bdayDays").textContent = "0";
+        title.textContent = "Сьогодні день народження!";
+        daysText.textContent = "0 днів 🎉";
+        hint.textContent = (n.s.wish && String(n.s.wish).trim())
+          ? String(n.s.wish).trim()
+          : "Вітаємо! Бажаємо щастя, здоров’я та здійснення мрій 💚";
       }
     })();
   </script>
