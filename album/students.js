@@ -31,7 +31,7 @@ window.STUDENTS = [
 { photo: "assets/album/1.jpg", lastName: "Падалка",   firstName: "Роман",      birthday: "15.08", quote: "test text" },
 { photo: "assets/album/1.jpg", lastName: "Пашкевич",  firstName: "Анастасія",  birthday: "25.10", quote: "Я йду  далі не тому, що все знаю, а тому що вірю в себе " },
 { photo: "assets/album/1.jpg", lastName: "Савицький", firstName: "Денис",      birthday: "05.12", quote: "Я живу так, як відчуваю, а не як від мене чекають." },
-{ photo: "assets/album/sasha.jpg", lastName: "Супрун",    firstName: "Олександр",  birthday: "14.03", quote: "живи так, аби було з чого посміятися " },
+{ photo: "assets/album/1.jpg", lastName: "Супрун",    firstName: "Олександр",  birthday: "14.03", quote: "живи так, аби було з чого посміятися " },
 { photo: "assets/album/1.jpg", lastName: "Тогобіцька",firstName: "Яна",        birthday: "22.11", quote: "Сила не в словах, а в щоденній роботі" },
 { photo: "assets/album/1.jpg", lastName: "Шведова",   firstName: "Ольга",      birthday: "30.04", quote: "я загадка, але без інструкції" }
 ];
