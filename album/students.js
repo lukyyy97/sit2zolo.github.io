@@ -22,7 +22,7 @@ window.STUDENTS = [
 { photo: "assets/album/1.jpg",  lastName: "Заїка",     firstName: "Сергій",     birthday: "10.04", quote: "Мій хаос — це мій порядок, просто не для всіх зрозумілий" },
 { photo: "assets/album/1.jpg",  lastName: "Калюжний",  firstName: "Володимир",  birthday: "10.04", quote: "Мій антістрес від школи - природа." },
 { photo: "assets/album/1.jpg", lastName: "Карпич",    firstName: "Марія",      birthday: "27.02", quote: "Оцінки забудуться, а наші приколи — ніколи" },
-{ photo: "assets/album/1.jpg", lastName: "Коваль",    firstName: "Михайло",    birthday: "07.06", quote: "немає" },
+{ photo: "assets/album/1.jpg", lastName: "Коваль",    firstName: "Михайло",    birthday: "07.06", quote: "Коли мене спитають, наскільки у нас був дружній клас, я скажу, що не ходив до школи." },
 { photo: "assets/album/1.jpg", lastName: "Кравченко", firstName: "Дмитро",     birthday: "20.10", quote: "Поки вони вчили історію, ми писали свою" },
 { photo: "assets/album/1.jpg", lastName: "Куліш",     firstName: "Анна",       birthday: "17.05", quote: "Ніщо не об'єднує людей так, як один варіант на контрольній роботі" },
 { photo: "assets/album/1.jpg", lastName: "Медвідь",   firstName: "Павєл",       birthday: "12.07", quote: "Життя - це те ,що з тобою будує плани" },
