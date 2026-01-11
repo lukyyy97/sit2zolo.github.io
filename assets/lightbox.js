@@ -49,9 +49,8 @@
   .lb-ui{
     position:absolute; left:12px; right:12px; top:12px;
     display:flex; gap:10px; align-items:center; justify-content:space-between;
-    pointer-events:none;
   }
-  .lb-group{ display:flex; gap:8px; align-items:center; pointer-events:auto; }
+  .lb-group{ display:flex; gap:8px; align-items:center; }
 
   .lb-btn{
     padding: 10px 12px;
@@ -73,7 +72,6 @@
     position:absolute; inset:0;
     display:flex; align-items:center; justify-content:space-between;
     padding: 0 10px;
-    pointer-events:none;
   }
   .lb-arrow{
     width: 44px; height: 44px;
@@ -83,7 +81,6 @@
     display:flex; align-items:center; justify-content:center;
     color: rgba(255,255,255,.92);
     cursor:pointer;
-    pointer-events:auto;
     transition: transform .15s ease, background .2s ease, border-color .2s ease;
   }
   .lb-arrow:hover{
@@ -96,14 +93,12 @@
     position:absolute;
     left: 14px; right: 14px; bottom: 12px;
     display:flex; align-items:flex-end; justify-content:space-between; gap:10px;
-    pointer-events:none;
   }
   .lb-capbox{
     display:flex;
     flex-direction:column;
     gap:6px;
     max-width: 74%;
-    pointer-events:auto;
   }
   .lb-cap{
     padding: 8px 12px;
@@ -134,7 +129,6 @@
     background: rgba(255,255,255,.06);
     color: rgba(255,255,255,.78);
     font-size: 12.5px;
-    pointer-events:auto;
     white-space:nowrap;
   }
 
@@ -155,18 +149,18 @@
     <div class="lb-frame" role="dialog" aria-modal="true">
       <div class="lb-ui">
         <div class="lb-group">
-          <button class="lb-btn" data-act="zoomOut">−</button>
-          <button class="lb-btn" data-act="zoomIn">+</button>
-          <button class="lb-btn" data-act="reset">Скинути</button>
+          <button class="lb-btn" type="button" data-act="zoomOut">−</button>
+          <button class="lb-btn" type="button" data-act="zoomIn">+</button>
+          <button class="lb-btn" type="button" data-act="reset">Скинути</button>
         </div>
         <div class="lb-group">
-          <button class="lb-btn" data-act="close">Закрити ✕</button>
+          <button class="lb-btn" type="button" data-act="close">Закрити ✕</button>
         </div>
       </div>
 
-      <div class="lb-nav">
-        <button class="lb-arrow" data-act="prev">‹</button>
-        <button class="lb-arrow" data-act="next">›</button>
+      <div class="lb-nav" aria-hidden="false">
+        <button class="lb-arrow" type="button" data-act="prev" aria-label="Попереднє">‹</button>
+        <button class="lb-arrow" type="button" data-act="next" aria-label="Наступне">›</button>
       </div>
 
       <div class="lb-canvas">
@@ -184,6 +178,7 @@
   `;
   document.body.appendChild(overlay);
 
+  const frame = overlay.querySelector(".lb-frame");
   const imgEl = overlay.querySelector(".lb-img");
   const capEl = overlay.querySelector("#lbCap");
   const metaEl = overlay.querySelector("#lbMeta");
@@ -205,7 +200,6 @@
   let touchStartY = 0;
   let touchLastX = 0;
   let touchLastY = 0;
-  let touchMoved = false;
 
   function canUseImage(img){
     if (!img) return false;
@@ -213,8 +207,7 @@
     if (img.dataset.lightbox === "off") return false;
     if (location.pathname.includes("/album/")) return false;
     const src = img.currentSrc || img.src || "";
-    if (!src) return false;
-    return true;
+    return !!src;
   }
 
   function getGalleryScope(anchor){
@@ -224,12 +217,8 @@
   function collectImages(anchor){
     const scope = getGalleryScope(anchor);
     const g = anchor.dataset.gallery || "";
-    const all = Array.from(scope.querySelectorAll("img"))
-      .filter(canUseImage);
-
-    const filtered = g
-      ? all.filter(i => (i.dataset.gallery || "") === g)
-      : all;
+    const all = Array.from(scope.querySelectorAll("img")).filter(canUseImage);
+    const filtered = g ? all.filter(i => (i.dataset.gallery || "") === g) : all;
 
     return filtered.map(i => ({
       src: i.currentSrc || i.src,
@@ -244,9 +233,7 @@
   }
 
   function resetView(){
-    scale = 1;
-    tx = 0;
-    ty = 0;
+    scale = 1; tx = 0; ty = 0;
     applyTransform();
   }
 
@@ -294,10 +281,15 @@
   }
 
   overlay.addEventListener("click", (e) => {
+    if (!overlay.classList.contains("open")) return;
     if (e.target === overlay) close();
+  });
 
+  frame.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-act]");
     if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
 
     const a = btn.dataset.act;
     if (a === "close") close();
@@ -337,7 +329,6 @@
   canvas.addEventListener("touchstart", (e) => {
     if (!overlay.classList.contains("open")) return;
     if (e.touches.length !== 1) return;
-    touchMoved = false;
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
     touchLastX = touchStartX;
@@ -354,12 +345,9 @@
     const dy = y - touchLastY;
 
     if (scale > 1){
-      touchMoved = true;
       tx += dx;
       ty += dy;
       applyTransform();
-    } else {
-      if (Math.abs(x - touchStartX) > 8 || Math.abs(y - touchStartY) > 8) touchMoved = true;
     }
 
     touchLastX = x;
