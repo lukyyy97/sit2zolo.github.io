@@ -25,7 +25,7 @@ window.STUDENTS = [
 { photo: "assets/album/1.jpg", lastName: "Коваль",    firstName: "Михайло",    birthday: "07.06", quote: "немає" },
 { photo: "assets/album/1.jpg", lastName: "Кравченко", firstName: "Дмитро",     birthday: "20.10", quote: "Поки вони вчили історію, ми писали свою" },
 { photo: "assets/album/1.jpg", lastName: "Куліш",     firstName: "Анна",       birthday: "17.05", quote: "Ніщо не об'єднує людей так, як один варіант на контрольній роботі" },
-{ photo: "assets/album/1.jpg", lastName: "Медвідь",   firstName: "Павєл",       birthday: "не вказано", quote: "немає" },
+{ photo: "assets/album/1.jpg", lastName: "Медвідь",   firstName: "Павєл",       birthday: "12.07", quote: "Життя - це те ,що з тобою будує плани" },
 { photo: "assets/album/1.jpg", lastName: "Мозгова",   firstName: "Марина",     birthday: "20.12", quote: "Не ідеальна, зате справжня" },
 { photo: "assets/album/1.jpg", lastName: "Немирський",firstName: "Владислав",  birthday: "16.02", quote: "Переможець - це той самий програвший, який просто спробував ще раз" },
 { photo: "assets/album/1.jpg", lastName: "Падалка",   firstName: "Роман",      birthday: "15.08", quote: "Навіть найбільші можливості марні, якщо немає бажання діяти." },
