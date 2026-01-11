@@ -240,6 +240,58 @@
 
     main{ padding: 18px 0 34px; }
 
+    .bday-mini{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.045);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.18);
+      padding: 12px 14px;
+      margin: 0 0 14px;
+    }
+
+    .bday-mini-title{
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing:.06em;
+      color: rgba(255,255,255,.65);
+    }
+
+    .bday-mini-main{
+      margin-top: 6px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .bday-mini-days{
+      font-size: 14px;
+      font-weight: 600;
+      opacity:.9;
+      white-space:nowrap;
+    }
+
+    .bday-mini-sub{
+      margin-top: 4px;
+      font-size: 12.5px;
+      color: rgba(255,255,255,.6);
+    }
+
+    .bday-mini.bday-today{
+      border-color: rgba(34,197,94,.45);
+      background: rgba(34,197,94,.12);
+      box-shadow: 0 16px 45px rgba(34,197,94,.18);
+    }
+
+    .bday-mini.bday-today .bday-mini-title,
+    .bday-mini.bday-today .bday-mini-sub{
+      color: rgba(220,255,235,.85);
+    }
+
     .grid{
       display:grid;
       grid-template-columns: repeat(4, 1fr);
@@ -451,124 +503,6 @@
       .grid{ grid-template-columns: 1fr; }
       .photo{ height: 240px; }
     }
-
-    .bday-wrap{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      margin: 0 0 14px;
-    }
-
-    .bday-card{
-      border-radius: 26px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 18px 55px rgba(0,0,0,.18);
-      padding: 16px 16px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .bday-card::before{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      background:
-        radial-gradient(520px 220px at 18% 20%, rgba(56,189,248,.18), transparent 60%),
-        radial-gradient(520px 220px at 84% 10%, rgba(168,85,247,.14), transparent 60%);
-      pointer-events:none;
-    }
-
-    .bday-title{
-      font-size: 13px;
-      letter-spacing:.06em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.72);
-      position:relative;
-      z-index:1;
-    }
-
-    .bday-days{
-      margin-top: 8px;
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: rgba(255,255,255,.92);
-      display:flex;
-      gap:10px;
-      align-items:baseline;
-      position:relative;
-      z-index:1;
-    }
-
-    .bday-emoji{ font-size: 22px; opacity:.9; }
-
-    .bday-sub{
-      margin-top: 6px;
-      font-size: 13px;
-      color: rgba(255,255,255,.66);
-      position:relative;
-      z-index:1;
-    }
-
-    .bday-progress{
-      border-radius: 26px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 12px 14px;
-      box-shadow: 0 18px 55px rgba(0,0,0,.14);
-    }
-
-    .bday-bar{
-      height: 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      overflow:hidden;
-    }
-
-    .bday-bar-fill{
-      height:100%;
-      width: 0%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(56,189,248,.65), rgba(168,85,247,.55));
-      box-shadow: 0 10px 32px rgba(56,189,248,.14);
-      transition: width .45s ease;
-    }
-
-    .bday-meta{
-      margin-top: 8px;
-      font-size: 12.8px;
-      color: rgba(255,255,255,.62);
-    }
-
-    .bday-toast{
-      border-radius: 26px;
-      border: 1px solid rgba(34,197,94,.28);
-      background: rgba(34,197,94,.10);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 18px 55px rgba(34,197,94,.10);
-      padding: 14px 16px;
-    }
-
-    .bday-toast-title{
-      font-weight: 900;
-      color: rgba(210,255,224,.92);
-      font-size: 14px;
-      letter-spacing:.02em;
-    }
-
-    .bday-toast-text{
-      margin-top: 6px;
-      color: rgba(210,255,224,.82);
-      font-size: 13px;
-      line-height:1.55;
-    }
   </style>
 </head>
 
@@ -610,24 +544,13 @@
 
   <main class="wrap">
     <section class="wrap">
-      <div class="bday-wrap">
-        <div class="bday-card" id="bdayCard">
-          <div class="bday-title" id="bdayTitle">До дня народження залишилось —</div>
-          <div class="bday-days"><span id="bdayDays">—</span> <span class="bday-emoji">🎂</span></div>
-          <div class="bday-sub" id="bdaySub">—</div>
+      <div class="bday-mini" id="bdayBox">
+        <div class="bday-mini-title" id="bdayTitle">До дня народження —</div>
+        <div class="bday-mini-main">
+          <span id="bdayName">—</span>
+          <span class="bday-mini-days"><span id="bdayDays">—</span> днів 🎂</span>
         </div>
-
-        <div class="bday-progress">
-          <div class="bday-bar">
-            <div class="bday-bar-fill" id="bdayFill"></div>
-          </div>
-          <div class="bday-meta" id="bdayMeta">—</div>
-        </div>
-
-        <div class="bday-toast" id="bdayToast" hidden>
-          <div class="bday-toast-title" id="bdayToastTitle">З Днем народження! 🥳</div>
-          <div class="bday-toast-text" id="bdayToastText">Бажаємо здоров’я, сил та крутих мрій, які точно здійсняться! 💚</div>
-        </div>
+        <div class="bday-mini-sub" id="bdaySub">—</div>
       </div>
     </section>
 
@@ -664,131 +587,45 @@
   <script>
     (function(){
       function parseDM(s){
-        if (!s) return null;
-        const t = String(s).trim();
-        const m = t.match(/^(\d{1,2})\.(\d{1,2})$/);
-        if (!m) return null;
-        const d = Number(m[1]);
-        const mo = Number(m[2]);
-        if (!Number.isFinite(d) || !Number.isFinite(mo)) return null;
-        if (mo < 1 || mo > 12) return null;
-        if (d < 1 || d > 31) return null;
-        return { d, mo };
+        const m = String(s||"").trim().match(/^(\d{1,2})\.(\d{1,2})$/);
+        if(!m) return null;
+        return { d:+m[1], m:+m[2] };
       }
+      function startDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+      function diff(a,b){ return Math.round((startDay(b)-startDay(a))/(86400000)); }
 
-      function pad2(n){ return String(n).padStart(2,"0"); }
+      const list = Array.isArray(window.STUDENTS) ? window.STUDENTS : [];
+      const today = new Date();
 
-      function startOfDay(dt){
-        return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
-      }
+      const valid = list
+        .map(s => ({ s, dm: parseDM(s.birthday) }))
+        .filter(x => x.dm);
 
-      function daysBetween(a, b){
-        const ms = 24 * 60 * 60 * 1000;
-        return Math.round((startOfDay(b) - startOfDay(a)) / ms);
-      }
+      if(!valid.length) return;
 
-      function nextOccurrence(dm, fromDate){
-        const y = fromDate.getFullYear();
-        const a = new Date(y, dm.mo - 1, dm.d);
-        if (startOfDay(a) < startOfDay(fromDate)){
-          return new Date(y + 1, dm.mo - 1, dm.d);
-        }
-        return a;
-      }
+      const sorted = valid
+        .map(x=>{
+          const y = today.getFullYear();
+          let d = new Date(y, x.dm.m-1, x.dm.d);
+          if(d < today) d = new Date(y+1, x.dm.m-1, x.dm.d);
+          return { ...x, date:d, left: diff(today,d) };
+        })
+        .sort((a,b)=>a.left-b.left);
 
-      function lastOccurrence(dm, fromDate){
-        const y = fromDate.getFullYear();
-        const a = new Date(y, dm.mo - 1, dm.d);
-        if (startOfDay(a) > startOfDay(fromDate)){
-          return new Date(y - 1, dm.mo - 1, dm.d);
-        }
-        return a;
-      }
+      const n = sorted[0];
+      const box = document.getElementById("bdayBox");
 
-      function fullName(s){
-        const f = (s.firstName || "").trim();
-        const l = (s.lastName || "").trim();
-        return (f && l) ? `${f} ${l}` : (f || l || "Учень/учениця");
-      }
+      document.getElementById("bdayName").textContent = (n.s.firstName || n.s.lastName || "—");
+      document.getElementById("bdayDays").textContent = n.left;
+      document.getElementById("bdaySub").textContent =
+        `Дата: ${String(n.dm.d).padStart(2,"0")}.${String(n.dm.m).padStart(2,"0")}`;
 
-      function setText(id, txt){
-        const el = document.getElementById(id);
-        if (el) el.textContent = txt;
-      }
-
-      function showBirthdayWidget(){
-        const list = Array.isArray(window.STUDENTS) ? window.STUDENTS : [];
-        const today = new Date();
-        const eligible = list
-          .map(s => ({ s, dm: parseDM(s.birthday) }))
-          .filter(x => x.dm);
-
-        if (!eligible.length) return;
-
-        const upcoming = eligible
-          .map(x => {
-            const next = nextOccurrence(x.dm, today);
-            const diff = daysBetween(today, next);
-            return { ...x, next, diff };
-          })
-          .sort((a,b) => a.diff - b.diff || String(a.s.lastName||"").localeCompare(String(b.s.lastName||"")));
-
-        const nearest = upcoming[0];
-        const name = (nearest.s.firstName || "").trim() || fullName(nearest.s);
-
-        setText("bdayTitle", `До дня народження ${name} залишилось`);
-        setText("bdayDays", String(nearest.diff));
-        setText("bdaySub", `Дата: ${pad2(nearest.dm.d)}.${pad2(nearest.dm.mo)}`);
-
-        const lastList = eligible
-          .map(x => {
-            const last = lastOccurrence(x.dm, today);
-            const diff = daysBetween(last, today);
-            return { ...x, last, diff };
-          })
-          .sort((a,b) => a.diff - b.diff);
-
-        const lastB = lastList[0];
-
-        const lastDate = lastB.last;
-        const nextDate = nearest.next;
-
-        const span = Math.max(1, daysBetween(lastDate, nextDate));
-        const passed = Math.min(span, Math.max(0, daysBetween(lastDate, today)));
-        const pct = Math.round((passed / span) * 100);
-
-        const fill = document.getElementById("bdayFill");
-        if (fill) fill.style.width = pct + "%";
-
-        const lastName = (lastB.s.firstName || "").trim() || fullName(lastB.s);
-        setText("bdayMeta", `Від ДН ${lastName} до ДН ${name}: ${passed} / ${span} днів (${pct}%)`);
-
-        const todays = eligible.filter(x => {
-          const dm = x.dm;
-          return (today.getDate() === dm.d && (today.getMonth() + 1) === dm.mo);
-        });
-
-        const toast = document.getElementById("bdayToast");
-        if (toast){
-          if (todays.length){
-            toast.hidden = false;
-            const names = todays.map(x => (x.s.firstName || "").trim() || fullName(x.s)).join(", ");
-            setText("bdayToastTitle", `З Днем народження, ${names}! 🥳`);
-            const custom = todays[0].s.wish;
-            setText(
-              "bdayToastText",
-              (custom && String(custom).trim()) ? String(custom).trim() : "Бажаємо міцного здоров’я, класного настрою та мрій, які обов’язково здійсняться! 💚"
-            );
-          }else{
-            toast.hidden = true;
-          }
-        }
-      }
-
-      if (document.readyState === "loading"){
-        document.addEventListener("DOMContentLoaded", showBirthdayWidget);
-      }else{
-        showBirthdayWidget();
+      if(n.left === 0){
+        box.classList.add("bday-today");
+        document.getElementById("bdayTitle").textContent = "Сьогодні день народження 🎉";
+        document.getElementById("bdaySub").textContent =
+          (n.s.wish && String(n.s.wish).trim()) ? String(n.s.wish).trim() : "Вітаємо! Бажаємо щастя, здоров’я та здійснення мрій 💚";
+        document.getElementById("bdayDays").textContent = "0";
       }
     })();
   </script>
