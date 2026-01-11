@@ -14,7 +14,7 @@ window.STUDENTS = [
   },
 { photo: "assets/album/1.jpg",  lastName: "Андрієнко", firstName: "Крістіна",   birthday: "23.10", quote: "Будьте собою,всі інші вже зайняті" },
 { photo: "assets/album/1.jpg",  lastName: "Бондар",    firstName: "Єва",        birthday: "не вказано", quote: "Буде складно, але складно - не означає неможливо" },
-{ photo: "assets/album/1.jpg",  lastName: "Вязмін",    firstName: "Артем",      birthday: "14.03", quote: "test text" },
+{ photo: "assets/album/1.jpg",  lastName: "Вязмін",    firstName: "Артем",      birthday: "14.03", quote: "Неможливе, рано чи пізно стане можливим, все залежить від людських можливостей" },
 { photo: "assets/album/1.jpg",  lastName: "Гавриленко",firstName: "Софія",      birthday: "20.03", quote: "Кожен кінець - це новий початок." },
 { photo: "assets/album/1.jpg",  lastName: "Гордієнко", firstName: "Анна",       birthday: "не вказано", quote: "test text" },
 { photo: "assets/album/1.jpg",  lastName: "Горошечок", firstName: "Мирослав",   birthday: "не вказано", quote: "Тільки вперед, адже попереду -великі можливості" },
