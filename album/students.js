@@ -21,7 +21,7 @@ window.STUDENTS = [
 { photo: "assets/album/1.jpg",  lastName: "Забудський", firstName: "Максим",     birthday: "05.10", quote: "Майбутнє належить тим, хто вірить у красу своєї мрії" },
 { photo: "assets/album/1.jpg",  lastName: "Заїка",     firstName: "Сергій",     birthday: "10.04", quote: "test text" },
 { photo: "assets/album/1.jpg",  lastName: "Калюжний",  firstName: "Володимир",  birthday: "10.04", quote: "test text" },
-{ photo: "assets/album/1.jpg", lastName: "Карпич",    firstName: "Марія",      birthday: "27.02", quote: "test text" },
+{ photo: "assets/album/1.jpg", lastName: "Карпич",    firstName: "Марія",      birthday: "27.02", quote: "Оцінки забудуться, а наші приколи — ніколи" },
 { photo: "assets/album/1.jpg", lastName: "Коваль",    firstName: "Михайло",    birthday: "07.06", quote: "test text" },
 { photo: "assets/album/1.jpg", lastName: "Кравченко", firstName: "Дмитро",     birthday: "20.10", quote: "Поки вони вчили історію, ми писали свою" },
 { photo: "assets/album/1.jpg", lastName: "Куліш",     firstName: "Анна",       birthday: "17.05", quote: "test text" },
