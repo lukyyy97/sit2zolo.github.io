@@ -42,6 +42,9 @@
       --goldGlow1: rgba(255, 190, 90, .36);
       --goldGlow2: rgba(255, 230, 160, .20);
       --goldGlow3: rgba(255, 140, 70, .22);
+
+      --track: rgba(255,255,255,.10);
+      --trackLine: rgba(255,255,255,.16);
     }
 
     html[data-theme="light"]{
@@ -78,6 +81,9 @@
       --goldGlow1: rgba(255, 170, 70, .24);
       --goldGlow2: rgba(255, 210, 140, .18);
       --goldGlow3: rgba(255, 135, 70, .16);
+
+      --track: rgba(10,12,18,.10);
+      --trackLine: rgba(10,12,18,.14);
     }
 
     *{ box-sizing:border-box; }
@@ -238,8 +244,7 @@
 
     main{ padding: 18px 0 34px; }
 
-    /* Birthday block - same width/style as hero, smaller height */
-    .bday-wrap{ margin-top: 18px; } /* чуть больше отступ */
+    .bday-wrap{ margin-top: 18px; }
     .bday-mini{
       border:1px solid var(--line);
       background: linear-gradient(180deg, var(--hero-bg1), var(--hero-bg2));
@@ -260,17 +265,19 @@
 
     .bday-top{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       justify-content:space-between;
-      gap:12px;
+      gap:14px;
       position:relative;
       z-index:1;
     }
-    .bday-title{
+
+    .bday-left{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       gap:10px;
       min-width:0;
+      flex:1 1 auto;
     }
     .cake{
       width:34px;
@@ -283,15 +290,14 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
       font-size:18px;
       flex:0 0 auto;
+      margin-top: 2px;
     }
     html[data-theme="light"] .cake{
       border: 1px solid rgba(10,12,18,.12);
       background: rgba(255,255,255,.60);
     }
 
-    .bday-title-text{
-      min-width:0;
-    }
+    .bday-title-text{ min-width:0; }
     .bday-title-text .kicker{
       font-size: 12px;
       text-transform: uppercase;
@@ -302,7 +308,6 @@
     html[data-theme="light"] .bday-title-text .kicker{
       color: rgba(10,12,18,.62);
     }
-
     .bday-title-text .who{
       margin: 2px 0 0;
       font-size: 15px;
@@ -317,20 +322,64 @@
       color: rgba(10,12,18,.92);
     }
 
-    .bday-days{
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--pill-border);
-      background: var(--pill-bg);
+    .bday-right{
+      flex:0 0 340px;
+      min-width: 260px;
+      max-width: 420px;
+    }
+
+    .remain{
       font-size: 13px;
       color: rgba(255,255,255,.82);
+      margin: 0 0 10px;
+      text-align:right;
       white-space:nowrap;
-      flex:0 0 auto;
     }
-    html[data-theme="light"] .bday-days{ color: rgba(10,12,18,.82); }
+    html[data-theme="light"] .remain{ color: rgba(10,12,18,.82); }
+    .remain strong{
+      font-size: 14px;
+      letter-spacing:.01em;
+      color: rgba(255,255,255,.92);
+    }
+    html[data-theme="light"] .remain strong{ color: rgba(10,12,18,.92); }
+
+    .track{
+      height: 14px;
+      border-radius: 999px;
+      border: 1px solid var(--trackLine);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+      overflow:hidden;
+      position:relative;
+    }
+    html[data-theme="light"] .track{
+      background: linear-gradient(180deg, rgba(10,12,18,.05), rgba(10,12,18,.02));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+    }
+
+    .fill{
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(56,189,248,.65), rgba(168,85,247,.55), rgba(34,197,94,.40));
+      box-shadow: 0 10px 30px rgba(56,189,248,.12);
+      position:relative;
+    }
+    .fill::after{
+      content:"";
+      position:absolute;
+      inset:-40% -30%;
+      background: radial-gradient(circle at 20% 50%, rgba(255,255,255,.18), transparent 55%);
+      opacity:.65;
+      animation: sweep 2.8s ease-in-out infinite;
+    }
+    @keyframes sweep{
+      0%,100%{ transform: translateX(-12%); opacity:.35; }
+      50%{ transform: translateX(12%); opacity:.75; }
+    }
 
     .bday-sub{
-      margin-top: 10px;
+      margin-top: 12px;
       display:flex;
       gap:8px;
       flex-wrap:wrap;
@@ -342,7 +391,7 @@
     html[data-theme="light"] .bday-sub{
       color: rgba(10,12,18,.58);
     }
-    .bday-sub .pill{
+    .pill{
       padding: 6px 10px;
       border-radius: 999px;
       border: 1px solid var(--pill-border);
@@ -358,9 +407,12 @@
         radial-gradient(620px 220px at 25% 25%, rgba(34,197,94,.20), transparent 62%),
         radial-gradient(520px 220px at 90% 30%, rgba(56,189,248,.12), transparent 62%);
     }
-    .bday-mini.bday-today .bday-days{
-      border-color: rgba(34,197,94,.35);
-      background: rgba(34,197,94,.12);
+    .bday-mini.bday-today .track{
+      border-color: rgba(34,197,94,.32);
+    }
+    .bday-mini.bday-today .fill{
+      background: linear-gradient(90deg, rgba(34,197,94,.60), rgba(56,189,248,.52), rgba(168,85,247,.46));
+      box-shadow: 0 10px 30px rgba(34,197,94,.16);
     }
 
     .grid{
@@ -456,12 +508,6 @@
       color: var(--muted);
       font-size: 12px;
     }
-    .pill{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--pill-border);
-      background: var(--pill-bg);
-    }
     .quote{
       margin:0;
       color: rgba(255,255,255,.68);
@@ -490,16 +536,6 @@
       mask-composite: exclude;
       pointer-events:none;
     }
-
-    .leader .frame{
-      border-color: rgba(255,214,102,.30);
-      background: rgba(255,214,102,.05);
-    }
-    .leader .photo-wrap{
-      border-color: rgba(255,214,102,.34);
-      background: rgba(255,214,102,.04);
-    }
-
     .leader .glow{
       position:absolute;
       inset:-45%;
@@ -516,7 +552,6 @@
       0%,100%{ opacity:.80; transform: translateY(0) scale(1); }
       50%{ opacity:1; transform: translateY(-3px) scale(1.02); }
     }
-
     .leader .shine{
       position:absolute;
       inset:-50%;
@@ -527,7 +562,6 @@
       filter: blur(0.2px);
     }
     @keyframes slowSpin{ to{ transform: rotate(360deg); } }
-
     .leader .sparkles{
       position:absolute;
       inset:-20%;
@@ -546,16 +580,6 @@
       50%{ transform: translateY(-4px); opacity:.70; }
     }
 
-    .leader:hover{
-      transform: translateY(-4px);
-      border-color: rgba(255,214,102,.55);
-      box-shadow:
-        0 34px 120px rgba(255,190,90,.26),
-        0 18px 55px rgba(0,0,0,.24),
-        inset 0 1px 0 rgba(255,255,255,.18);
-    }
-    .leader:hover .shine{ opacity:.70; }
-
     footer{
       padding: 22px 0 34px;
       color: var(--muted);
@@ -566,6 +590,12 @@
 
     @media (max-width: 1100px){
       .grid{ grid-template-columns: repeat(3, 1fr); }
+      .bday-right{ flex-basis: 320px; }
+    }
+    @media (max-width: 920px){
+      .bday-top{ flex-direction:column; align-items:stretch; }
+      .bday-right{ flex: 1 1 auto; min-width: 0; max-width:none; }
+      .remain{ text-align:left; }
     }
     @media (max-width: 840px){
       .grid{ grid-template-columns: repeat(2, 1fr); }
@@ -618,20 +648,25 @@
     <div class="bday-wrap">
       <div class="bday-mini" id="bdayBox">
         <div class="bday-top">
-          <div class="bday-title">
+          <div class="bday-left">
             <div class="cake" aria-hidden="true">🎂</div>
             <div class="bday-title-text">
-              <p class="kicker" id="bdayTitle">До дня народження</p>
+              <p class="kicker" id="bdayTitle">Найближчий день народження</p>
               <p class="who" id="bdayWho">—</p>
             </div>
           </div>
 
-          <div class="bday-days" id="bdayDaysText">— днів</div>
+          <div class="bday-right">
+            <p class="remain" id="remainText">Залишилось <strong>—</strong> днів</p>
+            <div class="track" aria-hidden="true">
+              <div class="fill" id="trackFill"></div>
+            </div>
+          </div>
         </div>
 
         <div class="bday-sub">
           <span class="pill" id="bdayDatePill">Дата: —</span>
-          <span class="pill" id="bdayHint">Найближчий день народження 🎉</span>
+          <span class="pill" id="bdayHint">Відлік до наступного 🎉</span>
         </div>
       </div>
     </div>
@@ -674,7 +709,7 @@
         return { d:+m[1], m:+m[2] };
       }
       function startDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
-      function diff(a,b){ return Math.round((startDay(b)-startDay(a))/(86400000)); }
+      function diffDays(a,b){ return Math.round((startDay(b)-startDay(a))/(86400000)); }
 
       const list = Array.isArray(window.STUDENTS) ? window.STUDENTS : [];
       const today = new Date();
@@ -685,36 +720,58 @@
 
       if(!valid.length) return;
 
-      const sorted = valid
-        .map(x=>{
-          const y = today.getFullYear();
-          let d = new Date(y, x.dm.m-1, x.dm.d);
-          if(d < today) d = new Date(y+1, x.dm.m-1, x.dm.d);
-          return { ...x, date:d, left: diff(today,d) };
-        })
-        .sort((a,b)=>a.left-b.left);
+      const enriched = valid.map(x=>{
+        const y = today.getFullYear();
+        let next = new Date(y, x.dm.m-1, x.dm.d);
+        if(startDay(next) < startDay(today)) next = new Date(y+1, x.dm.m-1, x.dm.d);
+        return { ...x, next, left: diffDays(today, next) };
+      }).sort((a,b)=>a.left-b.left);
 
-      const n = sorted[0];
+      const n = enriched[0];
+
       const box = document.getElementById("bdayBox");
-
       const who = document.getElementById("bdayWho");
-      const daysText = document.getElementById("bdayDaysText");
       const datePill = document.getElementById("bdayDatePill");
       const title = document.getElementById("bdayTitle");
       const hint = document.getElementById("bdayHint");
+      const remainText = document.getElementById("remainText");
+      const fill = document.getElementById("trackFill");
 
       const name = [n.s.firstName, n.s.lastName].filter(Boolean).join(" ").trim() || (n.s.firstName || n.s.lastName || "—");
       who.textContent = name;
-      daysText.textContent = `${n.left} днів`;
-      datePill.textContent = `Дата: ${String(n.dm.d).padStart(2,"0")}.${String(n.dm.m).padStart(2,"0")}`;
 
-      if(n.left === 0){
+      const dd = String(n.dm.d).padStart(2,"0");
+      const mm = String(n.dm.m).padStart(2,"0");
+      datePill.textContent = `Дата: ${dd}.${mm}`;
+
+      let cycleDays = 30;
+      if(enriched.length >= 2){
+        const prev = enriched[enriched.length - 1];
+        const prevDate = new Date(n.next.getFullYear()-1, prev.dm.m-1, prev.dm.d);
+        const span = diffDays(prevDate, n.next);
+        if(span > 0 && span < 400) cycleDays = span;
+      }
+      cycleDays = Math.max(7, Math.min(60, cycleDays));
+
+      const left = Math.max(0, n.left);
+      const done = Math.max(0, Math.min(1, 1 - (left / cycleDays)));
+      if (fill) fill.style.width = (done * 100).toFixed(1) + "%";
+
+      if (remainText){
+        remainText.innerHTML = `Залишилось <strong>${left}</strong> днів`;
+      }
+
+      if(left === 0){
         box.classList.add("bday-today");
         title.textContent = "Сьогодні день народження!";
-        daysText.textContent = "0 днів 🎉";
+        if (remainText) remainText.innerHTML = `Залишилось <strong>0</strong> днів 🎉`;
+        if (fill) fill.style.width = "100%";
         hint.textContent = (n.s.wish && String(n.s.wish).trim())
           ? String(n.s.wish).trim()
           : "Вітаємо! Бажаємо щастя, здоров’я та здійснення мрій 💚";
+      }else{
+        title.textContent = "Найближчий день народження";
+        hint.textContent = "Відлік до наступного 🎉";
       }
     })();
   </script>
