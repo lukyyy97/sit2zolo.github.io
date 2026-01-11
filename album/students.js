@@ -10,7 +10,7 @@ window.STUDENTS = [
     lastName: "Лискова",
     firstName: "Світлана",
     birthday: "22.04",
-    quote: "test text"
+    quote: "немає"
   },
 { photo: "assets/album/1.jpg",  lastName: "Андрієнко", firstName: "Крістіна",   birthday: "23.10", quote: "Будьте собою,всі інші вже зайняті" },
 { photo: "assets/album/1.jpg",  lastName: "Бондар",    firstName: "Єва",        birthday: "07.08", quote: "Буде складно, але складно - не означає неможливо" },
@@ -22,10 +22,10 @@ window.STUDENTS = [
 { photo: "assets/album/1.jpg",  lastName: "Заїка",     firstName: "Сергій",     birthday: "10.04", quote: "Мій хаос — це мій порядок, просто не для всіх зрозумілий" },
 { photo: "assets/album/1.jpg",  lastName: "Калюжний",  firstName: "Володимир",  birthday: "10.04", quote: "Мій антістрес від школи - природа." },
 { photo: "assets/album/1.jpg", lastName: "Карпич",    firstName: "Марія",      birthday: "27.02", quote: "Оцінки забудуться, а наші приколи — ніколи" },
-{ photo: "assets/album/1.jpg", lastName: "Коваль",    firstName: "Михайло",    birthday: "07.06", quote: "test text" },
+{ photo: "assets/album/1.jpg", lastName: "Коваль",    firstName: "Михайло",    birthday: "07.06", quote: "немає" },
 { photo: "assets/album/1.jpg", lastName: "Кравченко", firstName: "Дмитро",     birthday: "20.10", quote: "Поки вони вчили історію, ми писали свою" },
 { photo: "assets/album/1.jpg", lastName: "Куліш",     firstName: "Анна",       birthday: "17.05", quote: "Ніщо не об'єднує людей так, як один варіант на контрольній роботі" },
-{ photo: "assets/album/1.jpg", lastName: "Медвідь",   firstName: "Павєл",       birthday: "не вказано", quote: "test text" },
+{ photo: "assets/album/1.jpg", lastName: "Медвідь",   firstName: "Павєл",       birthday: "не вказано", quote: "немає" },
 { photo: "assets/album/1.jpg", lastName: "Мозгова",   firstName: "Марина",     birthday: "20.12", quote: "Не ідеальна, зате справжня" },
 { photo: "assets/album/1.jpg", lastName: "Немирський",firstName: "Владислав",  birthday: "16.02", quote: "Переможець - це той самий програвший, який просто спробував ще раз" },
 { photo: "assets/album/1.jpg", lastName: "Падалка",   firstName: "Роман",      birthday: "15.08", quote: "Навіть найбільші можливості марні, якщо немає бажання діяти." },
