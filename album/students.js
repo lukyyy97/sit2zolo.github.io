@@ -6,7 +6,7 @@ window.STUDENTS = [
   {
     leader: true,
     role: "Класний керівник",
-    photo: "assets/album/teacher.jpg",
+    photo: "assets/album/1.jpg",
     lastName: "Лискова",
     firstName: "Світлана",
     birthday: "22.04",
