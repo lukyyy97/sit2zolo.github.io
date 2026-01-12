@@ -1,16 +1,22 @@
-let ALL_POSTS = [];
+const NEWS_URL = "./news.txt";
 
-async function loadNews() {
-  const res = await fetch("./news.txt?ts=" + Date.now());
-  const text = await res.text();
-  return parseNews(text);
+function esc(s){
+  return (s || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#39;");
 }
 
-function parseNews(text) {
-  const blocks = text
-    .split("\n---\n")
-    .map(b => b.trim())
-    .filter(Boolean);
+function toISODate(uaDate){
+  const m = String(uaDate || "").trim().match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+  if(!m) return "";
+  return `${m[3]}-${m[2]}-${m[1]}`;
+}
+
+function parseNews(text){
+  const blocks = text.split("\n---\n").map(b => b.trim()).filter(Boolean);
 
   const posts = blocks.map(block => {
     const getField = (name) => {
@@ -21,147 +27,173 @@ function parseNews(text) {
 
     const title = getField("Заголовок") || "Без назви";
     const date = getField("Дата") || "";
-
     const photosRaw = getField("Фото") || "";
-    const photos = photosRaw
-      ? photosRaw.split(",").map(s => s.trim()).filter(Boolean)
-      : [];
+    const photos = photosRaw ? photosRaw.split(",").map(s => s.trim()).filter(Boolean) : [];
 
     let body = "";
     const idx = block.toLowerCase().indexOf("текст:");
     if (idx !== -1) body = block.slice(idx + "текст:".length).trim();
 
-    return { title, date, photos, body };
+    return {
+      title,
+      date,
+      isoDate: toISODate(date),
+      photos,
+      body
+    };
   });
 
-  posts.sort((a,b) => (b.date || "").localeCompare(a.date || ""));
+  posts.sort((a,b) => (b.isoDate || "").localeCompare(a.isoDate || ""));
   return posts;
 }
 
-function esc(s){
-  return (s || "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;");
+function linkifySafe(text){
+  const raw = String(text || "");
+
+  const re = /(^|[\s(])((https?:\/\/|www\.)[^\s<>"')\]]+)/gi;
+
+  let out = "";
+  let last = 0;
+  let m;
+
+  while((m = re.exec(raw)) !== null){
+    const prefix = m[1] || "";
+    const urlRaw = m[2] || "";
+
+    const start = m.index;
+    const wholeLen = m[0].length;
+
+    out += esc(raw.slice(last, start));
+    out += esc(prefix);
+
+    let href = urlRaw;
+    if (/^www\./i.test(href)) href = "https://" + href;
+
+    const safeHref = esc(href);
+    const safeText = esc(urlRaw);
+
+    out += `<a href="${safeHref}" target="_blank" rel="noreferrer noopener">${safeText}</a>`;
+
+    last = start + wholeLen;
+  }
+
+  out += esc(raw.slice(last));
+
+  out = out.replace(/\r\n|\r|\n/g, "<br>");
+  return out;
 }
 
-function normalize(s){
-  return (s || "").toLowerCase().trim();
+function hasQuery(post, q){
+  if(!q) return true;
+  const s = (post.title + " " + post.body + " " + post.date).toLowerCase();
+  return s.includes(q.toLowerCase());
 }
 
-function applyFilters(){
-  const qEl = document.getElementById("q");
-  const fromEl = document.getElementById("dateFrom");
-  const toEl = document.getElementById("dateTo");
+function inDateRange(post, fromISO, toISO){
+  if(!fromISO && !toISO) return true;
+  if(!post.isoDate) return false;
 
-  const q = normalize(qEl?.value);
-  const dFrom = (fromEl?.value || "");
-  const dTo = (toEl?.value || "");
-
-  const filtered = ALL_POSTS.filter(p => {
-    const pDate = p.date || "";
-
-    if (dFrom && (!pDate || pDate < dFrom)) return false;
-    if (dTo && (!pDate || pDate > dTo)) return false;
-
-    if (q){
-      const hay = normalize((p.title || "") + " " + (p.body || ""));
-      if (!hay.includes(q)) return false;
-    }
-
-    return true;
-  });
-
-  renderNews(filtered, ALL_POSTS.length);
+  if(fromISO && post.isoDate < fromISO) return false;
+  if(toISO && post.isoDate > toISO) return false;
+  return true;
 }
 
-function renderCount(shown, total){
-  const box = document.getElementById("countBox");
-  if (!box) return;
-  box.textContent = `Показано ${shown} із ${total}`;
-}
-
-function renderNews(posts, totalAll) {
+function render(posts){
   const list = document.getElementById("newsList");
   const empty = document.getElementById("emptyState");
-  if (!list || !empty) return;
+  const countBox = document.getElementById("countBox");
+  if(!list) return;
+
+  const q = (document.getElementById("q")?.value || "").trim();
+  const fromISO = document.getElementById("dateFrom")?.value || "";
+  const toISO = document.getElementById("dateTo")?.value || "";
+
+  const filtered = posts.filter(p => hasQuery(p, q) && inDateRange(p, fromISO, toISO));
+
+  if(countBox) countBox.textContent = `Показано ${filtered.length} із ${posts.length}`;
+  if(empty) empty.style.display = filtered.length ? "none" : "block";
 
   list.innerHTML = "";
-  renderCount(posts.length, totalAll);
 
-  if (!posts.length) {
-    empty.style.display = "block";
-    return;
-  }
-  empty.style.display = "none";
+  filtered.forEach((p) => {
+    const post = document.createElement("article");
+    post.className = "post";
 
-  for (const p of posts) {
-    const el = document.createElement("article");
-    el.className = "post";
+    const photosHtml = p.photos.length ? `
+      <div class="photos">
+        ${p.photos.map((src, idx) => `
+          <div class="ph">
+            <img
+              src="${esc("../" + src)}"
+              alt="${esc(p.title)}"
+              data-title="${esc(p.title)}"
+              data-date="${esc(p.date || "")}"
+              data-desc="${esc(p.body || "")}"
+              data-gallery="news-${esc(p.isoDate || "nodate")}-${esc(p.title)}"
+              data-index="${idx}"
+            >
+          </div>
+        `).join("")}
+      </div>
+    ` : "";
 
-    const photosHtml = p.photos.length
-      ? `<div class="photos">
-          ${p.photos.map(src => `
-            <div class="ph">
-              <img src="../${esc(src)}" alt="${esc(p.title)}">
-            </div>
-          `).join("")}
-        </div>`
-      : "";
+    const bodyHtml = linkifySafe(p.body);
 
-    el.innerHTML = `
+    post.innerHTML = `
       <div class="meta">
         <span class="tag">Новина</span>
         ${p.date ? `<span class="date">${esc(p.date)}</span>` : ""}
       </div>
+
       <h3>${esc(p.title)}</h3>
+
       ${photosHtml}
-      <p>${esc(p.body).replaceAll("\n","<br>")}</p>
+
+      <p>${bodyHtml}</p>
     `;
 
-    list.appendChild(el);
+    list.appendChild(post);
+  });
+
+  if (window.Lightbox && typeof window.Lightbox.bind === "function"){
+    window.Lightbox.bind({
+      root: list,
+      selector: "img[data-gallery]",
+      getMeta: (imgEl) => ({
+        title: imgEl.getAttribute("data-title") || "",
+        date: imgEl.getAttribute("data-date") || "",
+        desc: imgEl.getAttribute("data-desc") || ""
+      })
+    });
   }
 }
 
-function wireUI(){
-  const q = document.getElementById("q");
-  const dateFrom = document.getElementById("dateFrom");
-  const dateTo = document.getElementById("dateTo");
-  const clearBtn = document.getElementById("clearBtn");
-
-  let t = null;
-  const schedule = () => {
-    if (t) clearTimeout(t);
-    t = setTimeout(applyFilters, 120);
-  };
-
-  q?.addEventListener("input", schedule);
-  dateFrom?.addEventListener("change", applyFilters);
-  dateTo?.addEventListener("change", applyFilters);
-
-  clearBtn?.addEventListener("click", () => {
-    if (q) q.value = "";
-    if (dateFrom) dateFrom.value = "";
-    if (dateTo) dateTo.value = "";
-    applyFilters();
-  });
-}
-
 (async () => {
-  try {
-    ALL_POSTS = await loadNews();
-    wireUI();
-    applyFilters();
-  } catch (e) {
+  try{
+    const res = await fetch(NEWS_URL + "?ts=" + Date.now());
+    const text = await res.text();
+    const posts = parseNews(text);
+
+    const qEl = document.getElementById("q");
+    const fromEl = document.getElementById("dateFrom");
+    const toEl = document.getElementById("dateTo");
+    const clearBtn = document.getElementById("clearBtn");
+
+    const rerender = () => render(posts);
+
+    qEl?.addEventListener("input", rerender);
+    fromEl?.addEventListener("change", rerender);
+    toEl?.addEventListener("change", rerender);
+
+    clearBtn?.addEventListener("click", () => {
+      if (qEl) qEl.value = "";
+      if (fromEl) fromEl.value = "";
+      if (toEl) toEl.value = "";
+      render(posts);
+    });
+
+    render(posts);
+  }catch(e){
     console.error(e);
-    const empty = document.getElementById("emptyState");
-    const list = document.getElementById("newsList");
-    const box = document.getElementById("countBox");
-    if (box) box.textContent = "Показано 0 із 0";
-    if (list) list.innerHTML = "";
-    if (empty) {
-      empty.style.display = "block";
-      empty.textContent = "Не вдалося завантажити новини. Перевір, чи існує файл news/news.txt";
-    }
   }
 })();
