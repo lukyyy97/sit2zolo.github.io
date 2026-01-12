@@ -13,7 +13,7 @@
 
 Заголовок: Осіння фотосессія
 Дата: 2025-10-08
-Фото: assets/fotos1.jpg, assets/fotos2.jpg, assets/fotos3.jpg, assets/fotos4.jpg, assets/fotos5.jpg, assets/fotos6.jpg, assets/fotos7.jpg, assets/fotos8.jpg,
+Фото: assets/fotos1.jpg, assets/fotos2.jpg, assets/fotos3.jpg, assets/fotos4.jpg, assets/fotos5.jpg, assets/fotos6.jpg, assets/fotos7.jpg, assets/fotos8.jpg, assets/fotos31.jpg, assets/fotos32.jpg, assets/fotos33.jpg, assets/fotos34.jpg, assets/fotos35.jpg,
 ---
 
 Заголовок: Проект з Історії
