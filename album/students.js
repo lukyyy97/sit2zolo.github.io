@@ -10,7 +10,7 @@ window.STUDENTS = [
     lastName: "Лискова",
     firstName: "Світлана",
     birthday: "22.04",
-    quote: "немає"
+    quote: "Що б не сталося — вір у себе, вір в життя, вір у завтрашній день, вір у все, що ти робиш, завжди."
   },
 { photo: "assets/album/1.jpg",  lastName: "Андрієнко", firstName: "Крістіна",   birthday: "23.10", quote: "Будьте собою,всі інші вже зайняті" },
 { photo: "assets/album/1.jpg",  lastName: "Бондар",    firstName: "Єва",        birthday: "07.08", quote: "Буде складно, але складно - не означає неможливо" },
