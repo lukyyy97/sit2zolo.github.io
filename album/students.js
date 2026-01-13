@@ -16,7 +16,7 @@ window.STUDENTS = [
 { photo: "assets/album/1.jpg",  lastName: "Бондар",    firstName: "Єва",        birthday: "07.08", quote: "Буде складно, але складно - не означає неможливо" },
 { photo: "assets/album/1.jpg",  lastName: "Вязмін",    firstName: "Артем",      birthday: "14.03", quote: "Неможливе, рано чи пізно стане можливим, все залежить від людських можливостей" },
 { photo: "assets/album/1.jpg",  lastName: "Гавриленко",firstName: "Софія",      birthday: "20.03", quote: "Кожен кінець - це новий початок." },
-{ photo: "assets/album/anyagord.jpg",  lastName: "Гордієнко", firstName: "Анна",       birthday: "01.08", quote: "Кінець завжди хороший. Якщо все погано, значить це ще не кінець." },
+{ photo: "assets/album/1.jpg",  lastName: "Гордієнко", firstName: "Анна",       birthday: "01.08", quote: "Кінець завжди хороший. Якщо все погано, значить це ще не кінець." },
 { photo: "assets/album/1.jpg",  lastName: "Горошечок", firstName: "Мирослав",   birthday: "12.08", quote: "Тільки вперед, адже попереду -великі можливості" },
 { photo: "assets/album/1.jpg",  lastName: "Забудський", firstName: "Максим",     birthday: "05.10", quote: "Майбутнє належить тим, хто вірить у красу своєї мрії" },
 { photo: "assets/album/1.jpg",  lastName: "Заїка",     firstName: "Сергій",     birthday: "10.04", quote: "Мій хаос — це мій порядок, просто не для всіх зрозумілий" },
@@ -30,8 +30,8 @@ window.STUDENTS = [
 { photo: "assets/album/1.jpg", lastName: "Немирський",firstName: "Владислав",  birthday: "16.02", quote: "Переможець - це той самий програвший, який просто спробував ще раз" },
 { photo: "assets/album/1.jpg", lastName: "Падалка",   firstName: "Роман",      birthday: "15.08", quote: "Навіть найбільші можливості марні, якщо немає бажання діяти." },
 { photo: "assets/album/1.jpg", lastName: "Пашкевич",  firstName: "Анастасія",  birthday: "25.10", quote: "Я йду  далі не тому, що все знаю, а тому що вірю в себе " },
-{ photo: "assets/album/denys.jpg", lastName: "Савицький", firstName: "Денис",      birthday: "05.12", quote: "Я живу так, як відчуваю, а не як від мене чекають." },
-{ photo: "assets/album/sasha.jpg", lastName: "Супрун",    firstName: "Олександр",  birthday: "14.03", quote: "живи так, аби було з чого посміятися " },
+{ photo: "assets/album/1.jpg", lastName: "Савицький", firstName: "Денис",      birthday: "05.12", quote: "Я живу так, як відчуваю, а не як від мене чекають." },
+{ photo: "assets/album/1.jpg", lastName: "Супрун",    firstName: "Олександр",  birthday: "14.03", quote: "живи так, аби було з чого посміятися " },
 { photo: "assets/album/1.jpg", lastName: "Тогобіцька",firstName: "Яна",        birthday: "22.11", quote: "Сила не в словах, а в щоденній роботі" },
 { photo: "assets/album/1.jpg", lastName: "Шведова",   firstName: "Ольга",      birthday: "30.04", quote: "я загадка, але без інструкції" }
 ];
