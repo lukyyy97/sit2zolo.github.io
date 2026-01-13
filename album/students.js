@@ -1,12 +1,8 @@
-// 1) Фото кидай у /assets/album/
-// 2) Тут просто заповнюй: photo, lastName, firstName, birthday (ДД.ММ), quote
-// 3) Перша людина має leader: true (класний керівник)
-
 window.STUDENTS = [
   {
     leader: true,
     role: "Класний керівник",
-    photo: "assets/album/svitlana.jpg",
+    photo: "assets/album/1.jpg",
     lastName: "Лискова",
     firstName: "Світлана",
     birthday: "22.04",
